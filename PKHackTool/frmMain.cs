@@ -1,0 +1,1450 @@
+﻿using Fiddler;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using HAP = HtmlAgilityPack;
+namespace PKTool
+{
+    /// <summary>
+    /// Pirate Kings Tool
+    /// Author  : thuyln
+    /// Email   : nhothuy48cb@gmail.com
+    /// </summary>
+    public partial class frmMain : Form
+    {
+        #region "PRAMS"
+        private Regex REGEX_ID = new Regex(@"ajax/hovercard/user.php\?id=(?<fid>[\d].*)&.*");
+        private Regex REGEX_NAME = new Regex(@"https://www.facebook.com/(?<fname>.*)\?.*");
+        private String BUSINESSTOKEN = "";
+        private String ACCESSTOKEN = "";
+        private String SECRETKEY = "";
+        private String SESSIONTOKEN = "";
+        private List<Friend> FRIENDS = new List<Friend>();
+        private UrlCaptureConfiguration CaptureConfiguration { get; set; }
+        private const string SEPARATOR = "-------------------------------------------------------------------------------";
+        private const string CAPTUREDOMAIN = "http://prod.cashkinggame.com/CKService.svc/v3.0/login";
+        BackgroundWorker M_OWORKER;
+        BackgroundWorker M_KILL;
+        BackgroundWorker M_PLAY;
+        BackgroundWorker M_ATTACK;
+        private const Int32 RANKPOINT_STEAL = 200;
+        private List<Int32> IDATTACKER = new List<int>();
+        private Friend VICTIM = null;
+        private List<String> NAMEVIPS = new List<string>(new String[] {"THUY NHO", "NHOKHOA"});
+        private List<String> FIDVIPS = new List<string>(new String[] { "10153223750579791", "917613761592912" });
+        private String NAME = String.Empty;
+        private String FBID = String.Empty;
+        private static String[] ARRITEMS = { "Animals", "Nature", "Building", "Ships", "Artifacts" };
+        private const String URLLOGIN = "http://prod.cashkinggame.com/CKService.svc/v3.0/login/?{0}";
+        private const String URLWHEEL = "http://prod.cashkinggame.com/CKService.svc/spin/wheel/{0}/NONE?{1}";
+        private const String URLATTACKFRIEND = "http://prod.cashkinggame.com/CKService.svc/v3.0/attack/friend/?";
+        private const String URLATTACKRANDOM = "http://prod.cashkinggame.com/CKService.svc/attack/random/{0}/{1}{2}";
+        private const String URLVIEW = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/view/friend/?";
+        private const String URLSTEAL = "http://prod.cashkinggame.com/CKService.svc/v2/attack/steal/?";
+        #endregion
+
+        #region "INIT"
+        public frmMain()
+        {
+            InitializeComponent();
+            //
+            CaptureConfiguration = new UrlCaptureConfiguration();
+            CaptureConfiguration.IgnoreResources = false;
+            CaptureConfiguration.CaptureDomain = CAPTUREDOMAIN;
+            //
+            M_OWORKER = new BackgroundWorker();
+            M_OWORKER.DoWork += new DoWorkEventHandler(m_oWorker_DoWork);
+            M_OWORKER.ProgressChanged += new ProgressChangedEventHandler(m_oWorker_ProgressChanged);
+            M_OWORKER.RunWorkerCompleted += new RunWorkerCompletedEventHandler(m_oWorker_RunWorkerCompleted);
+            M_OWORKER.WorkerReportsProgress = true;
+            M_OWORKER.WorkerSupportsCancellation = true;
+            //
+            M_ATTACK = new BackgroundWorker();
+            M_ATTACK.DoWork += new DoWorkEventHandler(m_Attack_DoWork);
+            M_ATTACK.ProgressChanged += new ProgressChangedEventHandler(m_Attack_ProgressChanged);
+            M_ATTACK.RunWorkerCompleted += new RunWorkerCompletedEventHandler(m_Attack_RunWorkerCompleted);
+            M_ATTACK.WorkerReportsProgress = true;
+            M_ATTACK.WorkerSupportsCancellation = true;
+            //
+            M_KILL = new BackgroundWorker();
+            M_KILL.DoWork += new DoWorkEventHandler(m_Kill_DoWork);
+            M_KILL.ProgressChanged += new ProgressChangedEventHandler(m_Kill_ProgressChanged);
+            M_KILL.RunWorkerCompleted += new RunWorkerCompletedEventHandler(m_Kill_RunWorkerCompleted);
+            M_KILL.WorkerReportsProgress = true;
+            M_KILL.WorkerSupportsCancellation = true;
+            //
+            M_PLAY = new BackgroundWorker();
+            M_PLAY.DoWork += new DoWorkEventHandler(m_Play_DoWork);
+            M_PLAY.ProgressChanged += new ProgressChangedEventHandler(m_Play_ProgressChanged);
+            M_PLAY.RunWorkerCompleted += new RunWorkerCompletedEventHandler(m_Play_RunWorkerCompleted);
+            M_PLAY.WorkerReportsProgress = true;
+            M_PLAY.WorkerSupportsCancellation = true;
+        }
+        #endregion
+
+        #region "M_PLAY"
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_Play_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Dictionary<string, object> dic = (Dictionary<string, object>)e.Argument;
+            Boolean isAttackRandom = Convert.ToBoolean(dic["isAttackRandom"]);
+            Boolean isStealAuto = Convert.ToBoolean(dic["isStealAuto"]);
+            Boolean isFullShields = Convert.ToBoolean(dic["isFullShields"]);
+            String urlWheel = String.Format(URLWHEEL, SECRETKEY, DateTime.Now.ToOADate().ToString());
+            while (true)
+            {
+                String retWheel = doGet(urlWheel);
+                JToken data = JObject.Parse(retWheel);
+                int wheelResult = Convert.ToInt16(data["WheelResult"]);
+                int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
+                int shields = Convert.ToInt16(data["PlayerState"]["Shields"]);
+                String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
+                String cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", data["PlayerState"]["CashKing"]["FBID"], data["PlayerState"]["CashKing"]["Name"], data["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(data["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
+                if (wheelResult == 6)
+                {
+                    String stealInfo = String.Empty;
+                    steal(SECRETKEY, data, isStealAuto, out stealInfo);
+                    String retInfo = String.Empty;
+                    if (isStealAuto)
+                    {
+                        retInfo = "[Steal]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
+                    }
+                    else
+                    {
+                        retInfo = "[Steal]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo + "\r\n" + stealInfo;
+                    }
+                    Data info = new Data();
+                    info.Msg = retInfo;
+                    M_PLAY.ReportProgress(50, info);
+                }
+                if (isAttackRandom && wheelResult == 7)
+                {
+                    String attackInfo = attackRandom(SECRETKEY, data);
+                    Data info = new Data();
+                    info.Msg = "[Attack]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
+                    M_PLAY.ReportProgress(50, info);
+                }
+                if (spins == 0 || (wheelResult == 6 && !isStealAuto) || (wheelResult == 7 && !isAttackRandom) || (isFullShields && shields == 3))
+                {
+                    Data info = new Data();
+                    info.Msg = playerInfo + "\r\n" + cashKingInfo;
+                    if (wheelResult == 6) info.Rank = Convert.ToInt32(data["PlayerState"]["CashKing"]["RankPoints"]);
+                    M_PLAY.ReportProgress(100, info);
+                };
+
+                if (M_PLAY.CancellationPending)
+                {
+                    e.Cancel = true;
+                    M_PLAY.ReportProgress(0);
+                    return;
+                }
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_Play_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            try
+            {
+                if (e.UserState == null) return;
+                Data data = (Data) e.UserState;
+                displayInfo("PLAY", data.Msg);
+                if (data.Rank > 0)
+                {
+                    avatarPre.Visible = true;
+                    avatar.Visible = true;
+                    avatarNext.Visible = true;
+                    displayAvatar(data.Rank);
+                }
+                else
+                {
+                    avatarPre.Visible = false;
+                    avatar.Visible = false;
+                    avatarNext.Visible = false;
+                }
+            }
+            catch
+            {
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_Play_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("Cancelled.", "PKTool", MessageBoxButtons.OK);
+            }
+            // Check to see if an error occurred in the background process.
+            else if (e.Error != null)
+            {
+                MessageBox.Show("Error.", "PKTool", MessageBoxButtons.OK);
+            }
+            else
+            {
+            }
+            btnPlay.Text = "Play all";
+        }
+        #endregion
+
+        #region "M_KILL"
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_Kill_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Friend friend = (Friend)e.Argument;
+            setLogin(friend, true);
+            String urlWheel = String.Format(URLWHEEL, friend.Key, DateTime.Now.ToOADate().ToString());
+            while (true)
+            {
+                String retWheel = doGet(urlWheel);
+                JToken data = JObject.Parse(retWheel);
+                int wheelResult = Convert.ToInt16(data["WheelResult"]);
+                int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
+                if (wheelResult == 6)
+                {
+                    //steal
+                    String retInfo = String.Empty;
+                    String retSteal = steal(friend.Key, data, true, out retInfo);
+                    M_KILL.ReportProgress(50, retSteal);
+                }
+                else if (wheelResult == 7)
+                {
+                    String retAttack = attackRandom(friend.Key, data);
+                    M_KILL.ReportProgress(50, retAttack);
+                }
+                else
+                {
+                    M_KILL.ReportProgress(50, retWheel);
+                }
+                //
+                if (spins == 0)
+                {
+                    M_KILL.ReportProgress(100);
+                    return;
+                };
+                if (M_KILL.CancellationPending)
+                {
+                    e.Cancel = true;
+                    M_KILL.ReportProgress(0);
+                    return;
+                }
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_Kill_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            try
+            {
+                if (e.UserState == null) return;
+                displayInfo("KILL SPIN", (String) e.UserState);
+            }
+            catch
+            {
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_Kill_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("Cancelled.", "PKTool", MessageBoxButtons.OK);
+            }
+            // Check to see if an error occurred in the background process.
+            else if (e.Error != null)
+            {
+                MessageBox.Show("Error.", "PKTool", MessageBoxButtons.OK);
+            }
+            else
+            {
+                MessageBox.Show("Done.");
+            }
+
+            btnKill.Text = "Kill spin";
+        }
+        #endregion
+
+        #region "M_ATTACK"
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_Attack_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("Cancelled.", "PKTool", MessageBoxButtons.OK);
+            }
+            // Check to see if an error occurred in the background process.
+            else if (e.Error != null)
+            {
+                MessageBox.Show("Error.", "PKTool", MessageBoxButtons.OK);
+            }
+            else
+            {
+                if (e.Result != null && Convert.ToInt32(e.Result) == 1)
+                {
+                    MessageBox.Show("Destroyed.");
+                }
+                else
+                {
+                    MessageBox.Show("Damaged.");
+                }
+            }
+            
+            btnAttack.Text = "Attack";
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_Attack_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Dictionary<string, object> dic = (Dictionary<string, object>) e.Argument;
+            List<Friend> attackers = (List<Friend>) dic["attackers"];
+            Friend victim = (Friend) dic["victim"];
+            Int32 num = (Int32) dic["num"];
+            Random rnd = new Random();
+            while (attackers.Count > 0)
+            {
+                int index = rnd.Next(attackers.Count); //0->count-1
+                Friend attacker = attackers[index];
+                setLogin(attacker, true);
+                if (attacker.Key != String.Empty)
+                {
+                    String urlWheel = String.Format(URLWHEEL, attacker.Key, DateTime.Now.ToOADate().ToString());
+                    Int32 count = 0;
+                    while (true)
+                    {
+                        String retWheel = doGet(urlWheel);
+                        JToken data = JObject.Parse(retWheel);
+                        List<Item> itemTypes = getItemTypeAttack(victim.Id);
+                        if (itemTypes.Count == 0)
+                        {
+                            count = count + 1;
+                            M_ATTACK.ReportProgress(100);
+                            e.Result = 1;
+                            return;
+                        }
+                        int wheelResult = Convert.ToInt16(data["WheelResult"]);
+                        int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
+                        int rank = Convert.ToInt16(data["PlayerState"]["RankPoints"]);
+                        if (rank == 5) break;
+                        if (wheelResult == 6)
+                        {
+                            String infoSteal = String.Empty;
+                            steal(attacker.Key, data, true, out infoSteal);
+                        }
+                        if (wheelResult == 7)
+                        {
+                            String ret = attackFriend(attacker, victim.Id, itemTypes[0].Name);
+                            M_ATTACK.ReportProgress(50, "Attacker: " + attacker.Name + "\r\n" + ret);
+                        }
+                        //num
+                        if (num > 0)
+                        {
+                            if (count >= num)
+                            {
+                                count = 0;
+                                break;
+                            }
+                        }
+                        if (spins == 0)
+                        {
+                            break; //to next attacker
+                        };
+                        if (M_ATTACK.CancellationPending)
+                        {
+                            e.Cancel = true;
+                            M_ATTACK.ReportProgress(0);
+                            return;
+                        }
+                    }
+                }
+                attackers.RemoveAt(index);
+                if (M_ATTACK.CancellationPending)
+                {
+                    e.Cancel = true;
+                    M_ATTACK.ReportProgress(0);
+                    return;
+                }
+            }
+            M_ATTACK.ReportProgress(100);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_Attack_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            try
+            {
+                if (e.UserState == null) return;
+                displayInfo("ATTACK", (String)e.UserState);
+            }
+            catch
+            {
+            }
+        }
+        #endregion
+
+        #region "M_OWORKER"
+        void m_oWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("Cancelled.", "PKTool", MessageBoxButtons.OK);
+            }
+            else if (e.Error != null)
+            {
+                MessageBox.Show("Error.", "PKTool", MessageBoxButtons.OK);
+            }
+            else
+            {
+                MessageBox.Show("All done.", "PKTool", MessageBoxButtons.OK);
+            }
+            
+            btnHTML.Text = "Start";
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_oWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            try
+            {
+                if (e.UserState == null) return;
+                Data data = (Data)e.UserState;
+                String info = String.Format("{0}.[FORCE] {1}:{2}{3}", data.Friend.Index, data.Friend.Name, data.Friend.Key, Environment.NewLine);
+                rtbRet.Text = rtbRet.Text.Insert(0, info);
+            }
+            catch
+            { 
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_oWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<Friend> lst = getFriends((String) e.Argument);
+            Int32 counter = 0;
+            foreach (var friend in lst)
+            {
+                //
+                String data = getDataLogin(friend.Id, BUSINESSTOKEN, ACCESSTOKEN, "[]");
+                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
+                String ret = doPost(urlLogin, data);
+                try
+                {
+                    JToken jToken = JObject.Parse(ret);
+                    if (jToken["Key"] != null) friend.Key = jToken["Key"].ToString();
+                }
+                catch
+                { 
+                }
+                //
+                counter += 1;
+                friend.Index = counter;
+                Int32 percentage = (counter * 100) / lst.Count();
+                Data info = new Data();
+                info.Friend = friend;
+                M_OWORKER.ReportProgress(percentage, info);
+                if (M_OWORKER.CancellationPending)
+                {
+                    e.Cancel = true;
+                    M_OWORKER.ReportProgress(0);
+                    return;
+                }
+            }
+        }
+        #endregion
+        
+        #region "EVENTS ON CONTROLS"
+        private void btnHTML_Click(object sender, EventArgs e)
+        {
+            String html = rtbHTML.Text;
+            String txtBtn = btnHTML.Text;
+            switch (txtBtn.ToUpper())
+            {
+                case "START":
+                    if (html == String.Empty) return;
+                    if (BUSINESSTOKEN == String.Empty) return;
+                    if (ACCESSTOKEN == String.Empty) return;
+                    rtbRet.Text = String.Empty;
+                    btnHTML.Text = "Stop";
+                    M_OWORKER.RunWorkerAsync(html);
+                    break;
+                case "STOP":
+                    M_OWORKER.CancelAsync();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        private void btnSetVicTim_Click(object sender, EventArgs e)
+        {
+            if (lbFriends.SelectedItem == null) return;
+            VICTIM = (Friend)lbFriends.SelectedItem;
+            txtVictim.Text = ((Friend)lbFriends.SelectedItem).Name;
+        }
+        private void btnSetAttacker_Click(object sender, EventArgs e)
+        {
+            if (lbFriends.SelectedItem == null) return;
+            if (IDATTACKER.Contains(((Friend)lbFriends.SelectedItem).Index)) return;
+            IDATTACKER.Add(((Friend)lbFriends.SelectedItem).Index);
+            lbAttackers.Items.Add(((Friend)lbFriends.SelectedItem));
+        }
+        private void btnAttack_Click(object sender, EventArgs e)
+        {
+            if (VICTIM == null) return;
+            if (FRIENDS.Count == 0) return;
+            if (SECRETKEY == String.Empty) return;
+            if (rdoOther.Checked && IDATTACKER.Count == 0) return;
+            String txtBtn = btnAttack.Text;
+            switch (txtBtn.ToUpper())
+            {
+                case "ATTACK":
+                    List<Item> itemTypes = getItemTypeAttack(VICTIM.Id);
+                    if (itemTypes.Count == 0)
+                    {
+                        MessageBox.Show("No items.");
+                        return;
+                    }
+                    //
+                    btnAttack.Text = "Cancel";
+                    List<Friend> attackers = new List<Friend>();
+                    if (rdoRandom.Checked)
+                    {
+                        attackers.AddRange(FRIENDS);
+                    }
+                    if (rdoByme.Checked)
+                    {
+                        Friend att = new Friend();
+                        att.Index = -1;
+                        att.Key = SECRETKEY;
+                        att.Id = FBID;
+                        att.Name = NAME;
+                        attackers.Add(att);
+                    }
+                    if (rdoOther.Checked)
+                    {
+                        foreach (Friend att in FRIENDS)
+                        {
+                            if (IDATTACKER.Contains(att.Index))
+                            {
+                                attackers.Add(att);
+                            }
+                        }
+                        //Other
+                        if (lbOther.Items.Count > 0)
+                        {
+                            List<Friend> lst = new List<Friend>();
+                            foreach (Friend f in lbOther.Items)
+                            {
+                                lst.Add(f);
+                            }
+                            //
+                            attackers.AddRange(lst);
+                        }
+                    }
+                    Dictionary<string, object> data = new Dictionary<string, object>();
+                    data.Add("attackers", attackers);
+                    data.Add("victim", VICTIM);
+                    data.Add("num", Convert.ToInt32(nudNum.Value));
+                    M_ATTACK.RunWorkerAsync(data);
+                    break;
+                case "CANCEL":
+                    M_ATTACK.CancelAsync();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        private void rdoOther_CheckedChanged(object sender, EventArgs e)
+        {
+            btnSetAttacker.Enabled = rdoOther.Checked;
+            btnRemove.Enabled = rdoOther.Checked;
+            lbAttackers.Enabled = rdoOther.Checked;
+            //
+            lbOther.Enabled = rdoOther.Checked;
+            btnDelete.Enabled = rdoOther.Checked;
+            txtFBID.Enabled = rdoOther.Checked;
+            btnAdd.Enabled = rdoOther.Checked;
+        }
+        private void chkSet_CheckedChanged(object sender, EventArgs e)
+        {
+            txtVictim.Enabled = chkSet.Checked;
+        }
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (lbAttackers.SelectedItem == null) return;
+            Friend atacker = (Friend)lbAttackers.SelectedItem;
+            lbAttackers.Items.Remove(atacker);
+            IDATTACKER.Remove(atacker.Index);
+        }
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            rtbRet.Text = String.Empty;
+        }
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lbFriends.SelectedItem == null) return;
+                //
+                Friend friend = (Friend)lbFriends.SelectedItem;
+                setLogin(friend, false);
+                if (friend.Key == String.Empty) return;
+                String urlWheel = String.Format(URLWHEEL, friend.Key, DateTime.Now.ToOADate().ToString());
+                String retWheel = doGet(urlWheel);
+                JToken jToken = JObject.Parse(retWheel);
+                int wheelResult = Convert.ToInt16(jToken["WheelResult"]);
+                int spins = Convert.ToInt16(jToken["PlayerState"]["Spins"]);
+                String friendInfo = String.Format("Name:{4} Rank:{0} Shields:{1} Spins:{2} Cash:{3}", jToken["PlayerState"]["RankPoints"], jToken["PlayerState"]["Shields"], jToken["PlayerState"]["Spins"], Convert.ToInt64(jToken["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), friend.Name);
+                displayInfo("INFO: " + friend.Name, friendInfo);
+            }
+            catch
+            {
+            }
+        }
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            avatarPre.Visible = false;
+            avatar.Visible = false;
+            avatarNext.Visible = false;
+            if (SECRETKEY == String.Empty) return;
+            String txtBtn = btnPlay.Text;
+            switch (txtBtn.ToUpper())
+            {
+                case "PLAY ALL":
+                    btnPlay.Text = "Cancel";
+                    Dictionary<string, object> dic = new Dictionary<string, object>();
+                    dic.Add("isAttackRandom", chkAutoAttack.Checked);
+                    dic.Add("isStealAuto", chkAutoSteal.Checked);
+                    dic.Add("isFullShields", chkFull.Checked);
+                    M_PLAY.RunWorkerAsync(dic);
+                    break;
+                case "CANCEL":
+                    M_PLAY.CancelAsync();
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void btnKill_Click(object sender, EventArgs e)
+        {
+            if (lbFriends.SelectedItem == null) return;
+            Friend friend = (Friend)lbFriends.SelectedItem;
+            String txtBtn = btnKill.Text;
+            switch (txtBtn.ToUpper())
+            {
+                case "KILL SPIN":
+                    if (MessageBox.Show("Are you sure to kill spin of " + friend.Name + "?", "PKTool", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        btnKill.Text = "Cancel";
+                        M_KILL.RunWorkerAsync(friend);
+                    }
+                    break;
+                case "CANCEL":
+                    M_KILL.CancelAsync();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (txtFBID.Text.Trim() == String.Empty) return;
+            if (checkInAttakerOthers(txtFBID.Text.Trim())) return;
+            Friend att = getFriendByFBID(txtFBID.Text.Trim());
+            if (att == null)
+            {
+                MessageBox.Show("Invalid FBID.");
+                txtFBID.Text = String.Empty;
+            }
+            else
+            {
+                lbOther.Items.Add(att);
+                lbOther.Refresh();
+            }
+        }
+        private void txtVictim_TextChanged(object sender, EventArgs e)
+        {
+            if (!chkSet.Checked) return;
+            Friend victim = getFriendByFBID(txtVictim.Text.Trim());
+            if (victim == null)
+            {
+                MessageBox.Show("Invalid FBID.");
+                txtVictim.Text = String.Empty;
+            }
+            else
+            {
+                VICTIM = victim;
+            }
+        }
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (lbOther.SelectedItem == null) return;
+            lbOther.Items.Remove(lbOther.SelectedItem);
+            lbOther.Refresh();
+        }
+        private void btnGet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SECRETKEY == String.Empty) return;
+                String urlWheel = String.Format(URLWHEEL, SECRETKEY, DateTime.Now.ToOADate().ToString());
+                String retWheel = doGet(urlWheel);
+                JToken jToken = JObject.Parse(retWheel);
+                int wheelResult = Convert.ToInt16(jToken["WheelResult"]);
+                int spins = Convert.ToInt16(jToken["PlayerState"]["Spins"]);
+                String friendInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", jToken["PlayerState"]["RankPoints"], jToken["PlayerState"]["Shields"], jToken["PlayerState"]["Spins"], Convert.ToInt64(jToken["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(jToken["NextSpinClaimSeconds"])));
+                displayInfo("INFO: " + NAME, friendInfo);
+            }
+            catch
+            {
+            }
+        }
+        #endregion
+
+        #region "EVENT ON FORM"
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            shutdowFiddlerApp();
+        }
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            startFiddlerApp();
+        }
+        #endregion
+
+        #region "METHOD"
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fbId"></param>
+        /// <param name="bToken"></param>
+        /// <param name="aToken"></param>
+        /// <param name="fbids"></param>
+        /// <returns></returns>
+        private string getDataLogin(String fbId, String bToken, String aToken, String fbids)
+        {
+            Dictionary<string, object> dicResult = new Dictionary<string, object>();
+            dicResult.Add("CampaignReferral", "");
+            dicResult.Add("DeviceToken", null);
+            dicResult.Add("Email", "thuyln@vnext.vn");
+            dicResult.Add("FBID", fbId);
+            dicResult.Add("FBName", "nhothuy48cb");
+            dicResult.Add("FriendFBIDs", fbids);
+            dicResult.Add("GCID", null);
+            dicResult.Add("GameVersion", 215);
+            dicResult.Add("Platform", 2);
+            dicResult.Add("UDID", "108a61cda531152f01e5436ba1a5b4fcf0acc23f");
+            dicResult.Add("BusinessToken", bToken);
+            dicResult.Add("AccessToken", aToken);
+            return JsonConvert.SerializeObject(dicResult);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        private List<Friend> getFriends(String html)
+        {
+            List<Friend> lst = new List<Friend>();
+            try
+            {
+                if (html != String.Empty)
+                {
+                    var doc = new HAP.HtmlDocument();
+                    doc.LoadHtml(html);
+                    var root = doc.DocumentNode;
+                    var row_nodes = root.Descendants()
+                                    .Where(n => n.Name == "a")
+                                    .Where(n => n.GetAttributeValue("class", null) == "_5q6s _8o _8t lfloat _ohe");
+                    foreach (var a_node in row_nodes)
+                    {
+                        Friend friend = new Friend();
+                        friend.Id = REGEX_ID.Match(a_node.GetAttributeValue("data-hovercard", "")).Groups["fid"].Value;
+                        friend.Name = REGEX_NAME.Match(a_node.GetAttributeValue("href", "")).Groups["fname"].Value;
+                        lst.Add(friend);
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return lst;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public string doPost(string uri, string parameters)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+                System.Net.ServicePointManager.Expect100Continue = false;
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                byte[] bytes = Encoding.UTF8.GetBytes(parameters);
+                request.ContentLength = bytes.Length;
+
+                Stream requestStream = request.GetRequestStream();
+                requestStream.Write(bytes, 0, bytes.Length);
+
+                WebResponse response = request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream);
+
+                var result = reader.ReadToEnd();
+                stream.Dispose();
+                reader.Dispose();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        private void getFriends(JToken data)
+        {
+            //
+            Int32 index = 1;
+            foreach (JToken child in data["FriendScores"])
+            {
+                String name = child["Name"] != null ? child["Name"].ToString() : "";
+                if (!NAMEVIPS.Contains(name.ToUpper()))
+                {
+                    Friend friend = new Friend();
+                    friend.Name = name;
+                    friend.Id = child["FBID"] != null ? child["FBID"].ToString() : "";
+                    friend.Index = index;
+                    friend.Rank = Convert.ToInt32(child["RankPoints"]);
+                    index = index + 1;
+                    FRIENDS.Add(friend);
+                }
+            }
+            //
+            lbFriends.DataSource = FRIENDS;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fid"></param>
+        /// <returns></returns>
+        private String islandViewFriend(string fid)
+        {
+            String ret = String.Empty;
+            String url = URLVIEW + DateTime.Now.ToOADate().ToString();
+            Dictionary<string, object> dicResult = new Dictionary<string, object>();
+            dicResult.Add("FriendScopedId", fid);
+            dicResult.Add("secretKey", SECRETKEY);
+            dicResult.Add("sessionToken", SESSIONTOKEN);
+            dicResult.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dicResult));
+            return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="fbidVictim"></param>
+        /// <param name="itemType"></param>
+        /// <returns></returns>
+        private string attackFriend(Friend attacker, String fbidVictim, String itemType)
+        {
+            String ret = String.Empty;
+            String url = URLATTACKFRIEND + DateTime.Now.ToOADate().ToString();
+            Dictionary<string, object> dicResult = new Dictionary<string, object>();
+            dicResult.Add("FriendScopedId", fbidVictim);
+            dicResult.Add("ItemType", itemType);
+            dicResult.Add("secretKey", attacker.Key);
+            dicResult.Add("sessionToken", attacker.SToken);
+            dicResult.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dicResult));
+            return ret;
+        }
+
+        /// <summary>
+        /// Get item type acttack
+        /// </summary>
+        /// <param name="fbidVictim"></param>
+        /// <returns></returns>
+        private List<Item> getItemTypeAttack(String fbidVictim)
+        {
+            List<Item> itemTypes = new List<Item>();
+            String retView = islandViewFriend(fbidVictim);
+            if (retView == String.Empty) return itemTypes;
+            JToken data = JObject.Parse(retView);
+            //
+            Item i = new Item();
+            i.Name = "Animals";
+            i.Isdamaged = Convert.ToBoolean(data["WantedIsland"]["Animal"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["WantedIsland"]["Animal"]["Level"]);
+            itemTypes.Add(i);
+
+            i = new Item();
+            i.Name = "Nature";
+            i.Isdamaged = Convert.ToBoolean(data["WantedIsland"]["Nature"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["WantedIsland"]["Nature"]["Level"]);
+            itemTypes.Add(i);
+
+
+            i = new Item();
+            i.Name = "Building";
+            i.Isdamaged = Convert.ToBoolean(data["WantedIsland"]["Building"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["WantedIsland"]["Building"]["Level"]);
+            itemTypes.Add(i);
+
+            i = new Item();
+            i.Name = "Ships";
+            i.Isdamaged = Convert.ToBoolean(data["WantedIsland"]["Ship"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["WantedIsland"]["Ship"]["Level"]);
+            itemTypes.Add(i);
+
+            i = new Item();
+            i.Name = "Artifacts";
+            i.Isdamaged = Convert.ToBoolean(data["WantedIsland"]["Artifact"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["WantedIsland"]["Artifact"]["Level"]);
+            itemTypes.Add(i);
+
+            var query = from item in itemTypes
+                        orderby item.Level descending, item.Isdamaged descending
+                        where item.Level > 0
+                        select item;
+
+            return query.ToList();
+        }
+        /// <summary>
+        /// doGet
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private String doGet(string url)
+        {
+            try
+            {
+                System.Net.ServicePointManager.Expect100Continue = false;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream);
+
+                string data = reader.ReadToEnd();
+
+                reader.Close();
+                stream.Close();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="victim"></param>
+        private int attack(Friend attacker, Friend victim)
+        {
+            if (attacker == null) return -2;
+            if (victim == null) return -2;
+            if (attacker.Key == String.Empty)
+            {
+                String data = getDataLogin(attacker.Id, BUSINESSTOKEN, ACCESSTOKEN, String.Format("[\"{0}\"]", victim.Id));
+                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
+                String retLogin = doPost(urlLogin, data);
+                try
+                {
+                    attacker.Key = JObject.Parse(retLogin)["Key"].ToString();
+                    attacker.SToken = JObject.Parse(retLogin)["SessionToken"].ToString();
+                }
+                catch
+                {
+
+                }
+            }
+            if (attacker.Key == String.Empty) return -1;
+            String urlWheel = String.Format(URLWHEEL, attacker.Key, DateTime.Now.ToOADate().ToString());
+            while (true)
+            {
+                String retWheel = doGet(urlWheel);
+                JToken data = JObject.Parse(retWheel);
+                int wheelResult = Convert.ToInt16(data["WheelResult"]);
+                int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
+                if (wheelResult == 6)
+                {
+                    String infoSteal = String.Empty;
+                    steal(attacker.Key, data, true, out infoSteal);
+                }
+                if (wheelResult == 7)
+                {
+                    List<Item> itemTypes = getItemTypeAttack(victim.Id);
+                    if (itemTypes.Count == 0)
+                    {
+                        return 1;
+                    }
+                    String ret = attackFriend(attacker, victim.Id, itemTypes[0].Name);
+                    rtbHTML.Text = rtbHTML.Text.Insert(0, ret + "\r\n\r\n");
+                }
+                if (spins == 0)
+                {
+                    return 0;
+                };
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        /// <param name="isStealAuto"></param>
+        /// <returns></returns>
+        private string steal(string key, JToken data, Boolean isStealAuto, out String infoSteal)
+        {
+            infoSteal = String.Empty;
+            String ret = String.Empty;
+            int index = 0;
+            List<Key> lstKeys = new List<Key>();
+            foreach (JToken child in data["StealIslands"])
+            {
+                Key keyItem = new Key();
+                keyItem.Index = index;
+                keyItem.Level = Convert.ToInt32(child["Level"]);
+                keyItem.Data = child.ToString();
+                lstKeys.Add(keyItem);
+                index = index + 1;
+            }
+            Int32 rank = Convert.ToInt32(data["PlayerState"]["CashKing"]["RankPoints"]);
+            List<Key> lstKeysOrder = new List<Key>();
+            if (rank >= RANKPOINT_STEAL)
+            {
+                //descending
+                var query = from item in lstKeys
+                            orderby item.Level descending
+                            select item;
+                lstKeysOrder = query.ToList();
+            }
+            else
+            {
+                //ascending
+                var query = from item in lstKeys
+                            orderby item.Level ascending
+                            select item;
+                lstKeysOrder = query.ToList();
+            }
+            if (isStealAuto)
+            {
+                try
+                {
+                    Dictionary<string, object> dicResult = new Dictionary<string, object>();
+                    dicResult.Add("StealIndex", lstKeysOrder[0].Index);
+                    dicResult.Add("FriendFBIDs", "[]");
+                    dicResult.Add("secretKey", key);
+                    String urlSteal = URLSTEAL + DateTime.Now.ToOADate().ToString();
+                    infoSteal = String.Format("Steal: {0} No-Level: 1-{1} 2-{2} 3-{3}", lstKeysOrder[0].Index + 1, lstKeys[0].Level, lstKeys[1].Level, lstKeys[2].Level);
+                    ret = doPost(urlSteal, JsonConvert.SerializeObject(dicResult));
+                }
+                catch
+                {
+
+                }
+            }
+            return ret;
+        }
+        /// <summary>
+        /// Set login
+        /// </summary>
+        /// <param name="friend"></param>
+        private String setLogin(Friend friend, bool isUpdate)
+        {
+            if (friend.Key == String.Empty)
+            {
+                String data = getDataLogin(friend.Id, BUSINESSTOKEN, ACCESSTOKEN, "[]");
+                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
+                String retLogin = doPost(urlLogin, data);
+                try
+                {
+                    friend.Key = JObject.Parse(retLogin)["Key"].ToString();
+                    friend.SToken = JObject.Parse(retLogin)["SessionToken"].ToString();
+                    //Update FRIENDS
+                    if (isUpdate && friend.Type == 1)
+                    {
+                        foreach (Friend f in FRIENDS)
+                        {
+                            if (f.Index == friend.Index)
+                            {
+                                f.Key = friend.Key;
+                                f.SToken = friend.SToken;
+                            }
+                        }
+                    }
+                    return retLogin;
+                }
+                catch
+                {
+                    return String.Empty;
+                }
+            }
+            return String.Empty;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private List<Item> getItemTypeAttack(JToken data)
+        {
+            //List<Item> randomAttackIslandItems = new List<Item>();
+            //foreach (JToken child in data["RandomAttackIsland"])
+            //{
+            //    var propertyChild = child as JProperty;
+            //    if (arrItems.Contains(propertyChild.Name + "s"))
+            //    {
+            //        Item item = new Item();
+            //        item.Name = propertyChild.Name + "s";
+            //        foreach (JToken grandChild in propertyChild.Value)
+            //        {
+            //            var property = grandChild as JProperty;
+            //            switch (property.Name.ToUpper())
+            //            {
+            //                case "ISDAMAGED":
+            //                    item.Isdamaged = Convert.ToBoolean(property.Value);
+            //                    break;
+            //                case "LEVEL":
+            //                    item.Level = Convert.ToInt16(property.Value);
+            //                    break;
+            //                default:
+            //                    break;
+            //            }
+            //        }
+            //        randomAttackIslandItems.Add(item);
+            //    }
+            //}
+            //var query = from item in randomAttackIslandItems
+            //            orderby item.Level descending, item.Isdamaged descending
+            //            select item;
+            //return query.ToList();
+
+            List<Item> itemTypes = new List<Item>();
+            Item i = new Item();
+            i.Name = "Animals";
+            i.Isdamaged = Convert.ToBoolean(data["RandomAttackIsland"]["Animal"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["RandomAttackIsland"]["Animal"]["Level"]);
+            itemTypes.Add(i);
+
+            i = new Item();
+            i.Name = "Nature";
+            i.Isdamaged = Convert.ToBoolean(data["RandomAttackIsland"]["Nature"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["RandomAttackIsland"]["Nature"]["Level"]);
+            itemTypes.Add(i);
+
+
+            i = new Item();
+            i.Name = "Building";
+            i.Isdamaged = Convert.ToBoolean(data["RandomAttackIsland"]["Building"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["RandomAttackIsland"]["Building"]["Level"]);
+            itemTypes.Add(i);
+
+            i = new Item();
+            i.Name = "Ships";
+            i.Isdamaged = Convert.ToBoolean(data["RandomAttackIsland"]["Ship"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["RandomAttackIsland"]["Ship"]["Level"]);
+            itemTypes.Add(i);
+
+            i = new Item();
+            i.Name = "Artifacts";
+            i.Isdamaged = Convert.ToBoolean(data["RandomAttackIsland"]["Artifact"]["IsDamaged"]);
+            i.Level = Convert.ToInt16(data["RandomAttackIsland"]["Artifact"]["Level"]);
+            itemTypes.Add(i);
+
+            var query = from item in itemTypes
+                        orderby item.Level descending, item.Isdamaged descending
+                        where item.Level > 0
+                        select item;
+            return query.ToList();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private string attackRandom(string key, JToken data)
+        {
+            List<Item> itemTypes = getItemTypeAttack(data);
+            String itemAttackName = "";
+            if (itemTypes.Count > 0)
+            {
+                itemAttackName = itemTypes[0].Name;
+            }
+            else
+            {
+                var rnd = new Random(DateTime.Now.Millisecond);
+                int idxItem = rnd.Next(0, 4);
+                itemAttackName = ARRITEMS[idxItem];
+            }
+            String url = String.Format(URLATTACKRANDOM, key, itemAttackName, "?" + DateTime.Now.ToOADate().ToString());
+            return doGet(url);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool checkInAttakerOthers(String fbID)
+        {
+            if (lbOther.Items.Count == 0) return false;
+            foreach (Friend f in lbOther.Items)
+            {
+                if (f.Id == fbID.Trim()) return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        private string getTimes(Int32 time)
+        {
+            //00:00
+            int min = (int)time / 60;
+            int second = time - min * 60;
+            return String.Format("{0}:{1}", min.ToString("00"), second.ToString("00"));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fbID"></param>
+        /// <returns></returns>
+        private Friend getFriendByFBID(String fbID)
+        {
+            if (fbID.Trim() == String.Empty) return null;
+            if (FIDVIPS.Contains(fbID.Trim())) return null;
+            try
+            {
+                Friend friend = new Friend();
+                friend.Id = txtFBID.Text.Trim();
+                String retLogin = setLogin(friend, false);
+                if (friend.Key == String.Empty) return null;
+                String urlWheel = String.Format(URLWHEEL, friend.Key, DateTime.Now.ToOADate().ToString());
+                String retWheel = doGet(urlWheel);
+                JToken jToken = JObject.Parse(retWheel);
+                int rank = 0;
+                try
+                {
+                    rank = Convert.ToInt16(jToken["PlayerState"]["RankPoints"]);
+                }
+                catch
+                {
+                }
+                if (rank > 0)
+                {
+                    JToken jData = JObject.Parse(retLogin);
+                    if (jData["PlayerMetaData"]["Name"] == null) return null;
+                    friend.Name = jData["PlayerMetaData"]["Name"] != null ? jData["PlayerMetaData"]["Name"].ToString() : "";
+                    friend.Type = 2;
+                    return friend;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Display logs info
+        /// </summary>
+        /// <param name="header"></param>
+        /// <param name="content"></param>
+        private void displayInfo(String header, String content)
+        {
+            if (content == String.Empty) return;
+            String data = String.Empty;
+            if (header == String.Empty)
+            {
+                data = content + "\r\n" + SEPARATOR + "\r\n\r\n";
+            }
+            else
+            {
+                data = header + "\r\n" + content + "\r\n" + SEPARATOR + "\r\n\r\n";
+            }
+            rtbRet.Text = rtbRet.Text.Insert(0, data);
+        }
+        /// <summary>
+        /// Display img for steal
+        /// </summary>
+        private void displayAvatar(Int32 rank)
+        {
+            try
+            {
+                int baseName = rank / 30 + 1;
+                int baseNamePre = baseName > 1 ? baseName - 1 : baseName;
+                int baseNameNext = baseName < 23 ? baseName + 1 : baseName;
+                avatarPre.Image = imageList.Images[String.Format("{0}.png", baseNamePre)];
+                avatar.Image = imageList.Images[String.Format("{0}.png", baseName)];
+                avatarNext.Image = imageList.Images[String.Format("{0}.png", baseNameNext)];
+            }
+            catch
+            {
+            }
+        }
+        #endregion
+
+        #region "FIDDLERAPP"
+        /// <summary>
+        /// 
+        /// </summary>
+        void startFiddlerApp()
+        {
+            FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;
+            FiddlerApplication.Startup(8080, true, true, true);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sess"></param>
+        private void FiddlerApplication_AfterSessionComplete(Session sess)
+        {
+            // Ignore HTTPS connect requests
+            if (sess.RequestMethod == "CONNECT")
+                return;
+
+            if (CaptureConfiguration.ProcessId > 0)
+            {
+                if (sess.LocalProcessID != 0 && sess.LocalProcessID != CaptureConfiguration.ProcessId)
+                    return;
+            }
+
+            if (!string.IsNullOrEmpty(CaptureConfiguration.CaptureDomain))
+            {
+                //if (sess.hostname.ToLower() != CaptureConfiguration.CaptureDomain.Trim().ToLower())
+                //    return;
+                if (!sess.fullUrl.ToLower().Contains(CaptureConfiguration.CaptureDomain.Trim().ToLower()))
+                    return;
+            }
+
+            if (CaptureConfiguration.IgnoreResources)
+            {
+                string url = sess.fullUrl.ToLower();
+
+                var extensions = CaptureConfiguration.ExtensionFilterExclusions;
+                foreach (var ext in extensions)
+                {
+                    if (url.Contains(ext))
+                        return;
+                }
+
+                var filters = CaptureConfiguration.UrlFilterExclusions;
+                foreach (var urlFilter in filters)
+                {
+                    if (url.Contains(urlFilter))
+                        return;
+                }
+            }
+
+            if (sess == null || sess.oRequest == null || sess.oRequest.headers == null)
+                return;
+            var reqBody = Encoding.UTF8.GetString(sess.RequestBody);
+            var respBody = Encoding.UTF8.GetString(sess.ResponseBody);
+            Dictionary<string, object> dicResult = new Dictionary<string, object>();
+            dicResult.Add("reqBody", reqBody);
+            dicResult.Add("respBody", respBody);
+            // must marshal to UI thread
+            BeginInvoke(new Action<Dictionary<string, object>>((dic) =>
+            {
+                try
+                {
+                    shutdowFiddlerApp();
+                    JToken jTokenReq = JObject.Parse(dic["reqBody"].ToString());
+                    JToken jTokenResp = JObject.Parse(dic["respBody"].ToString());
+                    getFriends(jTokenResp);
+                    BUSINESSTOKEN = jTokenReq["BusinessToken"].ToString();
+                    ACCESSTOKEN = jTokenReq["AccessToken"].ToString();
+                    FBID = jTokenReq["FBID"].ToString();
+                    SECRETKEY = jTokenResp["Key"].ToString();
+                    SESSIONTOKEN = jTokenResp["SessionToken"].ToString();
+                    NAME = jTokenResp["PlayerMetaData"]["Name"].ToString();
+                    lblName.Text = NAME;
+                }
+                catch
+                {
+                    lblName.Text = "Please login to next...";
+                }
+            }), dicResult);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        private void shutdowFiddlerApp()
+        {
+            FiddlerApplication.AfterSessionComplete -= FiddlerApplication_AfterSessionComplete;
+            if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
+        }
+        #endregion
+    }
+}

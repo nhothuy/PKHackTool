@@ -1,0 +1,49 @@
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\PKTool.exe.config
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\obj\Debug\PKTool.exe
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\obj\Debug\PKTool.pdb
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\PKTool.exe
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\PKTool.pdb
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\BCMakeCert.dll
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\CertMaker.dll
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\FiddlerCore4.dll
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\HtmlAgilityPack.dll
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\HtmlAgilityPack.xml
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nhothuy\Documents\visual studio 2012\Projects\MyApp\MyApp\obj\Debug\PKHackTool.csproj.GenerateResource.Cache
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\PKTool.exe.config
+C:\Users\thuyln\Downloads\MyApp\MyApp\obj\Debug\PKTool.exe
+C:\Users\thuyln\Downloads\MyApp\MyApp\obj\Debug\PKTool.pdb
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\PKTool.exe
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\PKTool.pdb
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\BCMakeCert.dll
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\CertMaker.dll
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\FiddlerCore4.dll
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\HtmlAgilityPack.dll
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\HtmlAgilityPack.xml
+C:\Users\thuyln\Downloads\MyApp\MyApp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\thuyln\Downloads\MyApp\MyApp\obj\Debug\MyApp.frmMain.resources
+C:\Users\thuyln\Downloads\MyApp\MyApp\obj\Debug\MyApp.Properties.Resources.resources
+C:\Users\thuyln\Downloads\MyApp\MyApp\obj\Debug\PKHackTool.csproj.GenerateResource.Cache
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\MyApp\obj\Debug\PKTool.Properties.Resources.resources
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\MyApp\obj\Debug\PKTool.frmMain.resources
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\PKTool.exe.config
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\obj\Debug\PKTool.exe
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\obj\Debug\PKTool.pdb
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\PKTool.exe
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\PKTool.pdb
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\BCMakeCert.dll
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\CertMaker.dll
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\FiddlerCore4.dll
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\HtmlAgilityPack.dll
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\Newtonsoft.Json.dll
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\HtmlAgilityPack.xml
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\obj\Debug\PKHackTool.csprojResolveAssemblyReference.cache
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\obj\Debug\PKTool.frmMain.resources
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\obj\Debug\PKTool.Properties.Resources.resources
+C:\Users\nhothuy\Documents\Visual Studio 2012\Projects\MyApp\PKHackTool\obj\Debug\PKHackTool.csproj.GenerateResource.Cache
