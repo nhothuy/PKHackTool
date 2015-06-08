@@ -119,8 +119,7 @@ namespace PKTool
                 String cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", data["PlayerState"]["CashKing"]["FBID"], data["PlayerState"]["CashKing"]["Name"], data["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(data["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
                 if (wheelResult == 6)
                 {
-                    String stealInfo = String.Empty;
-                    steal(SECRETKEY, data, isStealAuto, out stealInfo);
+                    String stealInfo = steal(SECRETKEY, data, isStealAuto);
                     String retInfo = String.Empty;
                     if (isStealAuto)
                     {
@@ -144,9 +143,17 @@ namespace PKTool
                 if (spins == 0 || (wheelResult == 6 && !isStealAuto) || (wheelResult == 7 && !isAttackRandom) || (isFullShields && shields == 3))
                 {
                     Data info = new Data();
-                    info.Msg = playerInfo + "\r\n" + cashKingInfo;
+                    if (wheelResult == 6 || wheelResult == 7)
+                    {
+                        info.Msg = String.Empty;
+                    }
+                    else
+                    {
+                        info.Msg = playerInfo + "\r\n" + cashKingInfo;
+                    }
                     if (wheelResult == 6) info.Rank = Convert.ToInt32(data["PlayerState"]["CashKing"]["RankPoints"]);
                     M_PLAY.ReportProgress(100, info);
+                    return;
                 };
 
                 if (M_PLAY.CancellationPending)
@@ -168,7 +175,10 @@ namespace PKTool
             {
                 if (e.UserState == null) return;
                 Data data = (Data) e.UserState;
-                displayInfo("PLAY", data.Msg);
+                if (data.Msg != String.Empty)
+                {
+                    displayInfo("PLAY", data.Msg);
+                }
                 if (data.Rank > 0)
                 {
                     avatarPre.Visible = true;
@@ -227,22 +237,17 @@ namespace PKTool
                 JToken data = JObject.Parse(retWheel);
                 int wheelResult = Convert.ToInt16(data["WheelResult"]);
                 int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
+                String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
                 if (wheelResult == 6)
                 {
-                    //steal
-                    String retInfo = String.Empty;
-                    String retSteal = steal(friend.Key, data, true, out retInfo);
-                    M_KILL.ReportProgress(50, retSteal);
+                    steal(friend.Key, data, true);
+                    M_KILL.ReportProgress(50, playerInfo);
                 }
                 else if (wheelResult == 7)
                 {
-                    String retAttack = attackRandom(friend.Key, data);
-                    M_KILL.ReportProgress(50, retAttack);
+                    attackRandom(friend.Key, data);
                 }
-                else
-                {
-                    M_KILL.ReportProgress(50, retWheel);
-                }
+                    M_KILL.ReportProgress(50, playerInfo);
                 //
                 if (spins == 0)
                 {
@@ -368,13 +373,13 @@ namespace PKTool
                         if (rank == 5) break;
                         if (wheelResult == 6)
                         {
-                            String infoSteal = String.Empty;
-                            steal(attacker.Key, data, true, out infoSteal);
+                            steal(attacker.Key, data, true);
                         }
                         if (wheelResult == 7)
                         {
                             String ret = attackFriend(attacker, victim.Id, itemTypes[0].Name);
-                            M_ATTACK.ReportProgress(50, "Attacker: " + attacker.Name + "\r\n" + ret);
+                            JToken jToken = JObject.Parse(ret);
+                            M_ATTACK.ReportProgress(50, "Attacker: " + attacker.Name + "\r\n" + String.Format("GoldGained: {0} Result: {1}", Convert.ToInt64(jToken["GoldGained"].ToString()).ToString("#,#", CultureInfo.InvariantCulture), jToken["Result"].ToString()));
                         }
                         //num
                         if (num > 0)
@@ -455,7 +460,7 @@ namespace PKTool
                 if (e.UserState == null) return;
                 Data data = (Data)e.UserState;
                 String info = String.Format("{0}.[FORCE] {1}:{2}{3}", data.Friend.Index, data.Friend.Name, data.Friend.Key, Environment.NewLine);
-                rtbRet.Text = rtbRet.Text.Insert(0, info);
+                rtbRetIn.Text = rtbRetIn.Text.Insert(0, info);
             }
             catch
             { 
@@ -1036,7 +1041,7 @@ namespace PKTool
                 if (wheelResult == 6)
                 {
                     String infoSteal = String.Empty;
-                    steal(attacker.Key, data, true, out infoSteal);
+                    steal(attacker.Key, data, true);
                 }
                 if (wheelResult == 7)
                 {
@@ -1061,9 +1066,8 @@ namespace PKTool
         /// <param name="data"></param>
         /// <param name="isStealAuto"></param>
         /// <returns></returns>
-        private string steal(string key, JToken data, Boolean isStealAuto, out String infoSteal)
+        private string steal(string key, JToken data, Boolean isStealAuto)
         {
-            infoSteal = String.Empty;
             String ret = String.Empty;
             int index = 0;
             List<Key> lstKeys = new List<Key>();
@@ -1103,15 +1107,14 @@ namespace PKTool
                     dicResult.Add("FriendFBIDs", "[]");
                     dicResult.Add("secretKey", key);
                     String urlSteal = URLSTEAL + DateTime.Now.ToOADate().ToString();
-                    infoSteal = String.Format("Steal: {0} No-Level: 1-{1} 2-{2} 3-{3}", lstKeysOrder[0].Index + 1, lstKeys[0].Level, lstKeys[1].Level, lstKeys[2].Level);
-                    ret = doPost(urlSteal, JsonConvert.SerializeObject(dicResult));
+                    doPost(urlSteal, JsonConvert.SerializeObject(dicResult));
                 }
                 catch
                 {
 
                 }
             }
-            return ret;
+            return String.Format("Steal: {0} No-Level: 1-{1} 2-{2} 3-{3}", lstKeysOrder[0].Index + 1, lstKeys[0].Level, lstKeys[1].Level, lstKeys[2].Level); ;
         }
         /// <summary>
         /// Set login
@@ -1362,7 +1365,7 @@ namespace PKTool
         void startFiddlerApp()
         {
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;
-            FiddlerApplication.Startup(8080, true, true, true);
+            FiddlerApplication.Startup(8080, false, true, true);
         }
         /// <summary>
         /// 
