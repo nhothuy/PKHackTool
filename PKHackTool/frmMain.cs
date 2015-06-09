@@ -125,63 +125,72 @@ namespace PKTool
                 String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
                 String cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", data["PlayerState"]["CashKing"]["FBID"], data["PlayerState"]["CashKing"]["Name"], data["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(data["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
                 Int64 cash = Convert.ToInt64(data["PlayerState"]["Cash"]);
-                //if (isAutoUpgrade)
-                //{
-                //    //repair
-                //    var itemsDamaged = (from i in ITEMS
-                //                        orderby i.Level ascending
-                //                        where i.Isdamaged = true
-                //                        select i).ToList();
-                //    if (itemsDamaged.Count > 0 && cash >= itemsDamaged[0].Price)
-                //    {
-                //        while (true)
-                //        {
-                //            String retRepair = repair(itemsDamaged[0].Name);
-                //            ITEMS = getItems(JObject.Parse(retRepair));
-                //            setPrices(ITEMS);
-                //            cash = cash - itemsDamaged[0].Price;
-                //            itemsDamaged = (from i in ITEMS
-                //                            orderby i.Level ascending
-                //                            where i.Isdamaged = true
-                //                            select i).ToList();
-                //            if (itemsDamaged.Count == 0 || cash < itemsDamaged[0].Price)
-                //            {
-                //                break;
-                //            }
-                //        }
-                //    }
-                //    //upgrade
-                //    var itemsUpgrade = (from i in ITEMS
-                //                        orderby i.Price ascending
-                //                        where i.Level < 5
-                //                        select i).ToList();
-                //    if (itemsUpgrade.Count > 0 && cash >= itemsUpgrade[0].Price)
-                //    {
-                //        while (true)
-                //        {
-                //            String retUpgrade = upgrade(itemsUpgrade[0].Name);
-                //            ITEMS = getItems(JObject.Parse(retUpgrade));
-                //            setPrices(ITEMS);
-                //            cash = cash - itemsDamaged[0].Price;
-                //            itemsUpgrade = (from i in ITEMS
-                //                            orderby i.Price ascending
-                //                            where i.Level < 5
-                //                            select i).ToList();
-                //            if (itemsUpgrade.Count == 0 || cash < itemsUpgrade[0].Price)
-                //            {
-                //                break;
-                //            }
-                //        }
-                //    }
-                //    //finish
-                //    if (isFinish())
-                //    {
-                //        //finish
-                //        String retFinish = finish();
-                //        ITEMS = getItems(JObject.Parse(retFinish));
-                //        setPrices(ITEMS);
-                //    }
-                //}
+                if (isAutoUpgrade)
+                {
+                    while (true)
+                    {
+                        //repair
+                        var itemsDamaged = (from i in ITEMS
+                                            orderby i.Level ascending
+                                            where i.Isdamaged = true
+                                            select i).ToList();
+                        if (itemsDamaged.Count > 0 && cash >= itemsDamaged[0].Price)
+                        {
+                            while (true)
+                            {
+                                String retRepair = repair(itemsDamaged[0].Name);
+                                ITEMS = getItems(JObject.Parse(retRepair));
+                                setPrices(ITEMS);
+                                cash = cash - itemsDamaged[0].Price;
+                                itemsDamaged = (from i in ITEMS
+                                                orderby i.Level ascending
+                                                where i.Isdamaged = true
+                                                select i).ToList();
+                                if (itemsDamaged.Count == 0 || cash < itemsDamaged[0].Price)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        //upgrade
+                        var itemsUpgrade = (from i in ITEMS
+                                            orderby i.Price ascending
+                                            where i.Level < 5
+                                            select i).ToList();
+                        if (itemsUpgrade.Count > 0 && cash >= itemsUpgrade[0].Price)
+                        {
+                            while (true)
+                            {
+                                String retUpgrade = upgrade(itemsUpgrade[0].Name);
+                                ITEMS = getItems(JObject.Parse(retUpgrade));
+                                setPrices(ITEMS);
+                                cash = cash - itemsDamaged[0].Price;
+                                itemsUpgrade = (from i in ITEMS
+                                                orderby i.Price ascending
+                                                where i.Level < 5
+                                                select i).ToList();
+                                if (itemsUpgrade.Count == 0 || cash < itemsUpgrade[0].Price)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        //finish
+                        if (isFinish())
+                        {
+                            //finish
+                            String retFinish = finish();
+                            ITEMS = getItems(JObject.Parse(retFinish));
+                            //
+                            BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(JObject.Parse(retFinish)["NewIslandShopPrice"]["BasePrices"].ToString());
+                            PRICESTEPS = JsonConvert.DeserializeObject<List<double>>(JObject.Parse(retFinish)["NewIslandShopPrice"]["PriceSteps"].ToString());
+                            //
+                            setPrices(ITEMS);
+                        }
+                        //
+                        if (isNextUpgrade(cash)) break;
+                    }
+                }
                 if (wheelResult == 6)
                 {
                     String stealInfo = steal(SECRETKEY, data, isStealAuto);
@@ -597,12 +606,17 @@ namespace PKTool
         private void btnSetVicTim_Click(object sender, EventArgs e)
         {
             if (lbFriends.SelectedItem == null) return;
+            if (IDATTACKER.Contains(((Friend)lbFriends.SelectedItem).Index)) return;
             VICTIM = (Friend)lbFriends.SelectedItem;
             txtVictim.Text = ((Friend)lbFriends.SelectedItem).Name;
         }
         private void btnSetAttacker_Click(object sender, EventArgs e)
         {
             if (lbFriends.SelectedItem == null) return;
+            if (VICTIM != null)
+            {
+                if (((Friend)lbFriends.SelectedItem).Index == VICTIM.Index) return;
+            }
             if (IDATTACKER.Contains(((Friend)lbFriends.SelectedItem).Index)) return;
             IDATTACKER.Add(((Friend)lbFriends.SelectedItem).Index);
             lbAttackers.Items.Add(((Friend)lbFriends.SelectedItem));
@@ -1479,8 +1493,9 @@ namespace PKTool
             foreach (Item item in items)
             {
                 Int32 basePrice = BASEPRICES[item.Index];
-                double priceStep = BASEPRICES[item.Index];
+                double priceStep = PRICESTEPS[item.Index];
                 Int32 price = Convert.ToInt32(basePrice * (1 + item.Level * priceStep));
+                item.Price = price;
             }
         }
         /// <summary>
@@ -1546,6 +1561,32 @@ namespace PKTool
                          where i.Isdamaged == false && i.Level == 5
                          select i).ToList();
             return items.Count == 5;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cash"></param>
+        /// <returns></returns>
+        private bool isNextUpgrade(Int64 cash)
+        {
+            var itemsDamaged = (from i in ITEMS
+                                orderby i.Level ascending
+                                where i.Isdamaged = true
+                                select i).ToList();
+            if (itemsDamaged.Count > 0 && cash >= itemsDamaged[0].Price)
+            {
+                return true;
+            }
+            //upgrade
+            var itemsUpgrade = (from i in ITEMS
+                                orderby i.Price ascending
+                                where i.Level < 5
+                                select i).ToList();
+            if (itemsUpgrade.Count > 0 && cash >= itemsUpgrade[0].Price)
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
 
@@ -1617,10 +1658,10 @@ namespace PKTool
                     JToken jTokenReq = JObject.Parse(dic["reqBody"].ToString());
                     JToken jTokenResp = JObject.Parse(dic["respBody"].ToString());
                     getFriends(jTokenResp);
-                    //ITEMS = getItems(jTokenResp);
-                    //BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(jTokenReq["IslandShopPrice"]["BasePrices"].ToString());
-                    //PRICESTEPS = JsonConvert.DeserializeObject<List<double>>(jTokenReq["IslandShopPrice"]["PriceSteps"].ToString());
-                    //setPrices(ITEMS);
+                    ITEMS = getItems(jTokenResp);
+                    BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(jTokenResp["IslandShopPrice"]["BasePrices"].ToString());
+                    PRICESTEPS = JsonConvert.DeserializeObject<List<double>>(jTokenResp["IslandShopPrice"]["PriceSteps"].ToString());
+                    setPrices(ITEMS);
                     BUSINESSTOKEN = jTokenReq["BusinessToken"].ToString();
                     ACCESSTOKEN = jTokenReq["AccessToken"].ToString();
                     FBID = jTokenReq["FBID"].ToString();
