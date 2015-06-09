@@ -49,11 +49,11 @@ namespace PKTool
         private String FBID = String.Empty;
         private static String[] ARRITEMS = { "Animals", "Nature", "Building", "Ships", "Artifacts" };
         private const String URLLOGIN = "http://prod.cashkinggame.com/CKService.svc/v3.0/login/?{0}";
-        private const String URLWHEEL = "http://prod.cashkinggame.com/CKService.svc/spin/wheel/{0}/NONE?{1}";
+        private const String URLWHEEL = "http://prod.cashkinggame.com/CKService.svc/v3.0/spin/wheel/?{0}";
         private const String URLATTACKFRIEND = "http://prod.cashkinggame.com/CKService.svc/v3.0/attack/friend/?";
-        private const String URLATTACKRANDOM = "http://prod.cashkinggame.com/CKService.svc/attack/random/{0}/{1}{2}";
+        private const String URLATTACKRANDOM = "http://prod.cashkinggame.com/CKService.svc/v3.0/attack/random/?{0}";
         private const String URLVIEW = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/view/friend/?";
-        private const String URLSTEAL = "http://prod.cashkinggame.com/CKService.svc/v2/attack/steal/?";
+        private const String URLSTEAL = "http://prod.cashkinggame.com/CKService.svc/v3.0/attack/steal/?{0}";
         private const String URLUPGRADE = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/upgrade/?{0}";
         private const String URLREPAIR = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/repair/?{0}";
         private const String URLFINISH = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/finish/?{0}";
@@ -114,10 +114,9 @@ namespace PKTool
             Boolean isStealAuto = Convert.ToBoolean(dic["isStealAuto"]);
             Boolean isFullShields = Convert.ToBoolean(dic["isFullShields"]);
             Boolean isAutoUpgrade = Convert.ToBoolean(dic["isAutoUpgrade"]);
-            String urlWheel = String.Format(URLWHEEL, SECRETKEY, DateTime.Now.ToOADate().ToString());
             while (true)
             {
-                String retWheel = doGet(urlWheel);
+                String retWheel = wheel(SECRETKEY, SESSIONTOKEN);
                 JToken data = JObject.Parse(retWheel);
                 int wheelResult = Convert.ToInt16(data["WheelResult"]);
                 int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
@@ -125,6 +124,35 @@ namespace PKTool
                 String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
                 String cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", data["PlayerState"]["CashKing"]["FBID"], data["PlayerState"]["CashKing"]["Name"], data["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(data["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
                 Int64 cash = Convert.ToInt64(data["PlayerState"]["Cash"]);
+                if (wheelResult == 6)
+                {
+                    String retSteal = String.Empty;
+                    String stealInfo = steal(SECRETKEY, SESSIONTOKEN, data, isStealAuto, out retSteal);
+                    String retInfo = String.Empty;
+                    if (isStealAuto)
+                    {
+                        JToken jTokenSteal = JObject.Parse(retSteal);
+                        cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", jTokenSteal["PlayerState"]["CashKing"]["FBID"], jTokenSteal["PlayerState"]["CashKing"]["Name"], jTokenSteal["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(jTokenSteal["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
+                        cash = Convert.ToInt64(jTokenSteal["PlayerState"]["Cash"]);
+                        retInfo = "[Steal]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
+                    }
+                    else
+                    {
+                        retInfo = "[Steal]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo + "\r\n" + stealInfo;
+                    }
+                    Data info = new Data();
+                    info.Msg = retInfo;
+                    M_PLAY.ReportProgress(50, info);
+                }
+                if (isAttackRandom && wheelResult == 7)
+                {
+                    String attackInfo = attackRandom(SECRETKEY, SESSIONTOKEN, data);
+                    JToken jTokenAttack = JObject.Parse(attackInfo);
+                    cash = Convert.ToInt64(jTokenAttack["PlayerState"]["Cash"]);
+                    Data info = new Data();
+                    info.Msg = "[Attack]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
+                    M_PLAY.ReportProgress(50, info);
+                }
                 if (isAutoUpgrade)
                 {
                     while (true)
@@ -132,19 +160,24 @@ namespace PKTool
                         //repair
                         var itemsDamaged = (from i in ITEMS
                                             orderby i.Level ascending
-                                            where i.Isdamaged = true
+                                            where i.Isdamaged == true
                                             select i).ToList();
                         if (itemsDamaged.Count > 0 && cash >= itemsDamaged[0].Price)
                         {
                             while (true)
                             {
                                 String retRepair = repair(itemsDamaged[0].Name);
+
+                                Data info = new Data();
+                                info.Msg = "[Repair] " + itemsDamaged[0].Name + " \r\n" + JObject.Parse(retRepair)["Island"][getItemName(itemsDamaged[0].Name)];
+                                M_PLAY.ReportProgress(50, info);
+
                                 ITEMS = getItems(JObject.Parse(retRepair));
                                 setPrices(ITEMS);
                                 cash = cash - itemsDamaged[0].Price;
                                 itemsDamaged = (from i in ITEMS
                                                 orderby i.Level ascending
-                                                where i.Isdamaged = true
+                                                where i.Isdamaged == true
                                                 select i).ToList();
                                 if (itemsDamaged.Count == 0 || cash < itemsDamaged[0].Price)
                                 {
@@ -162,9 +195,13 @@ namespace PKTool
                             while (true)
                             {
                                 String retUpgrade = upgrade(itemsUpgrade[0].Name);
+
+                                Data info = new Data();
+                                info.Msg = "[Upgrade] " + itemsUpgrade[0].Name + "\r\n" + JObject.Parse(retUpgrade)["Island"][getItemName(itemsUpgrade[0].Name)];
+                                M_PLAY.ReportProgress(50, info);
                                 ITEMS = getItems(JObject.Parse(retUpgrade));
                                 setPrices(ITEMS);
-                                cash = cash - itemsDamaged[0].Price;
+                                cash = cash - itemsUpgrade[0].Price;
                                 itemsUpgrade = (from i in ITEMS
                                                 orderby i.Price ascending
                                                 where i.Level < 5
@@ -188,31 +225,8 @@ namespace PKTool
                             setPrices(ITEMS);
                         }
                         //
-                        if (isNextUpgrade(cash)) break;
+                        if (!isNextUpgrade(cash)) break;
                     }
-                }
-                if (wheelResult == 6)
-                {
-                    String stealInfo = steal(SECRETKEY, data, isStealAuto);
-                    String retInfo = String.Empty;
-                    if (isStealAuto)
-                    {
-                        retInfo = "[Steal]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
-                    }
-                    else
-                    {
-                        retInfo = "[Steal]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo + "\r\n" + stealInfo;
-                    }
-                    Data info = new Data();
-                    info.Msg = retInfo;
-                    M_PLAY.ReportProgress(50, info);
-                }
-                if (isAttackRandom && wheelResult == 7)
-                {
-                    String attackInfo = attackRandom(SECRETKEY, data);
-                    Data info = new Data();
-                    info.Msg = "[Attack]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
-                    M_PLAY.ReportProgress(50, info);
                 }
                 if (spins == 0 || (wheelResult == 6 && !isStealAuto) || (wheelResult == 7 && !isAttackRandom) || (isFullShields && shields == 3))
                 {
@@ -304,22 +318,22 @@ namespace PKTool
         {
             Friend friend = (Friend)e.Argument;
             setLogin(friend, true);
-            String urlWheel = String.Format(URLWHEEL, friend.Key, DateTime.Now.ToOADate().ToString());
             while (true)
             {
-                String retWheel = doGet(urlWheel);
+                String retWheel = wheel(friend.Key, friend.SToken);
                 JToken data = JObject.Parse(retWheel);
                 int wheelResult = Convert.ToInt16(data["WheelResult"]);
                 int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
                 String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
                 if (wheelResult == 6)
                 {
-                    steal(friend.Key, data, true);
+                    String retSteal = String.Empty;
+                    steal(friend.Key, friend.SToken, data, true, out retSteal);
                     M_KILL.ReportProgress(50, playerInfo);
                 }
                 else if (wheelResult == 7)
                 {
-                    attackRandom(friend.Key, data);
+                    attackRandom(friend.Key, friend.SToken, data);
                 }
                     M_KILL.ReportProgress(50, playerInfo);
                 //
@@ -427,11 +441,10 @@ namespace PKTool
                 setLogin(attacker, true);
                 if (attacker.Key != String.Empty)
                 {
-                    String urlWheel = String.Format(URLWHEEL, attacker.Key, DateTime.Now.ToOADate().ToString());
                     Int32 count = 0;
                     while (true)
                     {
-                        String retWheel = doGet(urlWheel);
+                        String retWheel = wheel(attacker.Key, attacker.SToken);
                         JToken data = JObject.Parse(retWheel);
                         List<Item> itemTypes = getItemTypeAttack(victim.Id);
                         if (itemTypes.Count == 0)
@@ -446,7 +459,8 @@ namespace PKTool
                         if (rank == 5) break;
                         if (wheelResult == 6)
                         {
-                            steal(attacker.Key, data, true);
+                            String retSteal = String.Empty;
+                            steal(attacker.Key, attacker.SToken, data, true, out retSteal);
                         }
                         if (wheelResult == 7)
                         {
@@ -721,10 +735,9 @@ namespace PKTool
                 if (lbFriends.SelectedItem == null) return;
                 //
                 Friend friend = (Friend)lbFriends.SelectedItem;
-                setLogin(friend, false);
+                setLogin(friend, true);
                 if (friend.Key == String.Empty) return;
-                String urlWheel = String.Format(URLWHEEL, friend.Key, DateTime.Now.ToOADate().ToString());
-                String retWheel = doGet(urlWheel);
+                String retWheel = wheel(friend.Key, friend.SToken);
                 JToken jToken = JObject.Parse(retWheel);
                 int wheelResult = Convert.ToInt16(jToken["WheelResult"]);
                 int spins = Convert.ToInt16(jToken["PlayerState"]["Spins"]);
@@ -823,8 +836,7 @@ namespace PKTool
             try
             {
                 if (SECRETKEY == String.Empty) return;
-                String urlWheel = String.Format(URLWHEEL, SECRETKEY, DateTime.Now.ToOADate().ToString());
-                String retWheel = doGet(urlWheel);
+                String retWheel = wheel(SECRETKEY, SESSIONTOKEN);
                 JToken jToken = JObject.Parse(retWheel);
                 int wheelResult = Convert.ToInt16(jToken["WheelResult"]);
                 int spins = Convert.ToInt16(jToken["PlayerState"]["Spins"]);
@@ -1095,33 +1107,18 @@ namespace PKTool
         {
             if (attacker == null) return -2;
             if (victim == null) return -2;
-            if (attacker.Key == String.Empty)
-            {
-                String data = getDataLogin(attacker.Id, BUSINESSTOKEN, ACCESSTOKEN, String.Format("[\"{0}\"]", victim.Id));
-                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
-                String retLogin = doPost(urlLogin, data);
-                try
-                {
-                    attacker.Key = JObject.Parse(retLogin)["Key"].ToString();
-                    attacker.SToken = JObject.Parse(retLogin)["SessionToken"].ToString();
-                }
-                catch
-                {
-
-                }
-            }
+            setLogin(attacker, true);
             if (attacker.Key == String.Empty) return -1;
-            String urlWheel = String.Format(URLWHEEL, attacker.Key, DateTime.Now.ToOADate().ToString());
             while (true)
             {
-                String retWheel = doGet(urlWheel);
+                String retWheel = wheel(attacker.Key, attacker.SToken);
                 JToken data = JObject.Parse(retWheel);
                 int wheelResult = Convert.ToInt16(data["WheelResult"]);
                 int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
                 if (wheelResult == 6)
                 {
-                    String infoSteal = String.Empty;
-                    steal(attacker.Key, data, true);
+                    String retSteal = String.Empty;
+                    steal(attacker.Key, attacker.SToken, data, true, out retSteal);
                 }
                 if (wheelResult == 7)
                 {
@@ -1146,8 +1143,9 @@ namespace PKTool
         /// <param name="data"></param>
         /// <param name="isStealAuto"></param>
         /// <returns></returns>
-        private string steal(string key, JToken data, Boolean isStealAuto)
+        private string steal(String secretKey, String sessionToken, JToken data, Boolean isStealAuto, out String retSteal)
         {
+            retSteal = String.Empty;
             String ret = String.Empty;
             int index = 0;
             List<Key> lstKeys = new List<Key>();
@@ -1182,12 +1180,7 @@ namespace PKTool
             {
                 try
                 {
-                    Dictionary<string, object> dicResult = new Dictionary<string, object>();
-                    dicResult.Add("StealIndex", lstKeysOrder[0].Index);
-                    dicResult.Add("FriendFBIDs", "[]");
-                    dicResult.Add("secretKey", key);
-                    String urlSteal = URLSTEAL + DateTime.Now.ToOADate().ToString();
-                    doPost(urlSteal, JsonConvert.SerializeObject(dicResult));
+                    steal(lstKeysOrder[0].Index, secretKey, sessionToken);
                 }
                 catch
                 {
@@ -1202,7 +1195,7 @@ namespace PKTool
         /// <param name="friend"></param>
         private String setLogin(Friend friend, bool isUpdate)
         {
-            if (friend.Key == String.Empty)
+            if (friend.Key == String.Empty || friend.SToken == String.Empty)
             {
                 String data = getDataLogin(friend.Id, BUSINESSTOKEN, ACCESSTOKEN, "[]");
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
@@ -1239,37 +1232,6 @@ namespace PKTool
         /// <returns></returns>
         private List<Item> getItemTypeAttack(JToken data)
         {
-            //List<Item> randomAttackIslandItems = new List<Item>();
-            //foreach (JToken child in data["RandomAttackIsland"])
-            //{
-            //    var propertyChild = child as JProperty;
-            //    if (arrItems.Contains(propertyChild.Name + "s"))
-            //    {
-            //        Item item = new Item();
-            //        item.Name = propertyChild.Name + "s";
-            //        foreach (JToken grandChild in propertyChild.Value)
-            //        {
-            //            var property = grandChild as JProperty;
-            //            switch (property.Name.ToUpper())
-            //            {
-            //                case "ISDAMAGED":
-            //                    item.Isdamaged = Convert.ToBoolean(property.Value);
-            //                    break;
-            //                case "LEVEL":
-            //                    item.Level = Convert.ToInt16(property.Value);
-            //                    break;
-            //                default:
-            //                    break;
-            //            }
-            //        }
-            //        randomAttackIslandItems.Add(item);
-            //    }
-            //}
-            //var query = from item in randomAttackIslandItems
-            //            orderby item.Level descending, item.Isdamaged descending
-            //            select item;
-            //return query.ToList();
-
             List<Item> itemTypes = new List<Item>();
             Item i = new Item();
             i.Name = "Animals";
@@ -1313,7 +1275,7 @@ namespace PKTool
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private string attackRandom(string key, JToken data)
+        private string attackRandom(String secretKey, String sessionToken, JToken data)
         {
             List<Item> itemTypes = getItemTypeAttack(data);
             String itemAttackName = "";
@@ -1327,8 +1289,8 @@ namespace PKTool
                 int idxItem = rnd.Next(0, 4);
                 itemAttackName = ARRITEMS[idxItem];
             }
-            String url = String.Format(URLATTACKRANDOM, key, itemAttackName, "?" + DateTime.Now.ToOADate().ToString());
-            return doGet(url);
+
+            return attackRandom(itemAttackName, secretKey, sessionToken);
         }
         /// <summary>
         /// 
@@ -1370,8 +1332,7 @@ namespace PKTool
                 friend.Id = txtFBID.Text.Trim();
                 String retLogin = setLogin(friend, false);
                 if (friend.Key == String.Empty) return null;
-                String urlWheel = String.Format(URLWHEEL, friend.Key, DateTime.Now.ToOADate().ToString());
-                String retWheel = doGet(urlWheel);
+                String retWheel = wheel(friend.Key, friend.SToken);
                 JToken jToken = JObject.Parse(retWheel);
                 int rank = 0;
                 try
@@ -1571,7 +1532,7 @@ namespace PKTool
         {
             var itemsDamaged = (from i in ITEMS
                                 orderby i.Level ascending
-                                where i.Isdamaged = true
+                                where i.Isdamaged == true
                                 select i).ToList();
             if (itemsDamaged.Count > 0 && cash >= itemsDamaged[0].Price)
             {
@@ -1587,6 +1548,84 @@ namespace PKTool
                 return true;
             }
             return false;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private String wheel(String secretKey, String sessionToken)
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLWHEEL, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("ExpectedResult", "NONE");
+            dic.Add("secretKey", secretKey);
+            dic.Add("sessionToken", sessionToken);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemType"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private String attackRandom(String itemType, String secretKey, String sessionToken)
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLATTACKRANDOM, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("ItemType", itemType);
+            dic.Add("secretKey", secretKey);
+            dic.Add("sessionToken", sessionToken);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stealIndex"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private String steal(int stealIndex, String secretKey, String sessionToken)
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLSTEAL, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("StealIndex", stealIndex);
+            dic.Add("FriendFBIDs", "[]");
+            dic.Add("secretKey", secretKey);
+            dic.Add("sessionToken", sessionToken);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemType"></param>
+        /// <returns></returns>
+        private String getItemName(String itemType)
+        {
+            //"Animals", "Nature", "Building", "Ships", "Artifacts"
+            switch (itemType)
+            {
+                case "Animals":
+                    return "Animal";
+                case "Nature":
+                    return "Nature";
+                case "Building":
+                    return "Building";
+                case "Ships":
+                    return "Ship";
+                case "Artifacts":
+                    return "Artifact";
+                default:
+                    return String.Empty;
+            }
         }
         #endregion
 
