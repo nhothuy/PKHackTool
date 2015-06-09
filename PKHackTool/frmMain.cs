@@ -822,8 +822,7 @@ namespace PKTool
             try
             {
                 //Re login to get cashking
-                if (lbFriends.SelectedItem == null) return;
-                String data = getDataLogin(FBID, JsonConvert.SerializeObject(new List<String> { ((Friend)lbFriends.SelectedItem).Id }));
+                String data = getDataLogin(FBID, JsonConvert.SerializeObject(FRIENDFBIDS));
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
                 String retLogin = doPost(urlLogin, data);
                 JToken jTokenLogin = JObject.Parse(retLogin);
@@ -1189,7 +1188,7 @@ namespace PKTool
         {
             if (friend.Key == String.Empty || friend.SToken == String.Empty)
             {
-                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> {FBID}));
+                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> {}));
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
                 String retLogin = doPost(urlLogin, data);
                 try
