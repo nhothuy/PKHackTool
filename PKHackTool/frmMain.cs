@@ -218,6 +218,8 @@ namespace PKTool
                         {
                             //finish
                             String retFinish = finish();
+                            //
+                            if (JObject.Parse(retFinish)["NewIslandShopPrice"] == null) break;
                             ITEMS = getItems(JObject.Parse(retFinish));
                             //
                             BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(JObject.Parse(retFinish)["NewIslandShopPrice"]["BasePrices"].ToString());
