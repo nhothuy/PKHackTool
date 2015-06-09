@@ -39,6 +39,7 @@
             this.btnAttack = new System.Windows.Forms.Button();
             this.lbAttackers = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkAutoUpgrade = new System.Windows.Forms.CheckBox();
             this.btnGet = new System.Windows.Forms.Button();
             this.avatarPre = new System.Windows.Forms.PictureBox();
             this.btnPlay = new System.Windows.Forms.Button();
@@ -48,19 +49,16 @@
             this.avatarNext = new System.Windows.Forms.PictureBox();
             this.avatar = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.txtFBID = new System.Windows.Forms.TextBox();
-            this.lbOther = new System.Windows.Forms.ListBox();
             this.nudNum = new System.Windows.Forms.NumericUpDown();
             this.btnRemove = new System.Windows.Forms.Button();
             this.rdoOther = new System.Windows.Forms.RadioButton();
             this.rdoByme = new System.Windows.Forms.RadioButton();
             this.rdoRandom = new System.Windows.Forms.RadioButton();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.txtFBID = new System.Windows.Forms.TextBox();
             this.btnKill = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtVictim = new System.Windows.Forms.TextBox();
-            this.chkSet = new System.Windows.Forms.CheckBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnView = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -69,9 +67,10 @@
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tab = new System.Windows.Forms.TabControl();
             this.tab1 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.tab2 = new System.Windows.Forms.TabPage();
             this.rtbRetIn = new System.Windows.Forms.RichTextBox();
-            this.chkAutoUpgrade = new System.Windows.Forms.CheckBox();
+            this.bntReLogin = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).BeginInit();
@@ -116,13 +115,13 @@
             this.lbFriends.FormattingEnabled = true;
             this.lbFriends.Location = new System.Drawing.Point(6, 31);
             this.lbFriends.Name = "lbFriends";
-            this.lbFriends.Size = new System.Drawing.Size(139, 342);
+            this.lbFriends.Size = new System.Drawing.Size(139, 316);
             this.lbFriends.TabIndex = 2;
             this.lbFriends.ValueMember = "Id";
             // 
             // btnSetVicTim
             // 
-            this.btnSetVicTim.Location = new System.Drawing.Point(6, 378);
+            this.btnSetVicTim.Location = new System.Drawing.Point(6, 354);
             this.btnSetVicTim.Name = "btnSetVicTim";
             this.btnSetVicTim.Size = new System.Drawing.Size(61, 23);
             this.btnSetVicTim.TabIndex = 3;
@@ -132,7 +131,7 @@
             // 
             // btnSetAttacker
             // 
-            this.btnSetAttacker.Location = new System.Drawing.Point(73, 378);
+            this.btnSetAttacker.Location = new System.Drawing.Point(73, 354);
             this.btnSetAttacker.Name = "btnSetAttacker";
             this.btnSetAttacker.Size = new System.Drawing.Size(72, 23);
             this.btnSetAttacker.TabIndex = 4;
@@ -142,7 +141,7 @@
             // 
             // btnAttack
             // 
-            this.btnAttack.Location = new System.Drawing.Point(242, 181);
+            this.btnAttack.Location = new System.Drawing.Point(7, 188);
             this.btnAttack.Name = "btnAttack";
             this.btnAttack.Size = new System.Drawing.Size(75, 23);
             this.btnAttack.TabIndex = 0;
@@ -156,7 +155,7 @@
             this.lbAttackers.FormattingEnabled = true;
             this.lbAttackers.Location = new System.Drawing.Point(168, 39);
             this.lbAttackers.Name = "lbAttackers";
-            this.lbAttackers.Size = new System.Drawing.Size(149, 108);
+            this.lbAttackers.Size = new System.Drawing.Size(149, 147);
             this.lbAttackers.TabIndex = 5;
             this.lbAttackers.ValueMember = "Id";
             // 
@@ -177,6 +176,16 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Play";
+            // 
+            // chkAutoUpgrade
+            // 
+            this.chkAutoUpgrade.AutoSize = true;
+            this.chkAutoUpgrade.Location = new System.Drawing.Point(7, 45);
+            this.chkAutoUpgrade.Name = "chkAutoUpgrade";
+            this.chkAutoUpgrade.Size = new System.Drawing.Size(92, 17);
+            this.chkAutoUpgrade.TabIndex = 31;
+            this.chkAutoUpgrade.Text = "Auto Upgrade";
+            this.chkAutoUpgrade.UseVisualStyleBackColor = true;
             // 
             // btnGet
             // 
@@ -260,10 +269,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnDelete);
-            this.groupBox2.Controls.Add(this.btnAdd);
-            this.groupBox2.Controls.Add(this.txtFBID);
-            this.groupBox2.Controls.Add(this.lbOther);
             this.groupBox2.Controls.Add(this.nudNum);
             this.groupBox2.Controls.Add(this.btnRemove);
             this.groupBox2.Controls.Add(this.rdoOther);
@@ -278,46 +283,9 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Attack";
             // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(94, 153);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(63, 23);
-            this.btnDelete.TabIndex = 6;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(116, 178);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(41, 23);
-            this.btnAdd.TabIndex = 10;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // txtFBID
-            // 
-            this.txtFBID.Location = new System.Drawing.Point(8, 180);
-            this.txtFBID.Name = "txtFBID";
-            this.txtFBID.Size = new System.Drawing.Size(104, 20);
-            this.txtFBID.TabIndex = 9;
-            // 
-            // lbOther
-            // 
-            this.lbOther.DisplayMember = "Name";
-            this.lbOther.FormattingEnabled = true;
-            this.lbOther.Location = new System.Drawing.Point(8, 39);
-            this.lbOther.Name = "lbOther";
-            this.lbOther.Size = new System.Drawing.Size(149, 108);
-            this.lbOther.TabIndex = 4;
-            this.lbOther.ValueMember = "Id";
-            // 
             // nudNum
             // 
-            this.nudNum.Location = new System.Drawing.Point(249, 15);
+            this.nudNum.Location = new System.Drawing.Point(249, 13);
             this.nudNum.Maximum = new decimal(new int[] {
             13,
             0,
@@ -334,7 +302,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(254, 155);
+            this.btnRemove.Location = new System.Drawing.Point(254, 188);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(63, 23);
             this.btnRemove.TabIndex = 7;
@@ -346,7 +314,7 @@
             // 
             this.rdoOther.AutoSize = true;
             this.rdoOther.Checked = true;
-            this.rdoOther.Location = new System.Drawing.Point(162, 18);
+            this.rdoOther.Location = new System.Drawing.Point(25, 47);
             this.rdoOther.Name = "rdoOther";
             this.rdoOther.Size = new System.Drawing.Size(51, 17);
             this.rdoOther.TabIndex = 2;
@@ -375,6 +343,23 @@
             this.rdoRandom.Text = "Random";
             this.rdoRandom.UseVisualStyleBackColor = true;
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(119, 398);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(27, 23);
+            this.btnAdd.TabIndex = 10;
+            this.btnAdd.Text = "+";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // txtFBID
+            // 
+            this.txtFBID.Location = new System.Drawing.Point(6, 399);
+            this.txtFBID.Name = "txtFBID";
+            this.txtFBID.Size = new System.Drawing.Size(113, 20);
+            this.txtFBID.TabIndex = 9;
+            // 
             // btnKill
             // 
             this.btnKill.Location = new System.Drawing.Point(220, 172);
@@ -396,23 +381,11 @@
             // 
             // txtVictim
             // 
-            this.txtVictim.Enabled = false;
             this.txtVictim.Location = new System.Drawing.Point(6, 423);
             this.txtVictim.Name = "txtVictim";
+            this.txtVictim.ReadOnly = true;
             this.txtVictim.Size = new System.Drawing.Size(139, 20);
             this.txtVictim.TabIndex = 6;
-            this.txtVictim.TextChanged += new System.EventHandler(this.txtVictim_TextChanged);
-            // 
-            // chkSet
-            // 
-            this.chkSet.AutoSize = true;
-            this.chkSet.Location = new System.Drawing.Point(6, 405);
-            this.chkSet.Name = "chkSet";
-            this.chkSet.Size = new System.Drawing.Size(61, 17);
-            this.chkSet.TabIndex = 5;
-            this.chkSet.Text = "Manual";
-            this.chkSet.UseVisualStyleBackColor = true;
-            this.chkSet.CheckedChanged += new System.EventHandler(this.chkSet_CheckedChanged);
             // 
             // btnClear
             // 
@@ -503,7 +476,11 @@
             // tab1
             // 
             this.tab1.BackColor = System.Drawing.SystemColors.Control;
+            this.tab1.Controls.Add(this.bntReLogin);
+            this.tab1.Controls.Add(this.label4);
             this.tab1.Controls.Add(this.lbFriends);
+            this.tab1.Controls.Add(this.btnAdd);
+            this.tab1.Controls.Add(this.txtFBID);
             this.tab1.Controls.Add(this.lblName);
             this.tab1.Controls.Add(this.label2);
             this.tab1.Controls.Add(this.btnSetAttacker);
@@ -513,7 +490,6 @@
             this.tab1.Controls.Add(this.btnSetVicTim);
             this.tab1.Controls.Add(this.btnKill);
             this.tab1.Controls.Add(this.txtVictim);
-            this.tab1.Controls.Add(this.chkSet);
             this.tab1.Controls.Add(this.groupBox1);
             this.tab1.Controls.Add(this.rtbRet);
             this.tab1.Location = new System.Drawing.Point(4, 22);
@@ -522,6 +498,15 @@
             this.tab1.Size = new System.Drawing.Size(751, 451);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "Play PK";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 381);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "Add from FBID";
             // 
             // tab2
             // 
@@ -546,15 +531,15 @@
             this.rtbRetIn.TabIndex = 1;
             this.rtbRetIn.Text = "";
             // 
-            // chkAutoUpgrade
+            // bntReLogin
             // 
-            this.chkAutoUpgrade.AutoSize = true;
-            this.chkAutoUpgrade.Location = new System.Drawing.Point(7, 45);
-            this.chkAutoUpgrade.Name = "chkAutoUpgrade";
-            this.chkAutoUpgrade.Size = new System.Drawing.Size(92, 17);
-            this.chkAutoUpgrade.TabIndex = 31;
-            this.chkAutoUpgrade.Text = "Auto Upgrade";
-            this.chkAutoUpgrade.UseVisualStyleBackColor = true;
+            this.bntReLogin.Location = new System.Drawing.Point(400, 3);
+            this.bntReLogin.Name = "bntReLogin";
+            this.bntReLogin.Size = new System.Drawing.Size(75, 23);
+            this.bntReLogin.TabIndex = 25;
+            this.bntReLogin.Text = "Refresh";
+            this.bntReLogin.UseVisualStyleBackColor = true;
+            this.bntReLogin.Click += new System.EventHandler(this.bntReLogin_Click);
             // 
             // frmMain
             // 
@@ -612,7 +597,6 @@
         private System.Windows.Forms.RadioButton rdoOther;
         private System.Windows.Forms.RadioButton rdoByme;
         private System.Windows.Forms.TextBox txtVictim;
-        private System.Windows.Forms.CheckBox chkSet;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.NumericUpDown nudNum;
@@ -620,10 +604,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListBox lbOther;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox txtFBID;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnGet;
         private System.Windows.Forms.PictureBox avatarPre;
         private System.Windows.Forms.PictureBox avatarNext;
@@ -634,6 +616,8 @@
         private System.Windows.Forms.TabPage tab2;
         private System.Windows.Forms.RichTextBox rtbRetIn;
         private System.Windows.Forms.CheckBox chkAutoUpgrade;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button bntReLogin;
         
     }
 }

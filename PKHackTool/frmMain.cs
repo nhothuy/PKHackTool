@@ -60,6 +60,7 @@ namespace PKTool
         private List<Int32> BASEPRICES = new List<Int32>();
         private List<double> PRICESTEPS = new List<double>();
         private List<Item> ITEMS = new List<Item>();
+        private List<String> FRIENDFBIDS = new List<string>();
         #endregion
 
         #region "INIT"
@@ -566,7 +567,7 @@ namespace PKTool
             foreach (var friend in lst)
             {
                 //
-                String data = getDataLogin(friend.Id, BUSINESSTOKEN, ACCESSTOKEN, "[]");
+                String data = getDataLogin(friend.Id);
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
                 String ret = doPost(urlLogin, data);
                 try
@@ -676,17 +677,6 @@ namespace PKTool
                                 attackers.Add(att);
                             }
                         }
-                        //Other
-                        if (lbOther.Items.Count > 0)
-                        {
-                            List<Friend> lst = new List<Friend>();
-                            foreach (Friend f in lbOther.Items)
-                            {
-                                lst.Add(f);
-                            }
-                            //
-                            attackers.AddRange(lst);
-                        }
                     }
                     Dictionary<string, object> data = new Dictionary<string, object>();
                     data.Add("attackers", attackers);
@@ -707,15 +697,6 @@ namespace PKTool
             btnSetAttacker.Enabled = rdoOther.Checked;
             btnRemove.Enabled = rdoOther.Checked;
             lbAttackers.Enabled = rdoOther.Checked;
-            //
-            lbOther.Enabled = rdoOther.Checked;
-            btnDelete.Enabled = rdoOther.Checked;
-            txtFBID.Enabled = rdoOther.Checked;
-            btnAdd.Enabled = rdoOther.Checked;
-        }
-        private void chkSet_CheckedChanged(object sender, EventArgs e)
-        {
-            txtVictim.Enabled = chkSet.Checked;
         }
         private void btnRemove_Click(object sender, EventArgs e)
         {
@@ -798,7 +779,10 @@ namespace PKTool
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (txtFBID.Text.Trim() == String.Empty) return;
-            if (checkInAttakerOthers(txtFBID.Text.Trim())) return;
+            var lstGet = (from i in FRIENDS
+                                where i.Id == txtFBID.Text.Trim()
+                                select i).ToList();
+            if (lstGet.Count > 0) return;
             Friend att = getFriendByFBID(txtFBID.Text.Trim());
             if (att == null)
             {
@@ -807,29 +791,15 @@ namespace PKTool
             }
             else
             {
-                lbOther.Items.Add(att);
-                lbOther.Refresh();
+                att.Index = FRIENDS.Count + 1;
+                FRIENDS.Add(att);
+                lbFriends.DataSource = null;
+                lbFriends.ValueMember = "Name";
+                lbFriends.DataSource = FRIENDS;
+                lbFriends.Refresh();
+                FRIENDFBIDS.Add(txtFBID.Text.Trim());
+                txtFBID.Text = att.Name;
             }
-        }
-        private void txtVictim_TextChanged(object sender, EventArgs e)
-        {
-            if (!chkSet.Checked) return;
-            Friend victim = getFriendByFBID(txtVictim.Text.Trim());
-            if (victim == null)
-            {
-                MessageBox.Show("Invalid FBID.");
-                txtVictim.Text = String.Empty;
-            }
-            else
-            {
-                VICTIM = victim;
-            }
-        }
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (lbOther.SelectedItem == null) return;
-            lbOther.Items.Remove(lbOther.SelectedItem);
-            lbOther.Refresh();
         }
         private void btnGet_Click(object sender, EventArgs e)
         {
@@ -869,21 +839,21 @@ namespace PKTool
         /// <param name="aToken"></param>
         /// <param name="fbids"></param>
         /// <returns></returns>
-        private string getDataLogin(String fbId, String bToken, String aToken, String fbids)
+        private string getDataLogin(String fbId)
         {
             Dictionary<string, object> dicResult = new Dictionary<string, object>();
             dicResult.Add("CampaignReferral", "");
             dicResult.Add("DeviceToken", null);
-            dicResult.Add("Email", "thuyln@vnext.vn");
+            dicResult.Add("Email", "nhothuy48cb@gmail.com");
             dicResult.Add("FBID", fbId);
-            dicResult.Add("FBName", "nhothuy48cb");
-            dicResult.Add("FriendFBIDs", fbids);
+            dicResult.Add("FBName", "Thuy Nho");
+            dicResult.Add("FriendFBIDs", JsonConvert.SerializeObject(FRIENDFBIDS));
             dicResult.Add("GCID", null);
             dicResult.Add("GameVersion", 215);
             dicResult.Add("Platform", 2);
             dicResult.Add("UDID", "108a61cda531152f01e5436ba1a5b4fcf0acc23f");
-            dicResult.Add("BusinessToken", bToken);
-            dicResult.Add("AccessToken", aToken);
+            dicResult.Add("BusinessToken", BUSINESSTOKEN);
+            dicResult.Add("AccessToken", ACCESSTOKEN);
             return JsonConvert.SerializeObject(dicResult);
         }
         /// <summary>
@@ -1197,7 +1167,7 @@ namespace PKTool
         {
             if (friend.Key == String.Empty || friend.SToken == String.Empty)
             {
-                String data = getDataLogin(friend.Id, BUSINESSTOKEN, ACCESSTOKEN, "[]");
+                String data = getDataLogin(friend.Id);
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
                 String retLogin = doPost(urlLogin, data);
                 try
@@ -1291,19 +1261,6 @@ namespace PKTool
             }
 
             return attackRandom(itemAttackName, secretKey, sessionToken);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private bool checkInAttakerOthers(String fbID)
-        {
-            if (lbOther.Items.Count == 0) return false;
-            foreach (Friend f in lbOther.Items)
-            {
-                if (f.Id == fbID.Trim()) return true;
-            }
-            return false;
         }
         /// <summary>
         /// 
@@ -1504,7 +1461,7 @@ namespace PKTool
             String ret = String.Empty;
             String url = String.Format(URLFINISH, DateTime.Now.ToOADate().ToString());
             Dictionary<string, object> dic = new Dictionary<string, object>();
-            dic.Add("FriendFBIDs", "[]");
+            dic.Add("FriendFBIDs", JsonConvert.SerializeObject(FRIENDFBIDS));
             dic.Add("secretKey", SECRETKEY);
             dic.Add("sessionToken", SESSIONTOKEN);
             dic.Add("businessToken", BUSINESSTOKEN);
@@ -1596,7 +1553,7 @@ namespace PKTool
             String url = String.Format(URLSTEAL, DateTime.Now.ToOADate().ToString());
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("StealIndex", stealIndex);
-            dic.Add("FriendFBIDs", "[]");
+            dic.Add("FriendFBIDs", JsonConvert.SerializeObject(FRIENDFBIDS));
             dic.Add("secretKey", secretKey);
             dic.Add("sessionToken", sessionToken);
             dic.Add("businessToken", BUSINESSTOKEN);
@@ -1696,6 +1653,7 @@ namespace PKTool
                     shutdowFiddlerApp();
                     JToken jTokenReq = JObject.Parse(dic["reqBody"].ToString());
                     JToken jTokenResp = JObject.Parse(dic["respBody"].ToString());
+                    FRIENDFBIDS = JsonConvert.DeserializeObject<List<String>>(jTokenReq["FriendFBIDs"].ToString());
                     getFriends(jTokenResp);
                     ITEMS = getItems(jTokenResp);
                     BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(jTokenResp["IslandShopPrice"]["BasePrices"].ToString());
@@ -1724,5 +1682,27 @@ namespace PKTool
             if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
         }
         #endregion
+
+        private void bntReLogin_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Re login to get cashking
+                String data = getDataLogin(FBID);
+                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
+                String retLogin = doPost(urlLogin, data);
+                JToken jTokenLogin = JObject.Parse(retLogin);
+                //
+                SECRETKEY = jTokenLogin["Key"].ToString();
+                SESSIONTOKEN = jTokenLogin["SessionToken"].ToString();
+                //
+                String infoRet = "PlayerState" + "\r\n" + jTokenLogin["PlayerState"].ToString() + "\r\n" + "Island" + "\r\n" + jTokenLogin["Island"].ToString();
+                displayInfo("RE LOGIN", infoRet);
+            }
+            catch
+            { 
+            
+            }
+        }
     }
 }
