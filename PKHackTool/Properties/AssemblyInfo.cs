@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Pirate King hack tool")]
 [assembly: AssemblyDescription("Pirate King hack tool")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("V-next")]
+[assembly: AssemblyCompany("nhothuy48cb@gmail.com")]
 [assembly: AssemblyProduct("PKHackTool")]
 [assembly: AssemblyCopyright("Copyright ©  2015 - nhothuy48cb@gmail.com")]
 [assembly: AssemblyTrademark("")]
