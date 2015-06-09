@@ -40,10 +40,13 @@
             this.lbAttackers = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnGet = new System.Windows.Forms.Button();
+            this.avatarPre = new System.Windows.Forms.PictureBox();
             this.btnPlay = new System.Windows.Forms.Button();
             this.chkFull = new System.Windows.Forms.CheckBox();
             this.chkAutoSteal = new System.Windows.Forms.CheckBox();
             this.chkAutoAttack = new System.Windows.Forms.CheckBox();
+            this.avatarNext = new System.Windows.Forms.PictureBox();
+            this.avatar = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -63,20 +66,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.avatarPre = new System.Windows.Forms.PictureBox();
-            this.avatarNext = new System.Windows.Forms.PictureBox();
-            this.avatar = new System.Windows.Forms.PictureBox();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tab = new System.Windows.Forms.TabControl();
             this.tab1 = new System.Windows.Forms.TabPage();
             this.tab2 = new System.Windows.Forms.TabPage();
             this.rtbRetIn = new System.Windows.Forms.RichTextBox();
+            this.chkAutoUpgrade = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatar)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudNum)).BeginInit();
             this.tab.SuspendLayout();
             this.tab1.SuspendLayout();
             this.tab2.SuspendLayout();
@@ -161,6 +162,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkAutoUpgrade);
             this.groupBox1.Controls.Add(this.btnGet);
             this.groupBox1.Controls.Add(this.avatarPre);
             this.groupBox1.Controls.Add(this.btnPlay);
@@ -171,7 +173,7 @@
             this.groupBox1.Controls.Add(this.avatar);
             this.groupBox1.Location = new System.Drawing.Point(151, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(325, 122);
+            this.groupBox1.Size = new System.Drawing.Size(325, 143);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Play";
@@ -185,6 +187,16 @@
             this.btnGet.Text = "Play";
             this.btnGet.UseVisualStyleBackColor = true;
             this.btnGet.Click += new System.EventHandler(this.btnGet_Click);
+            // 
+            // avatarPre
+            // 
+            this.avatarPre.Location = new System.Drawing.Point(57, 70);
+            this.avatarPre.Name = "avatarPre";
+            this.avatarPre.Size = new System.Drawing.Size(64, 64);
+            this.avatarPre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.avatarPre.TabIndex = 30;
+            this.avatarPre.TabStop = false;
+            this.avatarPre.Visible = false;
             // 
             // btnPlay
             // 
@@ -225,6 +237,26 @@
             this.chkAutoAttack.TabIndex = 0;
             this.chkAutoAttack.Text = "Auto attack";
             this.chkAutoAttack.UseVisualStyleBackColor = true;
+            // 
+            // avatarNext
+            // 
+            this.avatarNext.Location = new System.Drawing.Point(210, 70);
+            this.avatarNext.Name = "avatarNext";
+            this.avatarNext.Size = new System.Drawing.Size(64, 64);
+            this.avatarNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.avatarNext.TabIndex = 29;
+            this.avatarNext.TabStop = false;
+            this.avatarNext.Visible = false;
+            // 
+            // avatar
+            // 
+            this.avatar.Location = new System.Drawing.Point(134, 70);
+            this.avatar.Name = "avatar";
+            this.avatar.Size = new System.Drawing.Size(64, 64);
+            this.avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.avatar.TabIndex = 28;
+            this.avatar.TabStop = false;
+            this.avatar.Visible = false;
             // 
             // groupBox2
             // 
@@ -345,7 +377,7 @@
             // 
             // btnKill
             // 
-            this.btnKill.Location = new System.Drawing.Point(220, 163);
+            this.btnKill.Location = new System.Drawing.Point(220, 172);
             this.btnKill.Name = "btnKill";
             this.btnKill.Size = new System.Drawing.Size(62, 23);
             this.btnKill.TabIndex = 9;
@@ -394,7 +426,7 @@
             // 
             // btnView
             // 
-            this.btnView.Location = new System.Drawing.Point(151, 163);
+            this.btnView.Location = new System.Drawing.Point(151, 172);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(62, 23);
             this.btnView.TabIndex = 8;
@@ -428,36 +460,6 @@
             this.label3.Size = new System.Drawing.Size(30, 13);
             this.label3.TabIndex = 27;
             this.label3.Text = "Logs";
-            // 
-            // avatarPre
-            // 
-            this.avatarPre.Location = new System.Drawing.Point(57, 48);
-            this.avatarPre.Name = "avatarPre";
-            this.avatarPre.Size = new System.Drawing.Size(64, 64);
-            this.avatarPre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.avatarPre.TabIndex = 30;
-            this.avatarPre.TabStop = false;
-            this.avatarPre.Visible = false;
-            // 
-            // avatarNext
-            // 
-            this.avatarNext.Location = new System.Drawing.Point(210, 48);
-            this.avatarNext.Name = "avatarNext";
-            this.avatarNext.Size = new System.Drawing.Size(64, 64);
-            this.avatarNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.avatarNext.TabIndex = 29;
-            this.avatarNext.TabStop = false;
-            this.avatarNext.Visible = false;
-            // 
-            // avatar
-            // 
-            this.avatar.Location = new System.Drawing.Point(134, 48);
-            this.avatar.Name = "avatar";
-            this.avatar.Size = new System.Drawing.Size(64, 64);
-            this.avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.avatar.TabIndex = 28;
-            this.avatar.TabStop = false;
-            this.avatar.Visible = false;
             // 
             // imageList
             // 
@@ -544,6 +546,16 @@
             this.rtbRetIn.TabIndex = 1;
             this.rtbRetIn.Text = "";
             // 
+            // chkAutoUpgrade
+            // 
+            this.chkAutoUpgrade.AutoSize = true;
+            this.chkAutoUpgrade.Location = new System.Drawing.Point(7, 45);
+            this.chkAutoUpgrade.Name = "chkAutoUpgrade";
+            this.chkAutoUpgrade.Size = new System.Drawing.Size(92, 17);
+            this.chkAutoUpgrade.TabIndex = 31;
+            this.chkAutoUpgrade.Text = "Auto Upgrade";
+            this.chkAutoUpgrade.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -562,12 +574,12 @@
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPre)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatar)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudNum)).EndInit();
             this.tab.ResumeLayout(false);
             this.tab1.ResumeLayout(false);
             this.tab1.PerformLayout();
@@ -621,6 +633,7 @@
         private System.Windows.Forms.TabPage tab1;
         private System.Windows.Forms.TabPage tab2;
         private System.Windows.Forms.RichTextBox rtbRetIn;
+        private System.Windows.Forms.CheckBox chkAutoUpgrade;
         
     }
 }

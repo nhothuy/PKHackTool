@@ -54,6 +54,12 @@ namespace PKTool
         private const String URLATTACKRANDOM = "http://prod.cashkinggame.com/CKService.svc/attack/random/{0}/{1}{2}";
         private const String URLVIEW = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/view/friend/?";
         private const String URLSTEAL = "http://prod.cashkinggame.com/CKService.svc/v2/attack/steal/?";
+        private const String URLUPGRADE = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/upgrade/?{0}";
+        private const String URLREPAIR = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/repair/?{0}";
+        private const String URLFINISH = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/finish/?{0}";
+        private List<Int32> BASEPRICES = new List<Int32>();
+        private List<double> PRICESTEPS = new List<double>();
+        private List<Item> ITEMS = new List<Item>();
         #endregion
 
         #region "INIT"
@@ -107,6 +113,7 @@ namespace PKTool
             Boolean isAttackRandom = Convert.ToBoolean(dic["isAttackRandom"]);
             Boolean isStealAuto = Convert.ToBoolean(dic["isStealAuto"]);
             Boolean isFullShields = Convert.ToBoolean(dic["isFullShields"]);
+            Boolean isAutoUpgrade = Convert.ToBoolean(dic["isAutoUpgrade"]);
             String urlWheel = String.Format(URLWHEEL, SECRETKEY, DateTime.Now.ToOADate().ToString());
             while (true)
             {
@@ -117,6 +124,64 @@ namespace PKTool
                 int shields = Convert.ToInt16(data["PlayerState"]["Shields"]);
                 String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
                 String cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", data["PlayerState"]["CashKing"]["FBID"], data["PlayerState"]["CashKing"]["Name"], data["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(data["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
+                Int64 cash = Convert.ToInt64(data["PlayerState"]["Cash"]);
+                //if (isAutoUpgrade)
+                //{
+                //    //repair
+                //    var itemsDamaged = (from i in ITEMS
+                //                        orderby i.Level ascending
+                //                        where i.Isdamaged = true
+                //                        select i).ToList();
+                //    if (itemsDamaged.Count > 0 && cash >= itemsDamaged[0].Price)
+                //    {
+                //        while (true)
+                //        {
+                //            String retRepair = repair(itemsDamaged[0].Name);
+                //            ITEMS = getItems(JObject.Parse(retRepair));
+                //            setPrices(ITEMS);
+                //            cash = cash - itemsDamaged[0].Price;
+                //            itemsDamaged = (from i in ITEMS
+                //                            orderby i.Level ascending
+                //                            where i.Isdamaged = true
+                //                            select i).ToList();
+                //            if (itemsDamaged.Count == 0 || cash < itemsDamaged[0].Price)
+                //            {
+                //                break;
+                //            }
+                //        }
+                //    }
+                //    //upgrade
+                //    var itemsUpgrade = (from i in ITEMS
+                //                        orderby i.Price ascending
+                //                        where i.Level < 5
+                //                        select i).ToList();
+                //    if (itemsUpgrade.Count > 0 && cash >= itemsUpgrade[0].Price)
+                //    {
+                //        while (true)
+                //        {
+                //            String retUpgrade = upgrade(itemsUpgrade[0].Name);
+                //            ITEMS = getItems(JObject.Parse(retUpgrade));
+                //            setPrices(ITEMS);
+                //            cash = cash - itemsDamaged[0].Price;
+                //            itemsUpgrade = (from i in ITEMS
+                //                            orderby i.Price ascending
+                //                            where i.Level < 5
+                //                            select i).ToList();
+                //            if (itemsUpgrade.Count == 0 || cash < itemsUpgrade[0].Price)
+                //            {
+                //                break;
+                //            }
+                //        }
+                //    }
+                //    //finish
+                //    if (isFinish())
+                //    {
+                //        //finish
+                //        String retFinish = finish();
+                //        ITEMS = getItems(JObject.Parse(retFinish));
+                //        setPrices(ITEMS);
+                //    }
+                //}
                 if (wheelResult == 6)
                 {
                     String stealInfo = steal(SECRETKEY, data, isStealAuto);
@@ -362,7 +427,6 @@ namespace PKTool
                         List<Item> itemTypes = getItemTypeAttack(victim.Id);
                         if (itemTypes.Count == 0)
                         {
-                            count = count + 1;
                             M_ATTACK.ReportProgress(100);
                             e.Result = 1;
                             return;
@@ -377,6 +441,7 @@ namespace PKTool
                         }
                         if (wheelResult == 7)
                         {
+                            count = count + 1;
                             String ret = attackFriend(attacker, victim.Id, itemTypes[0].Name);
                             JToken jToken = JObject.Parse(ret);
                             M_ATTACK.ReportProgress(50, "Attacker: " + attacker.Name + "\r\n" + String.Format("GoldGained: {0} Result: {1}", Convert.ToInt64(jToken["GoldGained"].ToString()).ToString("#,#", CultureInfo.InvariantCulture), jToken["Result"].ToString()));
@@ -671,6 +736,7 @@ namespace PKTool
                     dic.Add("isAttackRandom", chkAutoAttack.Checked);
                     dic.Add("isStealAuto", chkAutoSteal.Checked);
                     dic.Add("isFullShields", chkFull.Checked);
+                    dic.Add("isAutoUpgrade", chkAutoUpgrade.Checked);
                     M_PLAY.RunWorkerAsync(dic);
                     break;
                 case "CANCEL":
@@ -1356,6 +1422,131 @@ namespace PKTool
             {
             }
         }
+        /// <summary>
+        /// Damaged, Level
+        /// </summary>
+        /// <param name="jToken"></param>
+        /// <returns></returns>
+        private List<Item> getItems(JToken jToken)
+        {
+            List<Item> items = new List<Item>();
+            //0
+            Item item = new Item();
+            item.Index = 0;
+            item.Name = "Artifacts";
+            item.Level = Convert.ToInt32(jToken["Island"]["Artifact"]["Level"]);
+            item.Isdamaged = Convert.ToBoolean(jToken["Island"]["Artifact"]["IsDamaged"]);
+            items.Add(item);
+            //1
+            item = new Item();
+            item.Index = 1;
+            item.Name = "Nature";
+            item.Level = Convert.ToInt32(jToken["Island"]["Nature"]["Level"]);
+            item.Isdamaged = Convert.ToBoolean(jToken["Island"]["Nature"]["IsDamaged"]);
+            items.Add(item);
+            //2
+            item = new Item();
+            item.Index = 2;
+            item.Name = "Ships";
+            item.Level = Convert.ToInt32(jToken["Island"]["Ship"]["Level"]);
+            item.Isdamaged = Convert.ToBoolean(jToken["Island"]["Ship"]["IsDamaged"]);
+            items.Add(item);
+            //3
+            item = new Item();
+            item.Index = 3;
+            item.Name = "Building";
+            item.Level = Convert.ToInt32(jToken["Island"]["Building"]["Level"]);
+            item.Isdamaged = Convert.ToBoolean(jToken["Island"]["Building"]["IsDamaged"]);
+            items.Add(item);
+            //4
+            item = new Item();
+            item.Index = 3;
+            item.Name = "Animals";
+            item.Level = Convert.ToInt32(jToken["Island"]["Animal"]["Level"]);
+            item.Isdamaged = Convert.ToBoolean(jToken["Island"]["Animal"]["IsDamaged"]);
+            items.Add(item);
+
+            return items;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="basePrices"></param>
+        /// <param name="priceSteps"></param>
+        private void setPrices(List<Item> items)
+        {
+            foreach (Item item in items)
+            {
+                Int32 basePrice = BASEPRICES[item.Index];
+                double priceStep = BASEPRICES[item.Index];
+                Int32 price = Convert.ToInt32(basePrice * (1 + item.Level * priceStep));
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemType"></param>
+        /// <returns></returns>
+        private String upgrade(String itemType)
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLUPGRADE, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("ItemType", itemType);
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);            
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemType"></param>
+        /// <returns></returns>
+        private String repair(String itemType)
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLREPAIR, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("ItemType", itemType);
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private String finish()
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLFINISH, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("FriendFBIDs", "[]");
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        /// <summary>
+        /// Check finish 
+        /// </summary>
+        /// <returns></returns>
+        private bool isFinish()
+        {
+            var items = (from i in ITEMS
+                         orderby i.Level ascending
+                         where i.Isdamaged == false && i.Level == 5
+                         select i).ToList();
+            return items.Count == 5;
+        }
         #endregion
 
         #region "FIDDLERAPP"
@@ -1426,6 +1617,10 @@ namespace PKTool
                     JToken jTokenReq = JObject.Parse(dic["reqBody"].ToString());
                     JToken jTokenResp = JObject.Parse(dic["respBody"].ToString());
                     getFriends(jTokenResp);
+                    //ITEMS = getItems(jTokenResp);
+                    //BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(jTokenReq["IslandShopPrice"]["BasePrices"].ToString());
+                    //PRICESTEPS = JsonConvert.DeserializeObject<List<double>>(jTokenReq["IslandShopPrice"]["PriceSteps"].ToString());
+                    //setPrices(ITEMS);
                     BUSINESSTOKEN = jTokenReq["BusinessToken"].ToString();
                     ACCESSTOKEN = jTokenReq["AccessToken"].ToString();
                     FBID = jTokenReq["FBID"].ToString();
