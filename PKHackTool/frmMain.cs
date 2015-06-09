@@ -567,7 +567,7 @@ namespace PKTool
             foreach (var friend in lst)
             {
                 //
-                String data = getDataLogin(friend.Id);
+                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> { FBID }));
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
                 String ret = doPost(urlLogin, data);
                 try
@@ -793,11 +793,11 @@ namespace PKTool
             {
                 att.Index = FRIENDS.Count + 1;
                 FRIENDS.Add(att);
+                FRIENDFBIDS.Insert(0, att.Id);
                 lbFriends.DataSource = null;
                 lbFriends.ValueMember = "Name";
                 lbFriends.DataSource = FRIENDS;
                 lbFriends.Refresh();
-                FRIENDFBIDS.Add(txtFBID.Text.Trim());
                 txtFBID.Text = att.Name;
             }
         }
@@ -815,6 +815,27 @@ namespace PKTool
             }
             catch
             {
+            }
+        }
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Re login to get cashking
+                String data = getDataLogin(FBID, JsonConvert.SerializeObject(FRIENDFBIDS));
+                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
+                String retLogin = doPost(urlLogin, data);
+                JToken jTokenLogin = JObject.Parse(retLogin);
+                //
+                SECRETKEY = jTokenLogin["Key"].ToString();
+                SESSIONTOKEN = jTokenLogin["SessionToken"].ToString();
+                //
+                String infoRet = "PlayerState" + "\r\n" + jTokenLogin["PlayerState"].ToString() + "\r\n" + "Island" + "\r\n" + jTokenLogin["Island"].ToString();
+                displayInfo("REFRESH", infoRet);
+            }
+            catch
+            {
+
             }
         }
         #endregion
@@ -839,7 +860,7 @@ namespace PKTool
         /// <param name="aToken"></param>
         /// <param name="fbids"></param>
         /// <returns></returns>
-        private string getDataLogin(String fbId)
+        private string getDataLogin(String fbId, String friendFBIDs)
         {
             Dictionary<string, object> dicResult = new Dictionary<string, object>();
             dicResult.Add("CampaignReferral", "");
@@ -847,7 +868,7 @@ namespace PKTool
             dicResult.Add("Email", "nhothuy48cb@gmail.com");
             dicResult.Add("FBID", fbId);
             dicResult.Add("FBName", "Thuy Nho");
-            dicResult.Add("FriendFBIDs", JsonConvert.SerializeObject(FRIENDFBIDS));
+            dicResult.Add("FriendFBIDs", friendFBIDs);
             dicResult.Add("GCID", null);
             dicResult.Add("GameVersion", 215);
             dicResult.Add("Platform", 2);
@@ -1167,7 +1188,7 @@ namespace PKTool
         {
             if (friend.Key == String.Empty || friend.SToken == String.Empty)
             {
-                String data = getDataLogin(friend.Id);
+                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> {}));
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
                 String retLogin = doPost(urlLogin, data);
                 try
@@ -1553,7 +1574,14 @@ namespace PKTool
             String url = String.Format(URLSTEAL, DateTime.Now.ToOADate().ToString());
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("StealIndex", stealIndex);
-            dic.Add("FriendFBIDs", JsonConvert.SerializeObject(FRIENDFBIDS));
+            if (secretKey == SECRETKEY)
+            {
+                dic.Add("FriendFBIDs", JsonConvert.SerializeObject(FRIENDFBIDS));
+            }
+            else
+            {
+                dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { }));
+            }
             dic.Add("secretKey", secretKey);
             dic.Add("sessionToken", sessionToken);
             dic.Add("businessToken", BUSINESSTOKEN);
@@ -1683,26 +1711,8 @@ namespace PKTool
         }
         #endregion
 
-        private void bntReLogin_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //Re login to get cashking
-                String data = getDataLogin(FBID);
-                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
-                String retLogin = doPost(urlLogin, data);
-                JToken jTokenLogin = JObject.Parse(retLogin);
-                //
-                SECRETKEY = jTokenLogin["Key"].ToString();
-                SESSIONTOKEN = jTokenLogin["SessionToken"].ToString();
-                //
-                String infoRet = "PlayerState" + "\r\n" + jTokenLogin["PlayerState"].ToString() + "\r\n" + "Island" + "\r\n" + jTokenLogin["Island"].ToString();
-                displayInfo("RE LOGIN", infoRet);
-            }
-            catch
-            { 
-            
-            }
-        }
+        
+
+        
     }
 }

@@ -67,10 +67,10 @@
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tab = new System.Windows.Forms.TabControl();
             this.tab1 = new System.Windows.Forms.TabPage();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tab2 = new System.Windows.Forms.TabPage();
             this.rtbRetIn = new System.Windows.Forms.RichTextBox();
-            this.bntReLogin = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).BeginInit();
@@ -476,7 +476,7 @@
             // tab1
             // 
             this.tab1.BackColor = System.Drawing.SystemColors.Control;
-            this.tab1.Controls.Add(this.bntReLogin);
+            this.tab1.Controls.Add(this.btnRefresh);
             this.tab1.Controls.Add(this.label4);
             this.tab1.Controls.Add(this.lbFriends);
             this.tab1.Controls.Add(this.btnAdd);
@@ -498,6 +498,16 @@
             this.tab1.Size = new System.Drawing.Size(751, 451);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "Play PK";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(401, 3);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 26;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // label4
             // 
@@ -530,16 +540,6 @@
             this.rtbRetIn.Size = new System.Drawing.Size(208, 395);
             this.rtbRetIn.TabIndex = 1;
             this.rtbRetIn.Text = "";
-            // 
-            // bntReLogin
-            // 
-            this.bntReLogin.Location = new System.Drawing.Point(400, 3);
-            this.bntReLogin.Name = "bntReLogin";
-            this.bntReLogin.Size = new System.Drawing.Size(75, 23);
-            this.bntReLogin.TabIndex = 25;
-            this.bntReLogin.Text = "Refresh";
-            this.bntReLogin.UseVisualStyleBackColor = true;
-            this.bntReLogin.Click += new System.EventHandler(this.bntReLogin_Click);
             // 
             // frmMain
             // 
@@ -617,7 +617,7 @@
         private System.Windows.Forms.RichTextBox rtbRetIn;
         private System.Windows.Forms.CheckBox chkAutoUpgrade;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button bntReLogin;
+        private System.Windows.Forms.Button btnRefresh;
         
     }
 }
