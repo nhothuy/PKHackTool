@@ -793,7 +793,7 @@ namespace PKTool
             {
                 att.Index = FRIENDS.Count + 1;
                 FRIENDS.Add(att);
-                FRIENDFBIDS.Insert(0, att.Id);
+                FRIENDFBIDS.Add(att.Id);
                 lbFriends.DataSource = null;
                 lbFriends.ValueMember = "Name";
                 lbFriends.DataSource = FRIENDS;
@@ -1188,7 +1188,7 @@ namespace PKTool
         {
             if (friend.Key == String.Empty || friend.SToken == String.Empty)
             {
-                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> {}));
+                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> {FBID}));
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
                 String retLogin = doPost(urlLogin, data);
                 try
