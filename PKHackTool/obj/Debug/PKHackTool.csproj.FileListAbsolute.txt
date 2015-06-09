@@ -80,3 +80,4 @@ E:\Working\Projects\PKHackTool\PKHackTool\obj\Debug\PKTool.frmMain.resources
 E:\Working\Projects\PKHackTool\PKHackTool\obj\Debug\PKTool.Properties.Resources.resources
 E:\Working\Projects\PKHackTool\PKHackTool\obj\Debug\PKHackTool.csproj.GenerateResource.Cache
 E:\Working\Projects\PKHackTool\PKHackTool\obj\Debug\PKHackTool.csprojResolveAssemblyReference.cache
+D:\Working\P\PKHackTool\PKHackTool\obj\Debug\PKHackTool.csprojResolveAssemblyReference.cache
