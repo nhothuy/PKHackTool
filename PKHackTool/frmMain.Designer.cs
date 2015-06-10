@@ -74,6 +74,8 @@
             this.gbBonus = new System.Windows.Forms.GroupBox();
             this.btnVideo = new System.Windows.Forms.Button();
             this.btnInvite = new System.Windows.Forms.Button();
+            this.btnSpinSlot = new System.Windows.Forms.Button();
+            this.btnOpen = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).BeginInit();
@@ -548,6 +550,8 @@
             // 
             // gbBonus
             // 
+            this.gbBonus.Controls.Add(this.btnOpen);
+            this.gbBonus.Controls.Add(this.btnSpinSlot);
             this.gbBonus.Controls.Add(this.btnInvite);
             this.gbBonus.Controls.Add(this.btnVideo);
             this.gbBonus.Location = new System.Drawing.Point(151, 167);
@@ -559,7 +563,7 @@
             // 
             // btnVideo
             // 
-            this.btnVideo.Location = new System.Drawing.Point(201, 19);
+            this.btnVideo.Location = new System.Drawing.Point(205, 19);
             this.btnVideo.Name = "btnVideo";
             this.btnVideo.Size = new System.Drawing.Size(55, 23);
             this.btnVideo.TabIndex = 0;
@@ -576,6 +580,26 @@
             this.btnInvite.Text = "Invite";
             this.btnInvite.UseVisualStyleBackColor = true;
             this.btnInvite.Click += new System.EventHandler(this.btnInvite_Click);
+            // 
+            // btnSpinSlot
+            // 
+            this.btnSpinSlot.Location = new System.Drawing.Point(148, 19);
+            this.btnSpinSlot.Name = "btnSpinSlot";
+            this.btnSpinSlot.Size = new System.Drawing.Size(55, 23);
+            this.btnSpinSlot.TabIndex = 2;
+            this.btnSpinSlot.Text = "Spin slot";
+            this.btnSpinSlot.UseVisualStyleBackColor = true;
+            this.btnSpinSlot.Click += new System.EventHandler(this.btnSpinSlot_Click);
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.Location = new System.Drawing.Point(69, 19);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(78, 23);
+            this.btnOpen.TabIndex = 3;
+            this.btnOpen.Text = "Open chest";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // frmMain
             // 
@@ -657,6 +681,8 @@
         private System.Windows.Forms.GroupBox gbBonus;
         private System.Windows.Forms.Button btnVideo;
         private System.Windows.Forms.Button btnInvite;
+        private System.Windows.Forms.Button btnOpen;
+        private System.Windows.Forms.Button btnSpinSlot;
         
     }
 }

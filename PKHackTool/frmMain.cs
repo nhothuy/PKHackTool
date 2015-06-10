@@ -60,6 +60,8 @@ namespace PKTool
         private const String URLINVITEBONUS = "http://prod.cashkinggame.com/CKService.svc/v3.0/invite/complete/?{0}";
         private const String URLVIDEOCLAIMBONUS = "http://prod.cashkinggame.com/CKService.svc/v3.0/incentivized/video/claimbonus/?{0}";
         private const String URLCOMPLETEDUPGRADE = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/upgrade/?{0}";
+        private const String URLSPINSLOT = "http://prod.cashkinggame.com/CKService.svc/v3.0/spin/slot/?{0}";
+        private const String URLSLOTCHEST = "http://prod.cashkinggame.com/CKService.svc/v3.0/slot/chest/?{0}";
         ////private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/name/?{0}";
         ////private const String URLISLANDCOMPLETEDCLAIM = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/claim/?{0}";
         private List<Int32> BASEPRICES = new List<Int32>();
@@ -879,6 +881,36 @@ namespace PKTool
                 JToken token = JObject.Parse(ret);
                 JToken jToken = JObject.Parse(ret);
                 displayInfo("INVITE COMPLETE", jToken.ToString());
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SECRETKEY == String.Empty) return;
+                String ret = openChest();
+                JToken jToken = JObject.Parse(ret);
+                displayInfo("Open Chest", jToken.ToString());
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnSpinSlot_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SECRETKEY == String.Empty) return;
+                String ret = spinSlot();
+                JToken jToken = JObject.Parse(ret);
+                displayInfo("SPIN SLOT", jToken.ToString());
             }
             catch
             {
@@ -1706,6 +1738,37 @@ namespace PKTool
             ret = doPost(url, JsonConvert.SerializeObject(dic));
             return ret;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private String spinSlot()
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLSPINSLOT, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private String openChest()
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLSLOTCHEST, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
         #endregion
         #region "FIDDLERAPP"
         /// <summary>
@@ -1803,6 +1866,8 @@ namespace PKTool
             if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
         }
         #endregion
+
+        
 
         
     }
