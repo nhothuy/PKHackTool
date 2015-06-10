@@ -1713,8 +1713,28 @@ namespace PKTool
         }
         #endregion
 
-        
-
-        
+        //private const String URLINVITEBONUS = "http://prod.cashkinggame.com/CKService.svc/v3.0/invite/complete/?{0}";
+        //private const String URLVIDEOCLAIMBONUS = "http://prod.cashkinggame.com/CKService.svc/v3.0/invite/complete/?{0}";
+        //private const String URLCHEAT = "http://prod.cashkinggame.com/CKService.svc/v3.0/cheat/?{0}";
+        ////private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/name/?{0}";
+        ////private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/claim/?{0}";
+        //private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/upgrade/?{0}";
+        ////v3.0/island/completed/claim
+        ////islandIndex
+        //private void btnInviteBonus_Click(object sender, EventArgs e)
+        //{
+        //    String ret = String.Empty;
+        //    String url = String.Format(URLCHANGENAME, DateTime.Now.ToOADate().ToString());
+        //    Dictionary<string, object> dic = new Dictionary<string, object>();
+        //    dic.Add("secretKey", SECRETKEY);
+        //    dic.Add("sessionToken", SESSIONTOKEN);
+        //    dic.Add("businessToken", BUSINESSTOKEN);
+        //    dic.Add("islandIndex", 21);
+        //    //islandIndex
+        //    //dic.Add("newName", "FakeMoney");
+        //    //dic.Add("newAvatar", "0");
+        //    ret = doPost(url, JsonConvert.SerializeObject(dic));
+        //    displayInfo("RECEIVE FULL INVITE BONUS", ret);
+        //}
     }
 }
