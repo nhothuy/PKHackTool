@@ -946,7 +946,7 @@ namespace PKTool
             dicResult.Add("DeviceToken", null);
             dicResult.Add("Email", "nhothuy48cb@gmail.com");
             dicResult.Add("FBID", fbId);
-            dicResult.Add("FBName", "Thuy Nho");
+            dicResult.Add("FBName", "nhothuy48cb");
             dicResult.Add("FriendFBIDs", friendFBIDs);
             dicResult.Add("GCID", null);
             dicResult.Add("GameVersion", 215);
@@ -1770,6 +1770,7 @@ namespace PKTool
             return ret;
         }
         #endregion
+
         #region "FIDDLERAPP"
         /// <summary>
         /// 
@@ -1866,9 +1867,5 @@ namespace PKTool
             if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
         }
         #endregion
-
-        
-
-        
     }
 }
