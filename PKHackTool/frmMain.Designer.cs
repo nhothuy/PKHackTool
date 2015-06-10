@@ -71,6 +71,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tab2 = new System.Windows.Forms.TabPage();
             this.rtbRetIn = new System.Windows.Forms.RichTextBox();
+            this.gbBonus = new System.Windows.Forms.GroupBox();
+            this.btnVideo = new System.Windows.Forms.Button();
+            this.btnInvite = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).BeginInit();
@@ -80,6 +83,7 @@
             this.tab.SuspendLayout();
             this.tab1.SuspendLayout();
             this.tab2.SuspendLayout();
+            this.gbBonus.SuspendLayout();
             this.SuspendLayout();
             // 
             // rtbRet
@@ -88,7 +92,7 @@
             this.rtbRet.Name = "rtbRet";
             this.rtbRet.ReadOnly = true;
             this.rtbRet.Size = new System.Drawing.Size(261, 383);
-            this.rtbRet.TabIndex = 11;
+            this.rtbRet.TabIndex = 13;
             this.rtbRet.Text = "";
             // 
             // btnHTML
@@ -116,7 +120,7 @@
             this.lbFriends.Location = new System.Drawing.Point(6, 31);
             this.lbFriends.Name = "lbFriends";
             this.lbFriends.Size = new System.Drawing.Size(139, 316);
-            this.lbFriends.TabIndex = 2;
+            this.lbFriends.TabIndex = 0;
             this.lbFriends.ValueMember = "Id";
             // 
             // btnSetVicTim
@@ -124,7 +128,7 @@
             this.btnSetVicTim.Location = new System.Drawing.Point(6, 354);
             this.btnSetVicTim.Name = "btnSetVicTim";
             this.btnSetVicTim.Size = new System.Drawing.Size(61, 23);
-            this.btnSetVicTim.TabIndex = 3;
+            this.btnSetVicTim.TabIndex = 1;
             this.btnSetVicTim.Text = "Victim";
             this.btnSetVicTim.UseVisualStyleBackColor = true;
             this.btnSetVicTim.Click += new System.EventHandler(this.btnSetVicTim_Click);
@@ -134,17 +138,17 @@
             this.btnSetAttacker.Location = new System.Drawing.Point(73, 354);
             this.btnSetAttacker.Name = "btnSetAttacker";
             this.btnSetAttacker.Size = new System.Drawing.Size(72, 23);
-            this.btnSetAttacker.TabIndex = 4;
+            this.btnSetAttacker.TabIndex = 2;
             this.btnSetAttacker.Text = "Attacker";
             this.btnSetAttacker.UseVisualStyleBackColor = true;
             this.btnSetAttacker.Click += new System.EventHandler(this.btnSetAttacker_Click);
             // 
             // btnAttack
             // 
-            this.btnAttack.Location = new System.Drawing.Point(7, 188);
+            this.btnAttack.Location = new System.Drawing.Point(7, 153);
             this.btnAttack.Name = "btnAttack";
             this.btnAttack.Size = new System.Drawing.Size(75, 23);
-            this.btnAttack.TabIndex = 0;
+            this.btnAttack.TabIndex = 5;
             this.btnAttack.Text = "Attack";
             this.btnAttack.UseVisualStyleBackColor = true;
             this.btnAttack.Click += new System.EventHandler(this.btnAttack_Click);
@@ -155,8 +159,8 @@
             this.lbAttackers.FormattingEnabled = true;
             this.lbAttackers.Location = new System.Drawing.Point(168, 39);
             this.lbAttackers.Name = "lbAttackers";
-            this.lbAttackers.Size = new System.Drawing.Size(149, 147);
-            this.lbAttackers.TabIndex = 5;
+            this.lbAttackers.Size = new System.Drawing.Size(149, 108);
+            this.lbAttackers.TabIndex = 4;
             this.lbAttackers.ValueMember = "Id";
             // 
             // groupBox1
@@ -172,8 +176,8 @@
             this.groupBox1.Controls.Add(this.avatar);
             this.groupBox1.Location = new System.Drawing.Point(151, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(325, 143);
-            this.groupBox1.TabIndex = 7;
+            this.groupBox1.Size = new System.Drawing.Size(325, 138);
+            this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Play";
             // 
@@ -183,7 +187,7 @@
             this.chkAutoUpgrade.Location = new System.Drawing.Point(7, 45);
             this.chkAutoUpgrade.Name = "chkAutoUpgrade";
             this.chkAutoUpgrade.Size = new System.Drawing.Size(92, 17);
-            this.chkAutoUpgrade.TabIndex = 31;
+            this.chkAutoUpgrade.TabIndex = 5;
             this.chkAutoUpgrade.Text = "Auto Upgrade";
             this.chkAutoUpgrade.UseVisualStyleBackColor = true;
             // 
@@ -199,7 +203,7 @@
             // 
             // avatarPre
             // 
-            this.avatarPre.Location = new System.Drawing.Point(57, 70);
+            this.avatarPre.Location = new System.Drawing.Point(57, 66);
             this.avatarPre.Name = "avatarPre";
             this.avatarPre.Size = new System.Drawing.Size(64, 64);
             this.avatarPre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -249,7 +253,7 @@
             // 
             // avatarNext
             // 
-            this.avatarNext.Location = new System.Drawing.Point(210, 70);
+            this.avatarNext.Location = new System.Drawing.Point(210, 66);
             this.avatarNext.Name = "avatarNext";
             this.avatarNext.Size = new System.Drawing.Size(64, 64);
             this.avatarNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -259,7 +263,7 @@
             // 
             // avatar
             // 
-            this.avatar.Location = new System.Drawing.Point(134, 70);
+            this.avatar.Location = new System.Drawing.Point(134, 66);
             this.avatar.Name = "avatar";
             this.avatar.Size = new System.Drawing.Size(64, 64);
             this.avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -276,10 +280,10 @@
             this.groupBox2.Controls.Add(this.rdoRandom);
             this.groupBox2.Controls.Add(this.lbAttackers);
             this.groupBox2.Controls.Add(this.btnAttack);
-            this.groupBox2.Location = new System.Drawing.Point(151, 198);
+            this.groupBox2.Location = new System.Drawing.Point(151, 256);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(325, 216);
-            this.groupBox2.TabIndex = 10;
+            this.groupBox2.Size = new System.Drawing.Size(325, 179);
+            this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Attack";
             // 
@@ -293,7 +297,7 @@
             0});
             this.nudNum.Name = "nudNum";
             this.nudNum.Size = new System.Drawing.Size(68, 20);
-            this.nudNum.TabIndex = 3;
+            this.nudNum.TabIndex = 2;
             this.nudNum.Value = new decimal(new int[] {
             2,
             0,
@@ -302,10 +306,10 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(254, 188);
+            this.btnRemove.Location = new System.Drawing.Point(254, 153);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(63, 23);
-            this.btnRemove.TabIndex = 7;
+            this.btnRemove.TabIndex = 6;
             this.btnRemove.Text = "Delete";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
@@ -317,7 +321,7 @@
             this.rdoOther.Location = new System.Drawing.Point(25, 47);
             this.rdoOther.Name = "rdoOther";
             this.rdoOther.Size = new System.Drawing.Size(51, 17);
-            this.rdoOther.TabIndex = 2;
+            this.rdoOther.TabIndex = 3;
             this.rdoOther.TabStop = true;
             this.rdoOther.Text = "Other";
             this.rdoOther.UseVisualStyleBackColor = true;
@@ -358,14 +362,14 @@
             this.txtFBID.Location = new System.Drawing.Point(6, 399);
             this.txtFBID.Name = "txtFBID";
             this.txtFBID.Size = new System.Drawing.Size(113, 20);
-            this.txtFBID.TabIndex = 9;
+            this.txtFBID.TabIndex = 4;
             // 
             // btnKill
             // 
-            this.btnKill.Location = new System.Drawing.Point(220, 172);
+            this.btnKill.Location = new System.Drawing.Point(220, 230);
             this.btnKill.Name = "btnKill";
             this.btnKill.Size = new System.Drawing.Size(62, 23);
-            this.btnKill.TabIndex = 9;
+            this.btnKill.TabIndex = 11;
             this.btnKill.Text = "Kill spin";
             this.btnKill.UseVisualStyleBackColor = true;
             this.btnKill.Click += new System.EventHandler(this.btnKill_Click);
@@ -385,24 +389,24 @@
             this.txtVictim.Name = "txtVictim";
             this.txtVictim.ReadOnly = true;
             this.txtVictim.Size = new System.Drawing.Size(139, 20);
-            this.txtVictim.TabIndex = 6;
+            this.txtVictim.TabIndex = 5;
             // 
             // btnClear
             // 
             this.btnClear.Location = new System.Drawing.Point(684, 420);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(59, 23);
-            this.btnClear.TabIndex = 23;
+            this.btnClear.TabIndex = 14;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnView
             // 
-            this.btnView.Location = new System.Drawing.Point(151, 172);
+            this.btnView.Location = new System.Drawing.Point(151, 230);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(62, 23);
-            this.btnView.TabIndex = 8;
+            this.btnView.TabIndex = 10;
             this.btnView.Text = "View";
             this.btnView.UseVisualStyleBackColor = true;
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
@@ -471,11 +475,12 @@
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
             this.tab.Size = new System.Drawing.Size(759, 477);
-            this.tab.TabIndex = 1;
+            this.tab.TabIndex = 0;
             // 
             // tab1
             // 
             this.tab1.BackColor = System.Drawing.SystemColors.Control;
+            this.tab1.Controls.Add(this.gbBonus);
             this.tab1.Controls.Add(this.btnRefresh);
             this.tab1.Controls.Add(this.label4);
             this.tab1.Controls.Add(this.lbFriends);
@@ -504,7 +509,7 @@
             this.btnRefresh.Location = new System.Drawing.Point(401, 3);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 26;
+            this.btnRefresh.TabIndex = 6;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
@@ -515,7 +520,7 @@
             this.label4.Location = new System.Drawing.Point(7, 381);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 13);
-            this.label4.TabIndex = 24;
+            this.label4.TabIndex = 3;
             this.label4.Text = "Add from FBID";
             // 
             // tab2
@@ -540,6 +545,37 @@
             this.rtbRetIn.Size = new System.Drawing.Size(208, 395);
             this.rtbRetIn.TabIndex = 1;
             this.rtbRetIn.Text = "";
+            // 
+            // gbBonus
+            // 
+            this.gbBonus.Controls.Add(this.btnInvite);
+            this.gbBonus.Controls.Add(this.btnVideo);
+            this.gbBonus.Location = new System.Drawing.Point(151, 167);
+            this.gbBonus.Name = "gbBonus";
+            this.gbBonus.Size = new System.Drawing.Size(325, 57);
+            this.gbBonus.TabIndex = 9;
+            this.gbBonus.TabStop = false;
+            this.gbBonus.Text = "Get bonus";
+            // 
+            // btnVideo
+            // 
+            this.btnVideo.Location = new System.Drawing.Point(201, 19);
+            this.btnVideo.Name = "btnVideo";
+            this.btnVideo.Size = new System.Drawing.Size(55, 23);
+            this.btnVideo.TabIndex = 0;
+            this.btnVideo.Text = "Video";
+            this.btnVideo.UseVisualStyleBackColor = true;
+            this.btnVideo.Click += new System.EventHandler(this.btnVideo_Click);
+            // 
+            // btnInvite
+            // 
+            this.btnInvite.Location = new System.Drawing.Point(262, 19);
+            this.btnInvite.Name = "btnInvite";
+            this.btnInvite.Size = new System.Drawing.Size(55, 23);
+            this.btnInvite.TabIndex = 1;
+            this.btnInvite.Text = "Invite";
+            this.btnInvite.UseVisualStyleBackColor = true;
+            this.btnInvite.Click += new System.EventHandler(this.btnInvite_Click);
             // 
             // frmMain
             // 
@@ -569,6 +605,7 @@
             this.tab1.PerformLayout();
             this.tab2.ResumeLayout(false);
             this.tab2.PerformLayout();
+            this.gbBonus.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -617,6 +654,9 @@
         private System.Windows.Forms.CheckBox chkAutoUpgrade;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.GroupBox gbBonus;
+        private System.Windows.Forms.Button btnVideo;
+        private System.Windows.Forms.Button btnInvite;
         
     }
 }

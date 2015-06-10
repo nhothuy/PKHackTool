@@ -57,6 +57,11 @@ namespace PKTool
         private const String URLUPGRADE = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/upgrade/?{0}";
         private const String URLREPAIR = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/repair/?{0}";
         private const String URLFINISH = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/finish/?{0}";
+        private const String URLINVITEBONUS = "http://prod.cashkinggame.com/CKService.svc/v3.0/invite/complete/?{0}";
+        private const String URLVIDEOCLAIMBONUS = "http://prod.cashkinggame.com/CKService.svc/v3.0/incentivized/video/claimbonus/?{0}";
+        private const String URLCOMPLETEDUPGRADE = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/upgrade/?{0}";
+        ////private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/name/?{0}";
+        ////private const String URLISLANDCOMPLETEDCLAIM = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/claim/?{0}";
         private List<Int32> BASEPRICES = new List<Int32>();
         private List<double> PRICESTEPS = new List<double>();
         private List<Item> ITEMS = new List<Item>();
@@ -219,13 +224,22 @@ namespace PKTool
                             //finish
                             String retFinish = finish();
                             //
-                            if (JObject.Parse(retFinish)["NewIslandShopPrice"] == null) break;
-                            ITEMS = getItems(JObject.Parse(retFinish));
+                            JToken jTokenFinish = JObject.Parse(retFinish);
+                            if (Convert.ToInt32(jTokenFinish["ErrorCode"]) == 113)
+                            {
+                                Data info = new Data();
+                                info.Msg = "All finish, next island coming soon...";
+                                M_PLAY.ReportProgress(100, info);
+                                return;
+                            }
+                            ITEMS = getItems(jTokenFinish);
                             //
                             BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(JObject.Parse(retFinish)["NewIslandShopPrice"]["BasePrices"].ToString());
                             PRICESTEPS = JsonConvert.DeserializeObject<List<double>>(JObject.Parse(retFinish)["NewIslandShopPrice"]["PriceSteps"].ToString());
                             //
                             setPrices(ITEMS);
+                            //
+
                         }
                         //
                         if (!isNextUpgrade(cash)) break;
@@ -824,6 +838,7 @@ namespace PKTool
             try
             {
                 //Re login to get cashking
+                if (SECRETKEY == String.Empty) return;
                 String data = getDataLogin(FBID, JsonConvert.SerializeObject(FRIENDFBIDS));
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
                 String retLogin = doPost(urlLogin, data);
@@ -834,6 +849,36 @@ namespace PKTool
                 //
                 String infoRet = "PlayerState" + "\r\n" + jTokenLogin["PlayerState"].ToString() + "\r\n" + "Island" + "\r\n" + jTokenLogin["Island"].ToString();
                 displayInfo("REFRESH", infoRet);
+            }
+            catch
+            {
+
+            }
+        }
+        private void btnVideo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SECRETKEY == String.Empty) return;
+                String ret = videoClaimbonus();
+                JToken jToken = JObject.Parse(ret);
+                displayInfo("VIDEO CLAIM BONUS", jToken.ToString());
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnInvite_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SECRETKEY == String.Empty) return;
+                String ret = inviteComplete();
+                JToken token = JObject.Parse(ret);
+                JToken jToken = JObject.Parse(ret);
+                displayInfo("INVITE COMPLETE", jToken.ToString());
             }
             catch
             {
@@ -1614,8 +1659,54 @@ namespace PKTool
                     return String.Empty;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private String inviteComplete()
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLINVITEBONUS, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private String videoClaimbonus()
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLVIDEOCLAIMBONUS, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="islandIndex"></param>
+        /// <returns></returns>
+        private String completedUpgrade(Int32 islandIndex)
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLCOMPLETEDUPGRADE, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            dic.Add("islandIndex", islandIndex);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
         #endregion
-
         #region "FIDDLERAPP"
         /// <summary>
         /// 
@@ -1713,28 +1804,6 @@ namespace PKTool
         }
         #endregion
 
-        //private const String URLINVITEBONUS = "http://prod.cashkinggame.com/CKService.svc/v3.0/invite/complete/?{0}";
-        //private const String URLVIDEOCLAIMBONUS = "http://prod.cashkinggame.com/CKService.svc/v3.0/invite/complete/?{0}";
-        //private const String URLCHEAT = "http://prod.cashkinggame.com/CKService.svc/v3.0/cheat/?{0}";
-        ////private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/name/?{0}";
-        ////private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/claim/?{0}";
-        //private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/upgrade/?{0}";
-        ////v3.0/island/completed/claim
-        ////islandIndex
-        //private void btnInviteBonus_Click(object sender, EventArgs e)
-        //{
-        //    String ret = String.Empty;
-        //    String url = String.Format(URLCHANGENAME, DateTime.Now.ToOADate().ToString());
-        //    Dictionary<string, object> dic = new Dictionary<string, object>();
-        //    dic.Add("secretKey", SECRETKEY);
-        //    dic.Add("sessionToken", SESSIONTOKEN);
-        //    dic.Add("businessToken", BUSINESSTOKEN);
-        //    dic.Add("islandIndex", 21);
-        //    //islandIndex
-        //    //dic.Add("newName", "FakeMoney");
-        //    //dic.Add("newAvatar", "0");
-        //    ret = doPost(url, JsonConvert.SerializeObject(dic));
-        //    displayInfo("RECEIVE FULL INVITE BONUS", ret);
-        //}
+        
     }
 }
