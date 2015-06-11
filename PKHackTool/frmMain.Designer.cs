@@ -67,15 +67,14 @@
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tab = new System.Windows.Forms.TabControl();
             this.tab1 = new System.Windows.Forms.TabPage();
-            this.btnRefresh = new System.Windows.Forms.Button();
+            this.gbBonus = new System.Windows.Forms.GroupBox();
+            this.btnOpen = new System.Windows.Forms.Button();
+            this.btnSpinSlot = new System.Windows.Forms.Button();
+            this.btnInvite = new System.Windows.Forms.Button();
+            this.btnVideo = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tab2 = new System.Windows.Forms.TabPage();
             this.rtbRetIn = new System.Windows.Forms.RichTextBox();
-            this.gbBonus = new System.Windows.Forms.GroupBox();
-            this.btnVideo = new System.Windows.Forms.Button();
-            this.btnInvite = new System.Windows.Forms.Button();
-            this.btnSpinSlot = new System.Windows.Forms.Button();
-            this.btnOpen = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).BeginInit();
@@ -84,8 +83,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudNum)).BeginInit();
             this.tab.SuspendLayout();
             this.tab1.SuspendLayout();
-            this.tab2.SuspendLayout();
             this.gbBonus.SuspendLayout();
+            this.tab2.SuspendLayout();
             this.SuspendLayout();
             // 
             // rtbRet
@@ -483,7 +482,6 @@
             // 
             this.tab1.BackColor = System.Drawing.SystemColors.Control;
             this.tab1.Controls.Add(this.gbBonus);
-            this.tab1.Controls.Add(this.btnRefresh);
             this.tab1.Controls.Add(this.label4);
             this.tab1.Controls.Add(this.lbFriends);
             this.tab1.Controls.Add(this.btnAdd);
@@ -506,15 +504,58 @@
             this.tab1.TabIndex = 0;
             this.tab1.Text = "Play PK";
             // 
-            // btnRefresh
+            // gbBonus
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(401, 3);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 6;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.gbBonus.Controls.Add(this.btnOpen);
+            this.gbBonus.Controls.Add(this.btnSpinSlot);
+            this.gbBonus.Controls.Add(this.btnInvite);
+            this.gbBonus.Controls.Add(this.btnVideo);
+            this.gbBonus.Location = new System.Drawing.Point(151, 167);
+            this.gbBonus.Name = "gbBonus";
+            this.gbBonus.Size = new System.Drawing.Size(325, 57);
+            this.gbBonus.TabIndex = 9;
+            this.gbBonus.TabStop = false;
+            this.gbBonus.Text = "Get bonus";
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.Location = new System.Drawing.Point(69, 19);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(78, 23);
+            this.btnOpen.TabIndex = 3;
+            this.btnOpen.Text = "Open chest";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
+            // btnSpinSlot
+            // 
+            this.btnSpinSlot.Location = new System.Drawing.Point(148, 19);
+            this.btnSpinSlot.Name = "btnSpinSlot";
+            this.btnSpinSlot.Size = new System.Drawing.Size(55, 23);
+            this.btnSpinSlot.TabIndex = 2;
+            this.btnSpinSlot.Text = "Spin slot";
+            this.btnSpinSlot.UseVisualStyleBackColor = true;
+            this.btnSpinSlot.Click += new System.EventHandler(this.btnSpinSlot_Click);
+            // 
+            // btnInvite
+            // 
+            this.btnInvite.Location = new System.Drawing.Point(262, 19);
+            this.btnInvite.Name = "btnInvite";
+            this.btnInvite.Size = new System.Drawing.Size(55, 23);
+            this.btnInvite.TabIndex = 1;
+            this.btnInvite.Text = "Invite";
+            this.btnInvite.UseVisualStyleBackColor = true;
+            this.btnInvite.Click += new System.EventHandler(this.btnInvite_Click);
+            // 
+            // btnVideo
+            // 
+            this.btnVideo.Location = new System.Drawing.Point(205, 19);
+            this.btnVideo.Name = "btnVideo";
+            this.btnVideo.Size = new System.Drawing.Size(55, 23);
+            this.btnVideo.TabIndex = 0;
+            this.btnVideo.Text = "Video";
+            this.btnVideo.UseVisualStyleBackColor = true;
+            this.btnVideo.Click += new System.EventHandler(this.btnVideo_Click);
             // 
             // label4
             // 
@@ -548,59 +589,6 @@
             this.rtbRetIn.TabIndex = 1;
             this.rtbRetIn.Text = "";
             // 
-            // gbBonus
-            // 
-            this.gbBonus.Controls.Add(this.btnOpen);
-            this.gbBonus.Controls.Add(this.btnSpinSlot);
-            this.gbBonus.Controls.Add(this.btnInvite);
-            this.gbBonus.Controls.Add(this.btnVideo);
-            this.gbBonus.Location = new System.Drawing.Point(151, 167);
-            this.gbBonus.Name = "gbBonus";
-            this.gbBonus.Size = new System.Drawing.Size(325, 57);
-            this.gbBonus.TabIndex = 9;
-            this.gbBonus.TabStop = false;
-            this.gbBonus.Text = "Get bonus";
-            // 
-            // btnVideo
-            // 
-            this.btnVideo.Location = new System.Drawing.Point(205, 19);
-            this.btnVideo.Name = "btnVideo";
-            this.btnVideo.Size = new System.Drawing.Size(55, 23);
-            this.btnVideo.TabIndex = 0;
-            this.btnVideo.Text = "Video";
-            this.btnVideo.UseVisualStyleBackColor = true;
-            this.btnVideo.Click += new System.EventHandler(this.btnVideo_Click);
-            // 
-            // btnInvite
-            // 
-            this.btnInvite.Location = new System.Drawing.Point(262, 19);
-            this.btnInvite.Name = "btnInvite";
-            this.btnInvite.Size = new System.Drawing.Size(55, 23);
-            this.btnInvite.TabIndex = 1;
-            this.btnInvite.Text = "Invite";
-            this.btnInvite.UseVisualStyleBackColor = true;
-            this.btnInvite.Click += new System.EventHandler(this.btnInvite_Click);
-            // 
-            // btnSpinSlot
-            // 
-            this.btnSpinSlot.Location = new System.Drawing.Point(148, 19);
-            this.btnSpinSlot.Name = "btnSpinSlot";
-            this.btnSpinSlot.Size = new System.Drawing.Size(55, 23);
-            this.btnSpinSlot.TabIndex = 2;
-            this.btnSpinSlot.Text = "Spin slot";
-            this.btnSpinSlot.UseVisualStyleBackColor = true;
-            this.btnSpinSlot.Click += new System.EventHandler(this.btnSpinSlot_Click);
-            // 
-            // btnOpen
-            // 
-            this.btnOpen.Location = new System.Drawing.Point(69, 19);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(78, 23);
-            this.btnOpen.TabIndex = 3;
-            this.btnOpen.Text = "Open chest";
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -627,9 +615,9 @@
             this.tab.ResumeLayout(false);
             this.tab1.ResumeLayout(false);
             this.tab1.PerformLayout();
+            this.gbBonus.ResumeLayout(false);
             this.tab2.ResumeLayout(false);
             this.tab2.PerformLayout();
-            this.gbBonus.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -677,7 +665,6 @@
         private System.Windows.Forms.RichTextBox rtbRetIn;
         private System.Windows.Forms.CheckBox chkAutoUpgrade;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.GroupBox gbBonus;
         private System.Windows.Forms.Button btnVideo;
         private System.Windows.Forms.Button btnInvite;
