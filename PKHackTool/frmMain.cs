@@ -43,7 +43,7 @@ namespace PKTool
         private const Int32 RANKPOINT_STEAL = 200;
         private List<Int32> IDATTACKER = new List<int>();
         private Friend VICTIM = null;
-        private List<String> NAMEVIPS = new List<string>(new String[] {"THUY NHO", "NHOKHOA"});
+        private List<String> NAMEVIPS = new List<string>(new String[] { "THUY NHO", "NHOKHOA" });
         private List<String> FIDVIPS = new List<string>(new String[] { "10153223750579791", "917613761592912" });
         private String NAME = String.Empty;
         private String FBID = String.Empty;
