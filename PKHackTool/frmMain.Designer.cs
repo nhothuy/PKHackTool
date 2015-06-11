@@ -562,9 +562,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(7, 381);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Add from FBID";
+            this.label4.Text = "Add from PKID";
             // 
             // tab2
             // 
