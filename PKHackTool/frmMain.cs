@@ -1265,7 +1265,7 @@ namespace PKTool
             {
                 try
                 {
-                    steal(lstKeysOrder[0].Index, secretKey, sessionToken);
+                    retSteal = steal(lstKeysOrder[0].Index, secretKey, sessionToken);
                 }
                 catch
                 {
@@ -1817,13 +1817,13 @@ namespace PKTool
         /// </summary>
         /// <param name="data"></param>
         private void setIslandIndex(JToken data) {
-            if (data["CompletedIslandsData"] != null)
+            if (data["IslandCompletions"] != null)
             {
-                List<CompletedIslandsData> completedIsland = JsonConvert.DeserializeObject<List<CompletedIslandsData>>(data["CompletedIslandsData"].ToString());
+                List<IslandCompletions> completedIsland = JsonConvert.DeserializeObject<List<IslandCompletions>>(data["IslandCompletions"].ToString());
                 var datas = (from i in completedIsland
-                                    orderby i.IslandIndex descending
-                                    select i).ToList();
-                ISLANDINDEX = datas[0].IslandIndex;
+                             orderby i.IslandLevel descending
+                                select i).ToList();
+                ISLANDINDEX = datas[0].IslandLevel;
             }
         }
         #endregion
