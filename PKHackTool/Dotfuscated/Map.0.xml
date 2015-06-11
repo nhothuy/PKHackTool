@@ -2,7 +2,7 @@
 <!DOCTYPE dotfuscatorMap SYSTEM "http://www.preemptive.com/dotfuscator/dtd/dotfuscatorMap_v1.2.dtd">
 <dotfuscatorMap version="1.1">
     <header>
-        <timestamp>2015-06-11T10:57:48</timestamp>
+        <timestamp>2015-06-11T09:22:30</timestamp>
         <product version="5.5.4521.29298" user="Unregistered " serial="000-00-000-391">Dotfuscator and Analytics Community Edition</product>
     </header>
     <mapping>
@@ -613,11 +613,6 @@
                         <newname>k</newname>
                     </method>
                     <method>
-                        <signature>bool()</signature>
-                        <name>checkStartUp</name>
-                        <newname>d</newname>
-                    </method>
-                    <method>
                         <signature>string(int32)</signature>
                         <name>completedUpgrade</name>
                         <newname>a</newname>
@@ -653,7 +648,7 @@
                     <method>
                         <signature>string()</signature>
                         <name>finish</name>
-                        <newname>j</newname>
+                        <newname>i</newname>
                     </method>
                     <method>
                         <signature>void(object, System.Windows.Forms.FormClosingEventArgs)</signature>
@@ -668,7 +663,7 @@
                     <method>
                         <signature>PKTool.UrlCaptureConfiguration()</signature>
                         <name>get_CaptureConfiguration</name>
-                        <newname>k</newname>
+                        <newname>j</newname>
                     </method>
                     <method>
                         <signature>string(string, string)</signature>
@@ -723,12 +718,12 @@
                     <method>
                         <signature>string()</signature>
                         <name>inviteComplete</name>
-                        <newname>h</newname>
+                        <newname>g</newname>
                     </method>
                     <method>
                         <signature>bool()</signature>
                         <name>isFinish</name>
-                        <newname>i</newname>
+                        <newname>h</newname>
                     </method>
                     <method>
                         <signature>string(string)</signature>
@@ -803,7 +798,7 @@
                     <method>
                         <signature>string()</signature>
                         <name>openChest</name>
-                        <newname>e</newname>
+                        <newname>d</newname>
                     </method>
                     <method>
                         <signature>void(object, System.EventArgs)</signature>
@@ -838,7 +833,7 @@
                     <method>
                         <signature>string()</signature>
                         <name>spinSlot</name>
-                        <newname>f</newname>
+                        <newname>e</newname>
                     </method>
                     <method>
                         <signature>void()</signature>
@@ -863,7 +858,7 @@
                     <method>
                         <signature>string()</signature>
                         <name>videoClaimbonus</name>
-                        <newname>g</newname>
+                        <newname>f</newname>
                     </method>
                     <method>
                         <signature>string(string, string)</signature>
@@ -880,7 +875,7 @@
                     <field>
                         <signature>string</signature>
                         <name>ACCESSTOKEN</name>
-                        <newname>v</newname>
+                        <newname>u</newname>
                     </field>
                     <field>
                         <signature>string[]</signature>
@@ -985,7 +980,7 @@
                     <field>
                         <signature>string</signature>
                         <name>BUSINESSTOKEN</name>
-                        <newname>u</newname>
+                        <newname>t</newname>
                     </field>
                     <field>
                         <signature>string</signature>
@@ -1155,7 +1150,7 @@
                     <field>
                         <signature>System.Collections.Generic.List`1&lt;PKTool.Friend&gt;</signature>
                         <name>FRIENDS</name>
-                        <newname>y</newname>
+                        <newname>x</newname>
                     </field>
                     <field>
                         <signature>System.Windows.Forms.GroupBox</signature>
@@ -1175,7 +1170,7 @@
                     <field>
                         <signature>System.Collections.Generic.List`1&lt;int32&gt;</signature>
                         <name>IDATTACKER</name>
-                        <newname>ad</newname>
+                        <newname>ac</newname>
                     </field>
                     <field>
                         <signature>System.Windows.Forms.ImageList</signature>
@@ -1225,27 +1220,32 @@
                     <field>
                         <signature>System.ComponentModel.BackgroundWorker</signature>
                         <name>M_ATTACK</name>
-                        <newname>ac</newname>
+                        <newname>ab</newname>
                     </field>
                     <field>
                         <signature>System.ComponentModel.BackgroundWorker</signature>
                         <name>M_KILL</name>
-                        <newname>aa</newname>
-                    </field>
-                    <field>
-                        <signature>System.ComponentModel.BackgroundWorker</signature>
-                        <name>M_OWORKER</name>
                         <newname>z</newname>
                     </field>
                     <field>
                         <signature>System.ComponentModel.BackgroundWorker</signature>
+                        <name>M_OWORKER</name>
+                        <newname>y</newname>
+                    </field>
+                    <field>
+                        <signature>System.ComponentModel.BackgroundWorker</signature>
                         <name>M_PLAY</name>
-                        <newname>ab</newname>
+                        <newname>aa</newname>
                     </field>
                     <field>
                         <signature>string</signature>
                         <name>NAME</name>
                         <newname>ag</newname>
+                    </field>
+                    <field>
+                        <signature>System.Collections.Generic.List`1&lt;string&gt;</signature>
+                        <name>NAMEVIPS</name>
+                        <newname>ae</newname>
                     </field>
                     <field>
                         <signature>System.Windows.Forms.NumericUpDown</signature>
@@ -1280,12 +1280,12 @@
                     <field>
                         <signature>System.Text.RegularExpressions.Regex</signature>
                         <name>REGEX_ID</name>
-                        <newname>s</newname>
+                        <newname>r</newname>
                     </field>
                     <field>
                         <signature>System.Text.RegularExpressions.Regex</signature>
                         <name>REGEX_NAME</name>
-                        <newname>t</newname>
+                        <newname>s</newname>
                     </field>
                     <field>
                         <signature>System.Windows.Forms.RichTextBox</signature>
@@ -1305,7 +1305,7 @@
                     <field>
                         <signature>string</signature>
                         <name>SECRETKEY</name>
-                        <newname>w</newname>
+                        <newname>v</newname>
                     </field>
                     <field>
                         <signature>string</signature>
@@ -1315,7 +1315,7 @@
                     <field>
                         <signature>string</signature>
                         <name>SESSIONTOKEN</name>
-                        <newname>x</newname>
+                        <newname>w</newname>
                     </field>
                     <field>
                         <signature>System.Windows.Forms.TabControl</signature>
@@ -1341,11 +1341,6 @@
                         <signature>System.Windows.Forms.TextBox</signature>
                         <name>txtVictim</name>
                         <newname>a5</newname>
-                    </field>
-                    <field>
-                        <signature>string</signature>
-                        <name>URL</name>
-                        <newname>r</newname>
                     </field>
                     <field>
                         <signature>string</signature>
@@ -1420,7 +1415,7 @@
                     <field>
                         <signature>PKTool.Friend</signature>
                         <name>VICTIM</name>
-                        <newname>ae</newname>
+                        <newname>ad</newname>
                     </field>
                 </fieldlist>
                 <propertylist>
@@ -1913,7 +1908,7 @@
         </statisticline>
         <statisticline>
             <description>Total Methods</description>
-            <statistic>179</statistic>
+            <statistic>178</statistic>
         </statisticline>
         <statisticline>
             <description>Total Fields</description>
@@ -1934,8 +1929,8 @@
         </statisticline>
         <statisticline>
             <description>Total Methods Renamed</description>
-            <statistic>127</statistic>
-            <statistic>70.95 %</statistic>
+            <statistic>126</statistic>
+            <statistic>70.79 %</statistic>
         </statisticline>
         <statisticline>
             <description>Total Fields Renamed</description>
@@ -1955,37 +1950,37 @@
         <statisticline>
             <description>Methods Renamed to 'a'</description>
             <statistic>30</statistic>
-            <statistic>16.76 %</statistic>
+            <statistic>16.85 %</statistic>
         </statisticline>
         <statisticline>
             <description>Methods Renamed to 'c'</description>
             <statistic>14</statistic>
-            <statistic>7.82 %</statistic>
+            <statistic>7.87 %</statistic>
         </statisticline>
         <statisticline>
             <description>Methods Renamed to 'b'</description>
             <statistic>13</statistic>
-            <statistic>7.26 %</statistic>
+            <statistic>7.30 %</statistic>
         </statisticline>
         <statisticline>
             <description>Methods Renamed to 'd'</description>
             <statistic>8</statistic>
-            <statistic>4.47 %</statistic>
-        </statisticline>
-        <statisticline>
-            <description>Methods Renamed to 'k'</description>
-            <statistic>6</statistic>
-            <statistic>3.35 %</statistic>
+            <statistic>4.49 %</statistic>
         </statisticline>
         <statisticline>
             <description>Methods Renamed to 'e'</description>
             <statistic>5</statistic>
-            <statistic>2.79 %</statistic>
+            <statistic>2.81 %</statistic>
+        </statisticline>
+        <statisticline>
+            <description>Methods Renamed to 'k'</description>
+            <statistic>5</statistic>
+            <statistic>2.81 %</statistic>
         </statisticline>
         <statisticline>
             <description>Methods Renamed to 'l'</description>
             <statistic>5</statistic>
-            <statistic>2.79 %</statistic>
+            <statistic>2.81 %</statistic>
         </statisticline>
     </statistics>
 </dotfuscatorMap>
