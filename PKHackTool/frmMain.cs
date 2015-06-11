@@ -69,6 +69,7 @@ namespace PKTool
         private List<double> PRICESTEPS = new List<double>();
         private List<Item> ITEMS = new List<Item>();
         private List<String> FRIENDFBIDS = new List<string>();
+        private int ISLANDINDEX = 0;
         #endregion
 
         #region "INIT"
@@ -242,7 +243,12 @@ namespace PKTool
                             //
                             setPrices(ITEMS);
                             //
-
+                            String retCompleted = completedUpgrade(ISLANDINDEX);
+                            JToken jTokenCompleted = JObject.Parse(retCompleted);
+                            if (Convert.ToInt32(jTokenCompleted["ErrorCode"]) == 100)
+                            {
+                                ISLANDINDEX = ISLANDINDEX + 1; 
+                            }
                         }
                         //
                         if (!isNextUpgrade(cash)) break;
@@ -1806,6 +1812,20 @@ namespace PKTool
                 return false;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        private void setIslandIndex(JToken data) {
+            if (data["CompletedIslandsData"] != null)
+            {
+                List<CompletedIslandsData> completedIsland = JsonConvert.DeserializeObject<List<CompletedIslandsData>>(data["CompletedIslandsData"].ToString());
+                var datas = (from i in completedIsland
+                                    orderby i.IslandIndex descending
+                                    select i).ToList();
+                ISLANDINDEX = datas[0].IslandIndex;
+            }
+        }
         #endregion
 
         #region "FIDDLERAPP"
@@ -1876,6 +1896,7 @@ namespace PKTool
                     JToken jTokenReq = JObject.Parse(dic["reqBody"].ToString());
                     JToken jTokenResp = JObject.Parse(dic["respBody"].ToString());
                     FRIENDFBIDS = JsonConvert.DeserializeObject<List<String>>(jTokenReq["FriendFBIDs"].ToString());
+                    setIslandIndex(jTokenResp);
                     getFriends(jTokenResp);
                     ITEMS = getItems(jTokenResp);
                     BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(jTokenResp["IslandShopPrice"]["BasePrices"].ToString());
