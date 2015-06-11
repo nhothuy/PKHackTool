@@ -954,7 +954,7 @@ namespace PKTool
             dicResult.Add("DeviceToken", null);
             dicResult.Add("Email", "nhothuy48cb@gmail.com");
             dicResult.Add("FBID", fbId);
-            dicResult.Add("FBName", "nhothuy48cb");
+            dicResult.Add("FBName", "Thuy Nho");
             dicResult.Add("FriendFBIDs", friendFBIDs);
             dicResult.Add("GCID", null);
             dicResult.Add("GameVersion", 215);
