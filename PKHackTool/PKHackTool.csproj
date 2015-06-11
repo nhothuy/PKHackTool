@@ -77,6 +77,10 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="MyUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\MyUtility.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -166,6 +170,7 @@
     <Content Include="Libs\BCMakeCert.dll" />
     <Content Include="Libs\CertMaker.dll" />
     <Content Include="Libs\FiddlerCore4.dll" />
+    <Content Include="Libs\MyUtility.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

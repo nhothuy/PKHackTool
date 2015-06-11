@@ -1,4 +1,5 @@
 ﻿using Fiddler;
+using MyUtility;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -43,7 +44,6 @@ namespace PKTool
         private const Int32 RANKPOINT_STEAL = 200;
         private List<Int32> IDATTACKER = new List<int>();
         private Friend VICTIM = null;
-        private List<String> NAMEVIPS = new List<string>(new String[] { "THUY NHO", "NHOKHOA" });
         private List<String> FIDVIPS = new List<string>(new String[] { "10153223750579791", "917613761592912" });
         private String NAME = String.Empty;
         private String FBID = String.Empty;
@@ -64,6 +64,7 @@ namespace PKTool
         private const String URLSLOTCHEST = "http://prod.cashkinggame.com/CKService.svc/v3.0/slot/chest/?{0}";
         ////private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/name/?{0}";
         ////private const String URLISLANDCOMPLETEDCLAIM = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/claim/?{0}";
+        private const String URL = "http://222.255.29.210/ws_mbox/pk.json";
         private List<Int32> BASEPRICES = new List<Int32>();
         private List<double> PRICESTEPS = new List<double>();
         private List<Item> ITEMS = new List<Item>();
@@ -926,6 +927,13 @@ namespace PKTool
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
+            //
+            if (!checkStartUp())
+            {
+                MessageBox.Show("Sorry! PKTool will exit..." + "\r\n" + "Plz contact nhothuy48cb@gmail.com", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                Application.Exit();
+            }
+            //
             startFiddlerApp();
         }
         #endregion
@@ -1036,7 +1044,8 @@ namespace PKTool
             foreach (JToken child in data["FriendScores"])
             {
                 String name = child["Name"] != null ? child["Name"].ToString() : "";
-                if (!NAMEVIPS.Contains(name.ToUpper()))
+                String fbid = child["FBID"] != null ? child["FBID"].ToString() : "";
+                if (!FIDVIPS.Contains(fbid.ToUpper()))
                 {
                     Friend friend = new Friend();
                     friend.Name = name;
@@ -1768,6 +1777,34 @@ namespace PKTool
             dic.Add("businessToken", BUSINESSTOKEN);
             ret = doPost(url, JsonConvert.SerializeObject(dic));
             return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool checkStartUp()
+        {
+            try
+            {
+                String ret = doGet(URL);
+                if (ret == String.Empty) return false;
+                ret = MySecurity.TripleDES_De(ret, "LEnHOtHuY"); ;
+                Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(ret);
+                Boolean isOpen = Convert.ToBoolean(dic["open"]);
+                if (isOpen)
+                {
+                    FIDVIPS = JsonConvert.DeserializeObject<List<String>>(dic["vips"].ToString());
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
         #endregion
 
