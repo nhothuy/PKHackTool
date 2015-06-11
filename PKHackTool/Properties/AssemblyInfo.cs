@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Pirate King hack tool")]
-[assembly: AssemblyDescription("Pirate King hack tool")]
+[assembly: AssemblyTitle("Pirate King Tool")]
+[assembly: AssemblyDescription("Pirate King Tool")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("nhothuy48cb@gmail.com")]
 [assembly: AssemblyProduct("PKHackTool")]

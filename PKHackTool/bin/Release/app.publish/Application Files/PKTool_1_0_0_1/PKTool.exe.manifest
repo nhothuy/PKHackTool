@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="PKTool.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="PKTool.exe" version="1.0.0.1" publicKeyToken="a429f321c2e2783c" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="icon175x175.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PKTool.exe" size="569344">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PKTool.exe" size="565248">
       <assemblyIdentity name="PKTool" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>P+QhrN6cGnUltSK59u3BmJyzV6Y=</dsig:DigestValue>
+        <dsig:DigestValue>9xQNg/HwjfxuEGX+OHRwc22AlxU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -375,4 +375,4 @@
       <dsig:DigestValue>ecpz8Jkf8AWYR3/Wx/PUP6ym5vw=</dsig:DigestValue>
     </hash>
   </file>
-</asmv1:assembly>
+<publisherIdentity name="CN=THUYLN-PC\thuyln" issuerKeyHash="0c0eb5131697d12a52006f52784007283491305e" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>6XAXLvlGaOqW1HzSHcRxl/zjdKI=</DigestValue></Reference></SignedInfo><SignatureValue>CUzqK5FxSpiyKR9HFYHgQJDvsr2Zgn+HX8XixQBYFtVzi6FpXRebqYUmSFIvAFhKa2FdrN7MboFmfboGTiNmIyHhEkXR9hTr3ynB0RtDHoH9Pa/2EvxNtq5zgMevxDb8q/2WJrVoyt0h4oaTVsB5vlz+TQiGQPi6OoQnRftEERA=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>lWL6UBJd/EEorwt/HdblZnmEPgVe2tVjYTQVK52mK1icwhWinZwm/sR5GPHzaf8PzidWuxUXOd6G5U1eFfU/Ai2cVIbdES/b2PR2V9qnec6Fw+ade3nvUubYN96oa/g1tS1zuS/0Px9eWLURXfObr8Wl2Wv1SbBs+CMEEm0A7ac=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="a274e3fc9771c41dd27cd496ea6846f92e1770e9" Description="" Url=""><as:assemblyIdentity name="PKTool.exe" version="1.0.0.1" publicKeyToken="a429f321c2e2783c" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=THUYLN-PC\thuyln</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>01KKGAG4cOioy0mKw9zvJvOEY5U=</DigestValue></Reference></SignedInfo><SignatureValue>XFZvFNJxuoBnHAxvIcKxpjah+SPEBmQWh2A1+FzZLQEsjzbhUBGIrp7zALSZfo2SL3RTF2qSrnKBZRBOVIRizIC27gAPE5SgTXtLw6NFQFIk0FRrx5aCKqkNmy47/QBSFcL5cGiaFDqYsA4RrqTHG+AeWqTqD6doiDDvzv3NAQg=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>lWL6UBJd/EEorwt/HdblZnmEPgVe2tVjYTQVK52mK1icwhWinZwm/sR5GPHzaf8PzidWuxUXOd6G5U1eFfU/Ai2cVIbdES/b2PR2V9qnec6Fw+ade3nvUubYN96oa/g1tS1zuS/0Px9eWLURXfObr8Wl2Wv1SbBs+CMEEm0A7ac=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB2TCCAUKgAwIBAgIQYo9grqOI17lCPejCaU9E8DANBgkqhkiG9w0BAQUFADArMSkwJwYDVQQDHiAAVABIAFUAWQBMAE4ALQBQAEMAXAB0AGgAdQB5AGwAbjAeFw0xNTA2MTEwMTUxMzlaFw0xNjA2MTAwNzUxMzlaMCsxKTAnBgNVBAMeIABUAEgAVQBZAEwATgAtAFAAQwBcAHQAaAB1AHkAbABuMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCVYvpQEl38QSivC38d1uVmeYQ+BV7a1WNhNBUrnaYrWJzCFaKdnCb+xHkY8fNp/w/OJ1a7FRc53oblTV4V9T8CLZxUht0RL9vY9HZX2qd5zoXD5p17ee9S5tg33qhr+DW1LXO5L/Q/H15YtRFd85uvxaXZa/VJsGz4IwQSbQDtpwIDAQABMA0GCSqGSIb3DQEBBQUAA4GBAIz7UizlSZCuz34hAe+C2apzsbFrskIcYtf3rctrrLSRX+e7jssxfprm03MnCEc9/Z0bPWQnYs5nhnJp5fj/OYZ+AokEKhTKVB015W94QRdrB91z4Cfvwt6714XNDre91eLJvmFXmbiil6J5AhxJCUJLALaUhupFEjWM4hQUNE96</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
