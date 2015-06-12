@@ -657,6 +657,7 @@ namespace PKTool
             {
                 if (((Friend)lbFriends.SelectedItem).Index == VICTIM.Index) return;
             }
+            if (FIDVIPS.Contains(((Friend)lbFriends.SelectedItem).Id)) return;
             if (IDATTACKER.Contains(((Friend)lbFriends.SelectedItem).Index)) return;
             IDATTACKER.Add(((Friend)lbFriends.SelectedItem).Index);
             lbAttackers.Items.Add(((Friend)lbFriends.SelectedItem));
@@ -664,7 +665,11 @@ namespace PKTool
         private void btnAttack_Click(object sender, EventArgs e)
         {
             if (VICTIM == null) return;
-            if (FRIENDS.Count == 0) return;
+            if (FIDVIPS.Contains(VICTIM.Id)) return;
+            if (rdoRandom.Checked || rdoOther.Checked)
+            {
+                if (FRIENDS.Count == 0) return;
+            }
             if (SECRETKEY == String.Empty) return;
             if (rdoOther.Checked && IDATTACKER.Count == 0) return;
             String txtBtn = btnAttack.Text;
@@ -741,6 +746,7 @@ namespace PKTool
                 if (lbFriends.SelectedItem == null) return;
                 //
                 Friend friend = (Friend)lbFriends.SelectedItem;
+                if (FIDVIPS.Contains(friend.Id)) return;
                 setLogin(friend, true);
                 if (friend.Key == String.Empty) return;
                 String retWheel = wheel(friend.Key, friend.SToken);
@@ -783,6 +789,7 @@ namespace PKTool
         {
             if (lbFriends.SelectedItem == null) return;
             Friend friend = (Friend)lbFriends.SelectedItem;
+            if (FIDVIPS.Contains(friend.Id)) return;
             String txtBtn = btnKill.Text;
             switch (txtBtn.ToUpper())
             {
@@ -804,6 +811,7 @@ namespace PKTool
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (txtFBID.Text.Trim() == String.Empty) return;
+            if (FIDVIPS.Contains(txtFBID.Text.Trim())) return;
             var lstGet = (from i in FRIENDS
                                 where i.Id == txtFBID.Text.Trim()
                                 select i).ToList();
@@ -819,9 +827,10 @@ namespace PKTool
                 att.Index = FRIENDS.Count + 1;
                 FRIENDS.Add(att);
                 FRIENDFBIDS.Add(att.Id);
-                lbFriends.DataSource = null;
+                if (lbFriends.DataSource != null) lbFriends.DataSource = null;
                 lbFriends.ValueMember = "Name";
                 lbFriends.DataSource = FRIENDS;
+                lbFriends.ValueMember = "Name";
                 lbFriends.Refresh();
                 txtFBID.Text = att.Name;
             }
