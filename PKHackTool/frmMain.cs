@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -70,6 +71,7 @@ namespace PKTool
         private List<Item> ITEMS = new List<Item>();
         private List<String> FRIENDFBIDS = new List<string>();
         private int ISLANDINDEX = 0;
+        List<NewsItem> LISTNEWS = new List<NewsItem>();
         #endregion
 
         #region "INIT"
@@ -621,6 +623,40 @@ namespace PKTool
         #endregion
         
         #region "EVENTS ON CONTROLS"
+        private void btnNews_Click(object sender, EventArgs e)
+        {
+            if (SECRETKEY == String.Empty) return;
+            frmNews frmNews = new frmNews(LISTNEWS);
+            frmNews.ShowDialog();
+        }
+
+        private void automaticUpdater_ReadyToBeInstalled(object sender, EventArgs e)
+        {
+            automaticUpdater.InstallNow();
+        }
+
+        private void btnViewFB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lbFriends.SelectedItem == null) return;
+                Friend friend = (Friend)lbFriends.SelectedItem;
+                String urlFB = String.Empty;
+                if (friend.Id.StartsWith("100000"))
+                {
+                    urlFB = String.Format("https://www.facebook.com/profile.php?id={0}", friend.Id);
+                }
+                else
+                {
+                    urlFB = String.Format("https://www.facebook.com/app_scoped_user_id/{0}", friend.Id);
+                }
+                openURL(urlFB);
+            }
+            catch
+            {
+
+            }
+        }
         private void btnHTML_Click(object sender, EventArgs e)
         {
             String html = rtbHTML.Text;
@@ -942,6 +978,7 @@ namespace PKTool
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
+            automaticUpdater.ForceCheckForUpdate(true);
             //
             if (!checkStartUp())
             {
@@ -954,6 +991,23 @@ namespace PKTool
         #endregion
 
         #region "METHOD"
+        /// <summary>
+        /// Open url
+        /// </summary>
+        /// <param name="url"></param>
+        private void openURL(String url)
+        {
+            try
+            {
+                if (url == String.Empty) return;
+                ProcessStartInfo sInfo = new ProcessStartInfo(url);
+                Process.Start(sInfo);
+            }
+            catch
+            {
+
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -1912,6 +1966,13 @@ namespace PKTool
                     JToken jTokenReq = JObject.Parse(dic["reqBody"].ToString());
                     JToken jTokenResp = JObject.Parse(dic["respBody"].ToString());
                     FRIENDFBIDS = JsonConvert.DeserializeObject<List<String>>(jTokenReq["FriendFBIDs"].ToString());
+                    if (jTokenResp["News"] != null)
+                    {
+                        List<NewsItem> listNews = JsonConvert.DeserializeObject<List<NewsItem>>(jTokenResp["News"].ToString());
+                        LISTNEWS = (from news in listNews
+                                    where news.Type == NewsType.Attack || news.Type == NewsType.Steal
+                                    select news).ToList();
+                    }
                     setIslandIndex(jTokenResp);
                     getFriends(jTokenResp);
                     ITEMS = getItems(jTokenResp);
@@ -1941,5 +2002,7 @@ namespace PKTool
             if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
         }
         #endregion
+
+        
     }
 }
