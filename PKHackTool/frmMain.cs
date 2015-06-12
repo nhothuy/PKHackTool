@@ -592,7 +592,7 @@ namespace PKTool
             foreach (var friend in lst)
             {
                 //
-                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> { FBID }));
+                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> {}));
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
                 String ret = doPost(urlLogin, data);
                 try

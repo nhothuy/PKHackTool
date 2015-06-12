@@ -1,0 +1,9 @@
+D:\Working\P\PKHackTool\GenKey\bin\Debug\GenKey.exe
+D:\Working\P\PKHackTool\GenKey\bin\Debug\GenKey.pdb
+D:\Working\P\PKHackTool\GenKey\bin\Debug\MyUtility.dll
+D:\Working\P\PKHackTool\GenKey\obj\Debug\GenKey.csprojResolveAssemblyReference.cache
+D:\Working\P\PKHackTool\GenKey\obj\Debug\GenKey.frmMain.resources
+D:\Working\P\PKHackTool\GenKey\obj\Debug\GenKey.Properties.Resources.resources
+D:\Working\P\PKHackTool\GenKey\obj\Debug\GenKey.csproj.GenerateResource.Cache
+D:\Working\P\PKHackTool\GenKey\obj\Debug\GenKey.exe
+D:\Working\P\PKHackTool\GenKey\obj\Debug\GenKey.pdb
