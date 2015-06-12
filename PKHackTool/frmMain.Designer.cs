@@ -217,6 +217,7 @@
             this.automaticUpdater.Size = new System.Drawing.Size(16, 16);
             this.automaticUpdater.TabIndex = 32;
             this.automaticUpdater.wyUpdateCommandline = null;
+            this.automaticUpdater.wyUpdateLocation = "pkUpdate.exe";
             this.automaticUpdater.ReadyToBeInstalled += new System.EventHandler(this.automaticUpdater_ReadyToBeInstalled);
             // 
             // btnNews
