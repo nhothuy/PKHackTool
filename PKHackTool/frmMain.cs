@@ -1324,7 +1324,7 @@ namespace PKTool
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private List<Item> getItemTypeAttack(JToken data)
+        private List<Item> getItemTypeAttack(JToken data, bool isSort)
         {
             List<Item> itemTypes = new List<Item>();
             Item i = new Item();
@@ -1358,11 +1358,18 @@ namespace PKTool
             i.Level = Convert.ToInt16(data["RandomAttackIsland"]["Artifact"]["Level"]);
             itemTypes.Add(i);
 
-            var query = from item in itemTypes
-                        orderby item.Level descending, item.Isdamaged descending
-                        where item.Level > 0
-                        select item;
-            return query.ToList();
+            if (isSort)
+            {
+                var query = from item in itemTypes
+                            orderby item.Level descending, item.Isdamaged descending
+                            where item.Level > 0
+                            select item;
+                return query.ToList();
+            }
+            else
+            {
+                return itemTypes;
+            }
         }
         /// <summary>
         /// 
@@ -1371,7 +1378,7 @@ namespace PKTool
         /// <returns></returns>
         private string attackRandom(String secretKey, String sessionToken, JToken data)
         {
-            List<Item> itemTypes = getItemTypeAttack(data);
+            List<Item> itemTypes = getItemTypeAttack(data, true);
             String itemAttackName = "";
             if (itemTypes.Count > 0)
             {

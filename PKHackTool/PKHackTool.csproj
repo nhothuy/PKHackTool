@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="BasePlayerRequest.cs" />
     <Compile Include="ChangeNameRequest.cs" />
+    <Compile Include="IsLand.cs" />
     <Compile Include="IslandCompletions.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="frmMain.cs">
