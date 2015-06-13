@@ -38,7 +38,7 @@
             this.btnHTML = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tab1 = new System.Windows.Forms.TabPage();
-            this.automaticUpdater = new wyDay.Controls.AutomaticUpdater();
+            //this.automaticUpdater = new wyDay.Controls.AutomaticUpdater();
             this.btnNews = new System.Windows.Forms.Button();
             this.btnViewFB = new System.Windows.Forms.Button();
             this.gbBonus = new System.Windows.Forms.GroupBox();
@@ -80,7 +80,7 @@
             this.tab = new System.Windows.Forms.TabControl();
             this.tab2.SuspendLayout();
             this.tab1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.automaticUpdater)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.automaticUpdater)).BeginInit();
             this.gbBonus.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNum)).BeginInit();
@@ -181,7 +181,7 @@
             // tab1
             // 
             this.tab1.BackColor = System.Drawing.SystemColors.Control;
-            this.tab1.Controls.Add(this.automaticUpdater);
+            //this.tab1.Controls.Add(this.automaticUpdater);
             this.tab1.Controls.Add(this.btnNews);
             this.tab1.Controls.Add(this.btnViewFB);
             this.tab1.Controls.Add(this.gbBonus);
@@ -209,16 +209,16 @@
             // 
             // automaticUpdater
             // 
-            this.automaticUpdater.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.automaticUpdater.ContainerForm = this;
-            this.automaticUpdater.GUID = "af8c3020-a11a-48af-b8a3-4867951a9142";
-            this.automaticUpdater.Location = new System.Drawing.Point(721, 6);
-            this.automaticUpdater.Name = "automaticUpdater";
-            this.automaticUpdater.Size = new System.Drawing.Size(16, 16);
-            this.automaticUpdater.TabIndex = 32;
-            this.automaticUpdater.wyUpdateCommandline = null;
-            this.automaticUpdater.wyUpdateLocation = "pkUpdate.exe";
-            this.automaticUpdater.ReadyToBeInstalled += new System.EventHandler(this.automaticUpdater_ReadyToBeInstalled);
+            //this.automaticUpdater.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            //this.automaticUpdater.ContainerForm = this;
+            //this.automaticUpdater.GUID = "af8c3020-a11a-48af-b8a3-4867951a9142";
+            //this.automaticUpdater.Location = new System.Drawing.Point(721, 6);
+            //this.automaticUpdater.Name = "automaticUpdater";
+            //this.automaticUpdater.Size = new System.Drawing.Size(16, 16);
+            //this.automaticUpdater.TabIndex = 32;
+            //this.automaticUpdater.wyUpdateCommandline = null;
+            //this.automaticUpdater.wyUpdateLocation = "pkUpdate.exe";
+            //this.automaticUpdater.ReadyToBeInstalled += new System.EventHandler(this.automaticUpdater_ReadyToBeInstalled);
             // 
             // btnNews
             // 
@@ -648,7 +648,7 @@
             this.tab2.PerformLayout();
             this.tab1.ResumeLayout(false);
             this.tab1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.automaticUpdater)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.automaticUpdater)).EndInit();
             this.gbBonus.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -713,7 +713,7 @@
         private System.Windows.Forms.TabControl tab;
         private System.Windows.Forms.Button btnViewFB;
         private System.Windows.Forms.Button btnNews;
-        private wyDay.Controls.AutomaticUpdater automaticUpdater;
+        //private wyDay.Controls.AutomaticUpdater automaticUpdater;
         
     }
 }

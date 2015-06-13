@@ -630,10 +630,10 @@ namespace PKTool
             frmNews.ShowDialog();
         }
 
-        private void automaticUpdater_ReadyToBeInstalled(object sender, EventArgs e)
-        {
-            automaticUpdater.InstallNow();
-        }
+        //private void automaticUpdater_ReadyToBeInstalled(object sender, EventArgs e)
+        //{
+        //    automaticUpdater.InstallNow();
+        //}
 
         private void btnViewFB_Click(object sender, EventArgs e)
         {
@@ -978,7 +978,7 @@ namespace PKTool
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
-            automaticUpdater.ForceCheckForUpdate(true);
+            //automaticUpdater.ForceCheckForUpdate(true);
             //
             if (!checkStartUp())
             {
