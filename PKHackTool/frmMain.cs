@@ -72,6 +72,7 @@ namespace PKTool
         private List<String> FRIENDFBIDS = new List<string>();
         private int ISLANDINDEX = 0;
         List<NewsItem> LISTNEWS = new List<NewsItem>();
+        private String UDID = "108a61cda531152f01e5436ba1a5b4fcf0acc23f";
         #endregion
 
         #region "INIT"
@@ -131,7 +132,7 @@ namespace PKTool
                 String retWheel = wheel(SECRETKEY, SESSIONTOKEN);
                 JToken data = JObject.Parse(retWheel);
                 int wheelResult = Convert.ToInt16(data["WheelResult"]);
-                int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
+                Int64 spins = Convert.ToInt64(data["PlayerState"]["Spins"]);
                 int shields = Convert.ToInt16(data["PlayerState"]["Shields"]);
                 String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
                 String cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", data["PlayerState"]["CashKing"]["FBID"], data["PlayerState"]["CashKing"]["Name"], data["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(data["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
@@ -860,14 +861,13 @@ namespace PKTool
             }
             else
             {
+                if (att.Name == String.Empty) return;
                 att.Index = FRIENDS.Count + 1;
                 FRIENDS.Add(att);
                 FRIENDFBIDS.Add(att.Id);
-                if (lbFriends.DataSource != null) lbFriends.DataSource = null;
-                lbFriends.ValueMember = "Name";
+                lbFriends.DataSource = null;
                 lbFriends.DataSource = FRIENDS;
                 lbFriends.ValueMember = "Name";
-                lbFriends.Refresh();
                 txtFBID.Text = att.Name;
             }
         }
@@ -1028,7 +1028,7 @@ namespace PKTool
             dicResult.Add("GCID", null);
             dicResult.Add("GameVersion", 215);
             dicResult.Add("Platform", 2);
-            dicResult.Add("UDID", "108a61cda531152f01e5436ba1a5b4fcf0acc23f");
+            dicResult.Add("UDID", UDID);
             dicResult.Add("BusinessToken", BUSINESSTOKEN);
             dicResult.Add("AccessToken", ACCESSTOKEN);
             return JsonConvert.SerializeObject(dicResult);
@@ -1965,6 +1965,7 @@ namespace PKTool
                     shutdowFiddlerApp();
                     JToken jTokenReq = JObject.Parse(dic["reqBody"].ToString());
                     JToken jTokenResp = JObject.Parse(dic["respBody"].ToString());
+                    UDID = jTokenReq["UDID"].ToString();
                     FRIENDFBIDS = JsonConvert.DeserializeObject<List<String>>(jTokenReq["FriendFBIDs"].ToString());
                     if (jTokenResp["News"] != null)
                     {
