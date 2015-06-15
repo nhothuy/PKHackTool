@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using HAP = HtmlAgilityPack;
 namespace PKTool
 {
@@ -34,18 +35,18 @@ namespace PKTool
         private String ACCESSTOKEN = "";
         private String SECRETKEY = "";
         private String SESSIONTOKEN = "";
-        private List<Friend> FRIENDS = new List<Friend>();
+        public List<Friend> FRIENDS = new List<Friend>();
         private UrlCaptureConfiguration CaptureConfiguration { get; set; }
         private const string SEPARATOR = "-------------------------------------------------------------------------------";
         private const string CAPTUREDOMAIN = "http://prod.cashkinggame.com/CKService.svc/v3.0/login";
-        BackgroundWorker M_OWORKER;
-        BackgroundWorker M_KILL;
-        BackgroundWorker M_PLAY;
-        BackgroundWorker M_ATTACK;
+        private BackgroundWorker M_OWORKER;
+        private BackgroundWorker M_KILL;
+        private BackgroundWorker M_PLAY;
+        private BackgroundWorker M_ATTACK;
         private const Int32 RANKPOINT_STEAL = 200;
         private List<Int32> IDATTACKER = new List<int>();
         private Friend VICTIM = null;
-        private List<String> FIDVIPS = new List<string>(new String[] { "10153223750579791", "917613761592912" });
+        private List<String> FIDVIPS = new List<string>(new String[] {});
         private String NAME = String.Empty;
         private String FBID = String.Empty;
         private static String[] ARRITEMS = { "Animals", "Nature", "Building", "Ships", "Artifacts" };
@@ -73,6 +74,7 @@ namespace PKTool
         private int ISLANDINDEX = 0;
         List<NewsItem> LISTNEWS = new List<NewsItem>();
         private String UDID = "108a61cda531152f01e5436ba1a5b4fcf0acc23f";
+        private const String KEY = "LEnHOtHuY";
         #endregion
 
         #region "INIT"
@@ -624,6 +626,110 @@ namespace PKTool
         #endregion
         
         #region "EVENTS ON CONTROLS"
+        private void saveFriendsToFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (FRIENDS == null || FRIENDS.Count == 0) return;
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (saveFileDialog.FileName == String.Empty) return;
+                    String pkXML = serialize(FRIENDS).ToString();
+                    File.WriteAllText(saveFileDialog.FileName, pkXML);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void addFriendsFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (openFileDialogF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (openFileDialogF.FileName == String.Empty) return;
+                    String pkXML = MyFile.ReadFile(openFileDialogF.FileName);
+                    List<Friend> friendsAdd = deserialize<List<Friend>>(pkXML);
+                    Int32 idxSelect = FRIENDS.Count - 1;
+                    int count = 0;
+                    foreach (Friend att in friendsAdd)
+                    {
+                        var lstGet = (from i in FRIENDS
+                                      where i.Id == att.Id
+                                      select i).ToList();
+                        if (lstGet.Count == 0)
+                        {
+                            count = count + 1;
+                            //
+                            att.Index = FRIENDS.Count + 1;
+                            //Reset value
+                            att.SToken = String.Empty;
+                            att.BToken = String.Empty;
+                            //
+                            FRIENDS.Add(att);
+                            FRIENDFBIDS.Add(att.Id);
+                        }
+                    }
+                    ((CurrencyManager)lbFriends.BindingContext[FRIENDS]).Refresh();
+                    if (count > 0)
+                    {
+                        MessageBox.Show(String.Format("Added {0} friends", count));
+                    }
+                    lbFriends.SelectedIndex = idxSelect;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void lbFriends_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbFriends.SelectedItem == null) return;
+            Friend friend = (Friend)lbFriends.SelectedItem;
+            txtID.Text = friend.Id;
+        }
+
+        private void bntOpen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    String file = openFileDialog.FileName;
+                    if (file == String.Empty) return;
+                    try
+                    {
+                        string text = MyFile.ReadFile(file);
+                        rtbHTML.Text = text;
+                    }
+                    catch (IOException)
+                    {
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnClearLogInvite_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                rtbRetIn.Text = String.Empty;
+            }
+            catch
+            {
+
+            }
+        }
+
         private void btnNews_Click(object sender, EventArgs e)
         {
             if (SECRETKEY == String.Empty) return;
@@ -865,9 +971,8 @@ namespace PKTool
                 att.Index = FRIENDS.Count + 1;
                 FRIENDS.Add(att);
                 FRIENDFBIDS.Add(att.Id);
-                lbFriends.DataSource = null;
-                lbFriends.DataSource = FRIENDS;
-                lbFriends.ValueMember = "Name";
+                ((CurrencyManager)lbFriends.BindingContext[FRIENDS]).Refresh();
+                lbFriends.SelectedIndex = FRIENDS.Count - 1;
                 txtFBID.Text = att.Name;
             }
         }
@@ -992,6 +1097,29 @@ namespace PKTool
 
         #region "METHOD"
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static StringWriter serialize(object o)
+        {
+            var xs = new XmlSerializer(o.GetType());
+            var xml = new StringWriter();
+            xs.Serialize(xml, o);
+            return xml;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        public static T deserialize<T>(string xml)
+        {
+            var xs = new XmlSerializer(typeof(T));
+            return (T)xs.Deserialize(new StringReader(xml));
+        }
+        /// <summary>
         /// Open url
         /// </summary>
         /// <param name="url"></param>
@@ -1113,16 +1241,19 @@ namespace PKTool
             foreach (JToken child in data["FriendScores"])
             {
                 String name = child["Name"] != null ? child["Name"].ToString() : "";
-                String fbid = child["FBID"] != null ? child["FBID"].ToString() : "";
-                if (!FIDVIPS.Contains(fbid.ToUpper()))
+                if (name != "")
                 {
-                    Friend friend = new Friend();
-                    friend.Name = name;
-                    friend.Id = child["FBID"] != null ? child["FBID"].ToString() : "";
-                    friend.Index = index;
-                    friend.Rank = Convert.ToInt32(child["RankPoints"]);
-                    index = index + 1;
-                    FRIENDS.Add(friend);
+                    String fbid = child["FBID"] != null ? child["FBID"].ToString() : "";
+                    if (!FIDVIPS.Contains(fbid.ToUpper()))
+                    {
+                        Friend friend = new Friend();
+                        friend.Name = name;
+                        friend.Id = child["FBID"] != null ? child["FBID"].ToString() : "";
+                        friend.Index = index;
+                        friend.Rank = Convert.ToInt32(child["RankPoints"]);
+                        index = index + 1;
+                        FRIENDS.Add(friend);
+                    }
                 }
             }
             //
@@ -1474,28 +1605,11 @@ namespace PKTool
                 friend.Id = txtFBID.Text.Trim();
                 String retLogin = setLogin(friend, false);
                 if (friend.Key == String.Empty) return null;
-                String retWheel = wheel(friend.Key, friend.SToken);
-                JToken jToken = JObject.Parse(retWheel);
-                int rank = 0;
-                try
-                {
-                    rank = Convert.ToInt16(jToken["PlayerState"]["RankPoints"]);
-                }
-                catch
-                {
-                }
-                if (rank > 0)
-                {
-                    JToken jData = JObject.Parse(retLogin);
-                    if (jData["PlayerMetaData"]["Name"] == null) return null;
-                    friend.Name = jData["PlayerMetaData"]["Name"] != null ? jData["PlayerMetaData"]["Name"].ToString() : "";
-                    friend.Type = 2;
-                    return friend;
-                }
-                else
-                {
-                    return null;
-                }
+                JToken jData = JObject.Parse(retLogin);
+                if (jData["PlayerMetaData"]["Name"] == null) return null;
+                friend.Name = jData["PlayerMetaData"]["Name"] != null ? jData["PlayerMetaData"]["Name"].ToString() : "";
+                friend.Type = 2;
+                return friend;
             }
             catch
             {
@@ -1864,9 +1978,10 @@ namespace PKTool
             {
                 String ret = doGet(URL);
                 if (ret == String.Empty) return false;
-                ret = MySecurity.TripleDES_De(ret, "LEnHOtHuY"); ;
+                ret = MySecurity.TripleDES_De(ret, KEY); ;
                 Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(ret);
                 Boolean isOpen = Convert.ToBoolean(dic["open"]);
+                //Boolean isOpen = true;
                 if (isOpen)
                 {
                     FIDVIPS = JsonConvert.DeserializeObject<List<String>>(dic["vips"].ToString());
@@ -2006,7 +2121,5 @@ namespace PKTool
             if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
         }
         #endregion
-
-        
     }
 }

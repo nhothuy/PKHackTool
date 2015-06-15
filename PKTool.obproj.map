@@ -1,0 +1,801 @@
+﻿<Mappings><Entry OldName="PKTool.BasePlayerRequest.&lt;secretKey&gt;k__BackingField" NewName="PKTool.BasePlayerRequest.cbec131f1bd97fc7b3a0409abfecefe1b" />
+<Entry OldName="PKTool.BasePlayerRequest.&lt;sessionToken&gt;k__BackingField" NewName="PKTool.BasePlayerRequest.c30a9a506b49913a99af9b463e294d076" />
+<Entry OldName="PKTool.BasePlayerRequest.&lt;businessToken&gt;k__BackingField" NewName="PKTool.BasePlayerRequest.c18fe62d1b62c5efcdc2ad8fc1a0c01aa" />
+<Entry OldName="PKTool.ChangeNameRequest.NewName" NewName="A.c7455da878245a0b2eccb4c582e6346e3.ced54caaa6bdc60c0b9981e4ea30a3baa" />
+<Entry OldName="PKTool.ChangeNameRequest.NewAvatar" NewName="A.c7455da878245a0b2eccb4c582e6346e3.c7a6a3753d76a75579bf669301638eca5" />
+<Entry OldName="PKTool.frmNews.LISTNEWS" NewName="PKTool.frmNews.c324b9afe1c0074115056c3bc78c9e602" />
+<Entry OldName="PKTool.frmNews.components" NewName="PKTool.frmNews.cae3e5b897486dcd86ecba760451d1877" />
+<Entry OldName="PKTool.frmNews.tableLayoutPanel1" NewName="PKTool.frmNews.c28ebc9c1e208845393299d6e1d9f5b6b" />
+<Entry OldName="PKTool.frmNews.grdNews" NewName="PKTool.frmNews.cf35120e11aebf2a3b134f20efe6b1bdf" />
+<Entry OldName="PKTool.frmNews.FB" NewName="PKTool.frmNews.c1d8802dfadce6cc4395aee46b4806bf6" />
+<Entry OldName="PKTool.frmNews.ID" NewName="PKTool.frmNews.c5a9d7e6c78c5e91542808f9975910179" />
+<Entry OldName="PKTool.frmNews.Message" NewName="PKTool.frmNews.cc08b6c80744c41098e7e4a8ffb3a0411" />
+<Entry OldName="PKTool.frmNews.panel1" NewName="PKTool.frmNews.c3b7b578c8fd69259e47bf5f58eb18194" />
+<Entry OldName="PKTool.frmNews.btnClose" NewName="PKTool.frmNews.c53ef9aee48494e4d34680946d2abd1d6" />
+<Entry OldName="PKTool.IsLand.index" NewName="PKTool.IsLand.cbc1def85d1f81f525e7b8ec464874295" />
+<Entry OldName="PKTool.IsLand.items" NewName="PKTool.IsLand.ccdbe404b62a2bfd5335b906d4078445f" />
+<Entry OldName="PKTool.IslandCompletions.completeTime" NewName="A.c4ba8f03bc895e7e7633a8210cb21f319.ccd41c3875a437672c832796a04f3bf91" />
+<Entry OldName="PKTool.IslandCompletions.islandLevel" NewName="A.c4ba8f03bc895e7e7633a8210cb21f319.c1c6ccd01739931daab9e6b59eaaab6cc" />
+<Entry OldName="PKTool.Data.rank" NewName="A.c119c08d997c75dd074887b202b17a08c.c6bc3dfccbdf1d352a6caeb65de01cdf2" />
+<Entry OldName="PKTool.Data.msg" NewName="A.c119c08d997c75dd074887b202b17a08c.c8d8199804accb8ec1ec4293eb34f6a6c" />
+<Entry OldName="PKTool.Data.friend" NewName="A.c119c08d997c75dd074887b202b17a08c.cd5abd6ca2a57a9f859b87294ea59f942" />
+<Entry OldName="PKTool.frmMain.SEPARATOR" NewName="PKTool.frmMain.c0e35521d5aac4a9f6b399a3dc12f5844" />
+<Entry OldName="PKTool.frmMain.CAPTUREDOMAIN" NewName="PKTool.frmMain.c2e2818718431fda18775aab71049dbcf" />
+<Entry OldName="PKTool.frmMain.RANKPOINT_STEAL" NewName="PKTool.frmMain.c12eee23888473f97d6197aa8e873449e" />
+<Entry OldName="PKTool.frmMain.URLLOGIN" NewName="PKTool.frmMain.c3cd077c51e27e10b0a5fc5af8d8f1cdb" />
+<Entry OldName="PKTool.frmMain.URLWHEEL" NewName="PKTool.frmMain.cd9454689bddb3b334babd22a5bbf3aac" />
+<Entry OldName="PKTool.frmMain.URLATTACKFRIEND" NewName="PKTool.frmMain.cfb65efccff303cef103af319f3895591" />
+<Entry OldName="PKTool.frmMain.URLATTACKRANDOM" NewName="PKTool.frmMain.ced68a22ef67c6dd0fb502ed8363ffbed" />
+<Entry OldName="PKTool.frmMain.URLVIEW" NewName="PKTool.frmMain.c06c8ced4ec72ec72770a48cc983e30e9" />
+<Entry OldName="PKTool.frmMain.URLSTEAL" NewName="PKTool.frmMain.c488aa1dc54d37392fb9844e94e9ee6f7" />
+<Entry OldName="PKTool.frmMain.URLUPGRADE" NewName="PKTool.frmMain.c1a5b93026673daf6f9c87b0926b5c20d" />
+<Entry OldName="PKTool.frmMain.URLREPAIR" NewName="PKTool.frmMain.cc586376c55764557f5aa03ac158b7dbe" />
+<Entry OldName="PKTool.frmMain.URLFINISH" NewName="PKTool.frmMain.c7025d166cc7d6aed9e750de278298b78" />
+<Entry OldName="PKTool.frmMain.URLINVITEBONUS" NewName="PKTool.frmMain.c8b4eb26f48878400a867945ecbf9895e" />
+<Entry OldName="PKTool.frmMain.URLVIDEOCLAIMBONUS" NewName="PKTool.frmMain.cf4f8945783f8220f96630b9d218ecf80" />
+<Entry OldName="PKTool.frmMain.URLCOMPLETEDUPGRADE" NewName="PKTool.frmMain.c05235fb23a1f9f64859d349a8d06bc17" />
+<Entry OldName="PKTool.frmMain.URLSPINSLOT" NewName="PKTool.frmMain.c567c5951dfd5210ec08dbe239d14ed20" />
+<Entry OldName="PKTool.frmMain.URLSLOTCHEST" NewName="PKTool.frmMain.cc57bf0ea0ea2abf4bf4ac6738257b9a7" />
+<Entry OldName="PKTool.frmMain.URL" NewName="PKTool.frmMain.c0609e9f81cded137f8a936498ca56077" />
+<Entry OldName="PKTool.frmMain.KEY" NewName="PKTool.frmMain.c5a355a32c38501377efaf8f9cd38d539" />
+<Entry OldName="PKTool.frmMain.REGEX_ID" NewName="PKTool.frmMain.c7f9b748b0cdbf74fd5bf8a4ca86ed3ec" />
+<Entry OldName="PKTool.frmMain.REGEX_NAME" NewName="PKTool.frmMain.c505d0591f6b9d559164b73176aa9b1d4" />
+<Entry OldName="PKTool.frmMain.BUSINESSTOKEN" NewName="PKTool.frmMain.ce0b0288936143f13b4562de6c9da3610" />
+<Entry OldName="PKTool.frmMain.ACCESSTOKEN" NewName="PKTool.frmMain.c53d7a87cb805217142a4db81e519e7be" />
+<Entry OldName="PKTool.frmMain.SECRETKEY" NewName="PKTool.frmMain.cb7077821b56ada83e5ccf598715fe91c" />
+<Entry OldName="PKTool.frmMain.SESSIONTOKEN" NewName="PKTool.frmMain.c756df7433333843172261a4e49735f8b" />
+<Entry OldName="PKTool.frmMain.M_OWORKER" NewName="PKTool.frmMain.c1963a3bd0ad21082bcc1751f90deaaae" />
+<Entry OldName="PKTool.frmMain.M_KILL" NewName="PKTool.frmMain.cda49fcab7fbb51097d71b626be2d9bb1" />
+<Entry OldName="PKTool.frmMain.M_PLAY" NewName="PKTool.frmMain.c7948d54fa5f2c2071622b7beb283461e" />
+<Entry OldName="PKTool.frmMain.M_ATTACK" NewName="PKTool.frmMain.c54f0f9040cb3eeff3c394907cab81675" />
+<Entry OldName="PKTool.frmMain.IDATTACKER" NewName="PKTool.frmMain.cf5d88a1d176369e8c7fc1b1383113e3f" />
+<Entry OldName="PKTool.frmMain.VICTIM" NewName="PKTool.frmMain.ca0d1f0ac9d3788063e9e864d6967f642" />
+<Entry OldName="PKTool.frmMain.FIDVIPS" NewName="PKTool.frmMain.cd9869a0f1e2165216f4447dceab2ee90" />
+<Entry OldName="PKTool.frmMain.NAME" NewName="PKTool.frmMain.cc0a060cf8b98ae51edaa7cde1760c0e2" />
+<Entry OldName="PKTool.frmMain.FBID" NewName="PKTool.frmMain.c08eda201a01f11d9de73f0269f93e8e3" />
+<Entry OldName="PKTool.frmMain.ARRITEMS" NewName="PKTool.frmMain.c291bc559ba756ee9a0da4ac3aeb7fb7d" />
+<Entry OldName="PKTool.frmMain.BASEPRICES" NewName="PKTool.frmMain.cb8161c34650196a22c03bcf90c39bd87" />
+<Entry OldName="PKTool.frmMain.PRICESTEPS" NewName="PKTool.frmMain.ccc41d2c0cc21a4882181737624ba5759" />
+<Entry OldName="PKTool.frmMain.ITEMS" NewName="PKTool.frmMain.cf4c856dd7f26819a459b0958f5b05acf" />
+<Entry OldName="PKTool.frmMain.FRIENDFBIDS" NewName="PKTool.frmMain.cbed18689edb0db85d38a98233d88be24" />
+<Entry OldName="PKTool.frmMain.ISLANDINDEX" NewName="PKTool.frmMain.cff0500283442879aae25ed34e49202b5" />
+<Entry OldName="PKTool.frmMain.LISTNEWS" NewName="PKTool.frmMain.c324b9afe1c0074115056c3bc78c9e602" />
+<Entry OldName="PKTool.frmMain.UDID" NewName="PKTool.frmMain.c63c601e11573b02a9c81740aa6832398" />
+<Entry OldName="PKTool.frmMain.components" NewName="PKTool.frmMain.cae3e5b897486dcd86ecba760451d1877" />
+<Entry OldName="PKTool.frmMain.label3" NewName="PKTool.frmMain.ca1315aaec60d31c87d7df8a21547b2cf" />
+<Entry OldName="PKTool.frmMain.imageList" NewName="PKTool.frmMain.cde19f4e2dabec0cf0d6ff719b1c1be35" />
+<Entry OldName="PKTool.frmMain.tab2" NewName="PKTool.frmMain.c75464fd2251d8e9dd7ccfabbc1fafadf" />
+<Entry OldName="PKTool.frmMain.rtbRetIn" NewName="PKTool.frmMain.cfd248579f4807c9c022def18dc06af91" />
+<Entry OldName="PKTool.frmMain.rtbHTML" NewName="PKTool.frmMain.ca5a1f9db16a3ae1cba839eecb8efd3b6" />
+<Entry OldName="PKTool.frmMain.btnHTML" NewName="PKTool.frmMain.c1705fb2bf5903f791aba898d18267ea7" />
+<Entry OldName="PKTool.frmMain.label1" NewName="PKTool.frmMain.c5bdd03b74d1aa9e415ab52ba3b4ca094" />
+<Entry OldName="PKTool.frmMain.tab1" NewName="PKTool.frmMain.ca41e3ff64b573cfa4470fb027d367083" />
+<Entry OldName="PKTool.frmMain.gbBonus" NewName="PKTool.frmMain.c1b0fcd20767503d32524ec319beb64e5" />
+<Entry OldName="PKTool.frmMain.btnOpen" NewName="PKTool.frmMain.c28ca9b8109c825c29f10b71a58be58fb" />
+<Entry OldName="PKTool.frmMain.btnSpinSlot" NewName="PKTool.frmMain.ca250306f4d6faa6a5bbddd1410662932" />
+<Entry OldName="PKTool.frmMain.btnInvite" NewName="PKTool.frmMain.c06f75d8f477768a6f6964f76fe9e46be" />
+<Entry OldName="PKTool.frmMain.btnVideo" NewName="PKTool.frmMain.c9bb6310529fd3068074661a2256607c4" />
+<Entry OldName="PKTool.frmMain.label4" NewName="PKTool.frmMain.c18d8f491d5473b40830c78f038fa1dff" />
+<Entry OldName="PKTool.frmMain.lbFriends" NewName="PKTool.frmMain.cd8595547d4ec3ba66f577aa22046cb1b" />
+<Entry OldName="PKTool.frmMain.btnAdd" NewName="PKTool.frmMain.c5ab688765a5e3b21e5428b53c06c0c49" />
+<Entry OldName="PKTool.frmMain.txtFBID" NewName="PKTool.frmMain.c2e34b24fabf45f00d9e694dc7b3121df" />
+<Entry OldName="PKTool.frmMain.txtVictim" NewName="PKTool.frmMain.ce422cecb625e0d01fbce22abf1663dce" />
+<Entry OldName="PKTool.frmMain.rtbRet" NewName="PKTool.frmMain.cadba62d8be92b6f79e9e9bc13e0b092f" />
+<Entry OldName="PKTool.frmMain.lblName" NewName="PKTool.frmMain.c30c3cf6f753dead5d9d2e7bc4cf5d7a4" />
+<Entry OldName="PKTool.frmMain.label2" NewName="PKTool.frmMain.c4392e4d8c0ca15d8154481a43ea69ac2" />
+<Entry OldName="PKTool.frmMain.btnSetAttacker" NewName="PKTool.frmMain.c50b004010bac430b35242ae0f9fcc0cf" />
+<Entry OldName="PKTool.frmMain.btnClear" NewName="PKTool.frmMain.c1331b25a1da4ebdf91ef496c81e8d81a" />
+<Entry OldName="PKTool.frmMain.btnView" NewName="PKTool.frmMain.cc45f40a51c27a7b71aaa63f95bcc3453" />
+<Entry OldName="PKTool.frmMain.groupBox2" NewName="PKTool.frmMain.c9822a7af612fe1cff15da7c7ca449d7f" />
+<Entry OldName="PKTool.frmMain.nudNum" NewName="PKTool.frmMain.c444512588471cf267aee5f111522db12" />
+<Entry OldName="PKTool.frmMain.btnRemove" NewName="PKTool.frmMain.c36d180b059d26f2a4bbeb580defd2bca" />
+<Entry OldName="PKTool.frmMain.rdoOther" NewName="PKTool.frmMain.c60a4993b4dcf8e6964c766c4dad1087d" />
+<Entry OldName="PKTool.frmMain.rdoByme" NewName="PKTool.frmMain.c398bf5f703407c4b5874a6ed17ca8068" />
+<Entry OldName="PKTool.frmMain.rdoRandom" NewName="PKTool.frmMain.ce0f73c682494ff18e83f772b61e14866" />
+<Entry OldName="PKTool.frmMain.lbAttackers" NewName="PKTool.frmMain.c11350a6e3dcf87baf8175a708b2d17a1" />
+<Entry OldName="PKTool.frmMain.btnAttack" NewName="PKTool.frmMain.c99b7f64234791e389fa02b81d4db9ed3" />
+<Entry OldName="PKTool.frmMain.btnSetVicTim" NewName="PKTool.frmMain.c5c01bcbc818fa49c84b5585fbd60e66c" />
+<Entry OldName="PKTool.frmMain.btnKill" NewName="PKTool.frmMain.c4223261830180c5acea43b6fc6f37db3" />
+<Entry OldName="PKTool.frmMain.groupBox1" NewName="PKTool.frmMain.c68cb35b98c105b8e2346608a540a3e5c" />
+<Entry OldName="PKTool.frmMain.chkAutoUpgrade" NewName="PKTool.frmMain.c212790998ab839fa016fd26c5bdff28a" />
+<Entry OldName="PKTool.frmMain.btnGet" NewName="PKTool.frmMain.c4784a86300a2e748134d9474bffe4a22" />
+<Entry OldName="PKTool.frmMain.avatarPre" NewName="PKTool.frmMain.cb96cb881e048c1ec810a6278db1df76c" />
+<Entry OldName="PKTool.frmMain.btnPlay" NewName="PKTool.frmMain.c86f42aa542bdfdc627f6d1537c55447d" />
+<Entry OldName="PKTool.frmMain.chkFull" NewName="PKTool.frmMain.c93b2da95e4750dcbe2d8b6f34f3ff50e" />
+<Entry OldName="PKTool.frmMain.chkAutoSteal" NewName="PKTool.frmMain.c268423ab1148709a294bdbb15b327fda" />
+<Entry OldName="PKTool.frmMain.chkAutoAttack" NewName="PKTool.frmMain.c74af2913f9206b8371995759da490657" />
+<Entry OldName="PKTool.frmMain.avatarNext" NewName="PKTool.frmMain.c13a8cec25cfe2a9c9f97d603c949703b" />
+<Entry OldName="PKTool.frmMain.avatar" NewName="PKTool.frmMain.c3cfd752c045750d312e8cc4991f0323c" />
+<Entry OldName="PKTool.frmMain.tab" NewName="PKTool.frmMain.c334fb5e810cbdee8ce7ddee108cc6599" />
+<Entry OldName="PKTool.frmMain.btnViewFB" NewName="PKTool.frmMain.c73b4594ab6236ea3de4d9acd3c89af99" />
+<Entry OldName="PKTool.frmMain.btnNews" NewName="PKTool.frmMain.c23b8e446762b32328e04d92403364bbe" />
+<Entry OldName="PKTool.frmMain.bntOpen" NewName="PKTool.frmMain.cf86649b09f0adb514be91393e07a1f22" />
+<Entry OldName="PKTool.frmMain.btnClearLogInvite" NewName="PKTool.frmMain.c985b5979a21f87de1c0aa7f4ee905d14" />
+<Entry OldName="PKTool.frmMain.openFileDialog" NewName="PKTool.frmMain.cdab1c646ec9e41555c3ec5766c4f8a6e" />
+<Entry OldName="PKTool.frmMain.&lt;CaptureConfiguration&gt;k__BackingField" NewName="PKTool.frmMain.c55e0532ec9d60be715235322bc342158" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate8" NewName="PKTool.frmMain.cbd8b74bf3b5ae4ce5b7cc2a3c773038a" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate9" NewName="PKTool.frmMain.cef418791c53fa8a97715a451e2d57431" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegatea" NewName="PKTool.frmMain.c236a7d0c21fd36a090a33f108e50fea9" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegateb" NewName="PKTool.frmMain.cd226fd352e94dcb940a1b7f9d85ac0bc" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegatec" NewName="PKTool.frmMain.c717e593dca663545ab0d81af581b9a1e" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegated" NewName="PKTool.frmMain.c03088095fdbf80b377a58de5f5d4c13b" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegatee" NewName="PKTool.frmMain.cc859e4c8627cd6ba2d751d83b9f1ce55" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegatef" NewName="PKTool.frmMain.c4c64d538b77938b371f09ff757e77cbc" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate13" NewName="PKTool.frmMain.c4e375f1e3d4d15fc49af2a27d7fee3ca" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate14" NewName="PKTool.frmMain.c67211098a28b874bd481c5ffd09d5b25" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate18" NewName="PKTool.frmMain.c77036afd40e3478b61ce81695ab52d69" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate19" NewName="PKTool.frmMain.c919a8eaa020712d5001329e97d00e492" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate1a" NewName="PKTool.frmMain.c25b18de77756abbcd2dcc585babdee4c" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate1d" NewName="PKTool.frmMain.c132a9febf9db93d6af020cd358b52efa" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate1e" NewName="PKTool.frmMain.cd2b7c5fabdc999b5e9a69d263ea793e8" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate22" NewName="PKTool.frmMain.c28004234d3f0185c4a24ffd90c52a6b2" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate23" NewName="PKTool.frmMain.cef9c0c7cc3d3258c9be1ced6111150c1" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate24" NewName="PKTool.frmMain.cade4c63e45d6f26f09571f3fbc71796a" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate27" NewName="PKTool.frmMain.c4a3fab6e7f897bec29431601b7088508" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate28" NewName="PKTool.frmMain.cb7e6d8f4cf7e865a3e11bf9fea8e40f2" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate2d" NewName="PKTool.frmMain.c12032b51285806cbdbafb622937ff425" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate2e" NewName="PKTool.frmMain.c05623557e667ad1f77463e5490fa5ced" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate2f" NewName="PKTool.frmMain.c6c5a56edb917e5a20df0725fc4f2d0ad" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate30" NewName="PKTool.frmMain.c0c7d057a0267a2a752fa2521e135d2c7" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate32" NewName="PKTool.frmMain.c041e629f67910437772a9e88631d4fd7" />
+<Entry OldName="PKTool.frmMain.CS$&lt;&gt;9__CachedAnonymousMethodDelegate35" NewName="PKTool.frmMain.c02f9389b4869c621f7c84e6ee1f2168f" />
+<Entry OldName="PKTool.Friend.index" NewName="PKTool.Friend.cbc1def85d1f81f525e7b8ec464874295" />
+<Entry OldName="PKTool.Friend.id" NewName="PKTool.Friend.cba2a82f123917c69022453870b80af9c" />
+<Entry OldName="PKTool.Friend.name" NewName="PKTool.Friend.c70eede7c25f10afabf69b22e584a1ea8" />
+<Entry OldName="PKTool.Friend.key" NewName="PKTool.Friend.cbe954fd5a1b3014f2e44905786752eeb" />
+<Entry OldName="PKTool.Friend.rank" NewName="PKTool.Friend.c6bc3dfccbdf1d352a6caeb65de01cdf2" />
+<Entry OldName="PKTool.Friend.spin" NewName="PKTool.Friend.c66c2b155256a515486dbee22d2e866a4" />
+<Entry OldName="PKTool.Friend.cash" NewName="PKTool.Friend.cc9ac22a090cb9058d17edf67aa9714c3" />
+<Entry OldName="PKTool.Friend.sToken" NewName="PKTool.Friend.c1cbf6da70cb79356faa7337bcd7297b1" />
+<Entry OldName="PKTool.Friend.bToken" NewName="PKTool.Friend.cd8e18b3724197168bb9c6bbcbf2f4272" />
+<Entry OldName="PKTool.Friend.type" NewName="PKTool.Friend.cc864436591d41a630da75795c73ae111" />
+<Entry OldName="PKTool.Item.index" NewName="PKTool.Item.cbc1def85d1f81f525e7b8ec464874295" />
+<Entry OldName="PKTool.Item.name" NewName="PKTool.Item.c70eede7c25f10afabf69b22e584a1ea8" />
+<Entry OldName="PKTool.Item.isdamaged" NewName="PKTool.Item.c4b214fb5fa60bf47d8b004a7cea99ee9" />
+<Entry OldName="PKTool.Item.level" NewName="PKTool.Item.c4f4d09fbb787a46476c304d8da8e9e49" />
+<Entry OldName="PKTool.Item.price" NewName="PKTool.Item.c2b9cbe9e98501d2f728d18198909bfea" />
+<Entry OldName="PKTool.Key.index" NewName="PKTool.Key.cbc1def85d1f81f525e7b8ec464874295" />
+<Entry OldName="PKTool.Key.level" NewName="PKTool.Key.c4f4d09fbb787a46476c304d8da8e9e49" />
+<Entry OldName="PKTool.Key.data" NewName="PKTool.Key.cde3f205dd9347c6e8da7533d44744bd9" />
+<Entry OldName="PKTool.UrlCaptureConfiguration.&lt;ProcessId&gt;k__BackingField" NewName="PKTool.UrlCaptureConfiguration.c1253f71a9c1a77badd9324655c1bbb46" />
+<Entry OldName="PKTool.UrlCaptureConfiguration.&lt;IgnoreResources&gt;k__BackingField" NewName="PKTool.UrlCaptureConfiguration.cf255bfd941acfd52dcd4e3848ed39cab" />
+<Entry OldName="PKTool.UrlCaptureConfiguration.&lt;CaptureDomain&gt;k__BackingField" NewName="PKTool.UrlCaptureConfiguration.c2832b4a66bd01ac37aa37955e6e885b2" />
+<Entry OldName="PKTool.UrlCaptureConfiguration.&lt;UrlFilterExclusions&gt;k__BackingField" NewName="PKTool.UrlCaptureConfiguration.cb6f134a2b2fbc3ee52cd78fe1e67525c" />
+<Entry OldName="PKTool.UrlCaptureConfiguration.&lt;ExtensionFilterExclusions&gt;k__BackingField" NewName="PKTool.UrlCaptureConfiguration.ce57a788fea044460aaa1484b5da32e1f" />
+<Entry OldName="PKTool.WebPlayerServerCommunicator.ServerBaseAddress" NewName="PKTool.WebPlayerServerCommunicator.c88d8f841c0954006112a86e08f3647be" />
+<Entry OldName="PKTool.Properties.Resources.resourceMan" NewName="A.c8a97ada3ee38ec2c6951a62000a07d8b.cdffb59cd352b9fdde0d1faa208a5f73f" />
+<Entry OldName="PKTool.Properties.Resources.resourceCulture" NewName="A.c8a97ada3ee38ec2c6951a62000a07d8b.c5ead66feae7d5afbba28a2eb0b84539d" />
+<Entry OldName="PKTool.ChangeNameRequest..ctor(String secretKey, String sessionToken, String businessToken, String newName, String newAvatar)" NewName="A.c7455da878245a0b2eccb4c582e6346e3..ctor(String c5eac75efa7f340937c0c867017107d04, String cbfad4f06e501d0e70bbc5a3efba6a63e, String cd39281a954590d413c6d742f43c42983, String cf7700a5c21cc116853474cb86bb7d3db, String ca1e30398271139386193431337d7ccd3)" />
+<Entry OldName="PKTool.frmNews.grdNews_CellFormatting(Object sender, DataGridViewCellFormattingEventArgs e)" NewName="PKTool.frmNews.c8a40dd5677730a7c187fb55cd51b011c(Object cf2609f8e34aba4185639b2dfd675a0a3, DataGridViewCellFormattingEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmNews.grdNews_CellContentClick(Object sender, DataGridViewCellEventArgs e)" NewName="PKTool.frmNews.cf408f30ea77555fdb4baad163b56861e(Object cf2609f8e34aba4185639b2dfd675a0a3, DataGridViewCellEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmNews.openURL(String url)" NewName="PKTool.frmNews.c03ec6a984edfe614b3efcd70708d760c(String c70b8e01eb2c46fab31929d1328a3fd61)" />
+<Entry OldName="PKTool.frmNews.btnClose_Click(Object sender, EventArgs e)" NewName="PKTool.frmNews.c64e7555619d1d848fa7e362a8406c776(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmNews.frmNews_Load(Object sender, EventArgs e)" NewName="PKTool.frmNews.c1f54f2fa27d8f2aaaafcd3095e8bd103(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmNews.InitializeComponent()" NewName="PKTool.frmNews.cceec85c1859b0082d7684e34525ee5fd()" />
+<Entry OldName="PKTool.IslandCompletions..ctor()" NewName="A.c4ba8f03bc895e7e7633a8210cb21f319..ctor()" />
+<Entry OldName="PKTool.IslandCompletions.get_CompleteTime()" NewName="A.c4ba8f03bc895e7e7633a8210cb21f319.get_c5a539b6cc29a051139b155488b18562a()" />
+<Entry OldName="PKTool.IslandCompletions.set_CompleteTime(String value)" NewName="A.c4ba8f03bc895e7e7633a8210cb21f319.set_c5a539b6cc29a051139b155488b18562a(String c42695071f7cc114522f844ffccdbcf05)" />
+<Entry OldName="PKTool.IslandCompletions.get_IslandLevel()" NewName="A.c4ba8f03bc895e7e7633a8210cb21f319.get_cfea0744014551b060af7b41beb6b4ee9()" />
+<Entry OldName="PKTool.IslandCompletions.set_IslandLevel(Int32 value)" NewName="A.c4ba8f03bc895e7e7633a8210cb21f319.set_cfea0744014551b060af7b41beb6b4ee9(Int32 c42695071f7cc114522f844ffccdbcf05)" />
+<Entry OldName="PKTool.Data..ctor()" NewName="A.c119c08d997c75dd074887b202b17a08c..ctor()" />
+<Entry OldName="PKTool.Data.get_Rank()" NewName="A.c119c08d997c75dd074887b202b17a08c.get_cce6016717eab7f707fab434bfd48bc3c()" />
+<Entry OldName="PKTool.Data.set_Rank(Int32 value)" NewName="A.c119c08d997c75dd074887b202b17a08c.set_cce6016717eab7f707fab434bfd48bc3c(Int32 c42695071f7cc114522f844ffccdbcf05)" />
+<Entry OldName="PKTool.Data.get_Msg()" NewName="A.c119c08d997c75dd074887b202b17a08c.get_c7787b95d759a23bfd0e4884c97bd17b9()" />
+<Entry OldName="PKTool.Data.set_Msg(String value)" NewName="A.c119c08d997c75dd074887b202b17a08c.set_c7787b95d759a23bfd0e4884c97bd17b9(String c42695071f7cc114522f844ffccdbcf05)" />
+<Entry OldName="PKTool.Data.get_Friend()" NewName="A.c119c08d997c75dd074887b202b17a08c.get_ce753c56b131bb89cca694cfacdb9d39f()" />
+<Entry OldName="PKTool.Data.set_Friend(Friend value)" NewName="A.c119c08d997c75dd074887b202b17a08c.set_ce753c56b131bb89cca694cfacdb9d39f(Friend c42695071f7cc114522f844ffccdbcf05)" />
+<Entry OldName="PKTool.frmMain.m_Play_DoWork(Object sender, DoWorkEventArgs e)" NewName="PKTool.frmMain.ce278bbe6a16312f1e3a0c92b91996b58(Object cf2609f8e34aba4185639b2dfd675a0a3, DoWorkEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_Play_ProgressChanged(Object sender, ProgressChangedEventArgs e)" NewName="PKTool.frmMain.c03304755f3794fd861f8268248d03889(Object cf2609f8e34aba4185639b2dfd675a0a3, ProgressChangedEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_Play_RunWorkerCompleted(Object sender, RunWorkerCompletedEventArgs e)" NewName="PKTool.frmMain.cdd161e9acf0065586bf8fe2b3cce7624(Object cf2609f8e34aba4185639b2dfd675a0a3, RunWorkerCompletedEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_Kill_DoWork(Object sender, DoWorkEventArgs e)" NewName="PKTool.frmMain.c5cca59483745c64ede3e7d62323235de(Object cf2609f8e34aba4185639b2dfd675a0a3, DoWorkEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_Kill_ProgressChanged(Object sender, ProgressChangedEventArgs e)" NewName="PKTool.frmMain.c17d8eccac4be013334c5b90274b8b84f(Object cf2609f8e34aba4185639b2dfd675a0a3, ProgressChangedEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_Kill_RunWorkerCompleted(Object sender, RunWorkerCompletedEventArgs e)" NewName="PKTool.frmMain.c5ca852eefae9446f2b8ef681fa273f5c(Object cf2609f8e34aba4185639b2dfd675a0a3, RunWorkerCompletedEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_Attack_RunWorkerCompleted(Object sender, RunWorkerCompletedEventArgs e)" NewName="PKTool.frmMain.c8eb101c1b27ff6b813b137b810f4260e(Object cf2609f8e34aba4185639b2dfd675a0a3, RunWorkerCompletedEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_Attack_DoWork(Object sender, DoWorkEventArgs e)" NewName="PKTool.frmMain.cdf1738a129d74c90564322c0eb2d480b(Object cf2609f8e34aba4185639b2dfd675a0a3, DoWorkEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_Attack_ProgressChanged(Object sender, ProgressChangedEventArgs e)" NewName="PKTool.frmMain.c3bbae58778b35df29e64807255312d54(Object cf2609f8e34aba4185639b2dfd675a0a3, ProgressChangedEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_oWorker_RunWorkerCompleted(Object sender, RunWorkerCompletedEventArgs e)" NewName="PKTool.frmMain.ce9a62cece7fb021a6986a5e115da4a55(Object cf2609f8e34aba4185639b2dfd675a0a3, RunWorkerCompletedEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_oWorker_ProgressChanged(Object sender, ProgressChangedEventArgs e)" NewName="PKTool.frmMain.c662d60d4b433c3e4bae314cf3b54c3b6(Object cf2609f8e34aba4185639b2dfd675a0a3, ProgressChangedEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.m_oWorker_DoWork(Object sender, DoWorkEventArgs e)" NewName="PKTool.frmMain.c224e854b2de51e11318f79b4f707b602(Object cf2609f8e34aba4185639b2dfd675a0a3, DoWorkEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.bntOpen_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c0858a484a57727208d3faf81000b6705(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnClearLogInvite_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.cecf6bbfc1ebdc1124be49e4502ae7b5d(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnNews_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c3ae0e1e1a1e49549ee96225820fd0031(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnViewFB_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c7a83a648264fdfb020db599a26a53818(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnHTML_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c8af72eaf059b9a55bcdaccae779317ed(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnSetVicTim_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.cf22848f036cb62a61d718774e2619778(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnSetAttacker_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.cd7f1c6cc1cc08a7e7d8c15bf84382e6a(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnAttack_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.cf4ee3c58b59660297eb0a3c5ba00b14e(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.rdoOther_CheckedChanged(Object sender, EventArgs e)" NewName="PKTool.frmMain.c26ff960a454130c0f10e72ec24394449(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnRemove_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c38a02cff899d9879a40c6ce2be709f47(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnClear_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.cadb53295c3da787b6e8a05891b4319ad(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnView_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c214b5986c41e1a08494a205516a1e049(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnPlay_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c5611e38a1c7b6a1e45fedd085ec7839e(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnKill_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c1fdd7552b360095b9bb2b01c91801ce9(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnAdd_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c0479dac3e01a5e806b18f3b974b3a7de(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnGet_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c32b882c569e017c0139c763db85c901e(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnRefresh_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.cfbbbbdf61264f10ef6ca60d814b143c2(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnVideo_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c6036583421920a606979f546a19029a3(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnInvite_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c3bf05d4ac58658a669af5500fd6f6bbf(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnOpen_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.c8cf48818ad532dd66f4005bae8b43635(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.btnSpinSlot_Click(Object sender, EventArgs e)" NewName="PKTool.frmMain.ccb7d7c5b22098f9b95c008a0d9cd59e5(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.frmMain_FormClosing(Object sender, FormClosingEventArgs e)" NewName="PKTool.frmMain.c2ed47c2365f5693ee06bb29ea2fd21be(Object cf2609f8e34aba4185639b2dfd675a0a3, FormClosingEventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.frmMain_Load(Object sender, EventArgs e)" NewName="PKTool.frmMain.c7ac5c291a7de667f96790cd5fd6ac31d(Object cf2609f8e34aba4185639b2dfd675a0a3, EventArgs c3052b74e7d6b7a00cf40a12957417ba3)" />
+<Entry OldName="PKTool.frmMain.openURL(String url)" NewName="PKTool.frmMain.c03ec6a984edfe614b3efcd70708d760c(String c70b8e01eb2c46fab31929d1328a3fd61)" />
+<Entry OldName="PKTool.frmMain.getDataLogin(String fbId, String friendFBIDs)" NewName="PKTool.frmMain.ccb96b56702dc2f0348943819a934ae9b(String c6ac2a76d0345f4c7643001df107c2d66, String c5bcb17036cd3bd588218ac0c3407427b)" />
+<Entry OldName="PKTool.frmMain.getFriends(String html)" NewName="PKTool.frmMain.c19c7088c9baa3fbc2dec21eb30eead62(String c41274d8d93b38ada43c2ca54684bfeb2)" />
+<Entry OldName="PKTool.frmMain.getFriends(JToken data)" NewName="PKTool.frmMain.c19c7088c9baa3fbc2dec21eb30eead62(JToken cde3f205dd9347c6e8da7533d44744bd9)" />
+<Entry OldName="PKTool.frmMain.islandViewFriend(String fid)" NewName="PKTool.frmMain.c317a5d9919be8ca1e7bb1cac7ce01a0b(String cd936af94489834b35b725d65a6edfa41)" />
+<Entry OldName="PKTool.frmMain.attackFriend(Friend attacker, String fbidVictim, String itemType)" NewName="PKTool.frmMain.c034cc43f4954f19c033aa220497ea969(Friend cac62388f18203f4426d34a74821a5ecd, String cef56335d71ec2eff2d27e0e9c7a54fd2, String c15f912fee3f462027ef34ed37459625b)" />
+<Entry OldName="PKTool.frmMain.getItemTypeAttack(String fbidVictim)" NewName="PKTool.frmMain.cd414ff0a696db3453708289e346f4ce1(String cef56335d71ec2eff2d27e0e9c7a54fd2)" />
+<Entry OldName="PKTool.frmMain.doGet(String url)" NewName="PKTool.frmMain.c0f5e5c0a0d4eae8ce6c4f10e1f042023(String c70b8e01eb2c46fab31929d1328a3fd61)" />
+<Entry OldName="PKTool.frmMain.attack(Friend attacker, Friend victim)" NewName="PKTool.frmMain.cfeabb195eadc9b0829b932d2bfdc2a9c(Friend cac62388f18203f4426d34a74821a5ecd, Friend cbdf322f44f354e17a7c4f15417d81b10)" />
+<Entry OldName="PKTool.frmMain.steal(String secretKey, String sessionToken, JToken data, Boolean isStealAuto, String&amp; retSteal)" NewName="PKTool.frmMain.cb449ef55ae92d1aa122a8bc960202fae(String c5eac75efa7f340937c0c867017107d04, String cbfad4f06e501d0e70bbc5a3efba6a63e, JToken cde3f205dd9347c6e8da7533d44744bd9, Boolean cc50461ced0294f3304fbdce01980e788, String&amp; c707f2b654805bf4f8792b9116f7a3b0c)" />
+<Entry OldName="PKTool.frmMain.setLogin(Friend friend, Boolean isUpdate)" NewName="PKTool.frmMain.c605da8d9a2953a1b2507a286a521a842(Friend cd5abd6ca2a57a9f859b87294ea59f942, Boolean cb4945b342dadeacb9cdd16887ea7552d)" />
+<Entry OldName="PKTool.frmMain.getItemTypeAttack(JToken data, Boolean isSort)" NewName="PKTool.frmMain.cd414ff0a696db3453708289e346f4ce1(JToken cde3f205dd9347c6e8da7533d44744bd9, Boolean cd6de78c689bbeaaf0c189195469c32e8)" />
+<Entry OldName="PKTool.frmMain.attackRandom(String secretKey, String sessionToken, JToken data)" NewName="PKTool.frmMain.c547562d4918001f225ba9213d65cc56c(String c5eac75efa7f340937c0c867017107d04, String cbfad4f06e501d0e70bbc5a3efba6a63e, JToken cde3f205dd9347c6e8da7533d44744bd9)" />
+<Entry OldName="PKTool.frmMain.getTimes(Int32 time)" NewName="PKTool.frmMain.cdf9fb9e288536294190b2074e20629dd(Int32 ca52c6e9654d75f996adbea091959b34c)" />
+<Entry OldName="PKTool.frmMain.getFriendByFBID(String fbID)" NewName="PKTool.frmMain.c2360ce0ab31a07b7ad42d1292f029310(String cce632f7edb3cf61c91de966ed79e95ba)" />
+<Entry OldName="PKTool.frmMain.displayInfo(String header, String content)" NewName="PKTool.frmMain.cdfa64bd0a3f59747a7938a8b9d532ae0(String c536ca7dd6c81bec8959d9b53a97d2b24, String c31ec6fb8a871f0b68e5fe5dedac2de77)" />
+<Entry OldName="PKTool.frmMain.displayAvatar(Int32 rank)" NewName="PKTool.frmMain.cc126132e566734d167a8753d5aca53d6(Int32 c6bc3dfccbdf1d352a6caeb65de01cdf2)" />
+<Entry OldName="PKTool.frmMain.getItems(JToken jToken)" NewName="PKTool.frmMain.cef5a84719893ec462737c0f26d83cac2(JToken c3fc4ffc2dc1b7ff43bd44b755a148a65)" />
+<Entry OldName="PKTool.frmMain.setPrices(List`1 items)" NewName="PKTool.frmMain.ca9e967d7c99237451d6d6e4c5287e58d(List`1 ccdbe404b62a2bfd5335b906d4078445f)" />
+<Entry OldName="PKTool.frmMain.upgrade(String itemType)" NewName="PKTool.frmMain.cad38ca1628c4e887c02cb43e95131545(String c15f912fee3f462027ef34ed37459625b)" />
+<Entry OldName="PKTool.frmMain.repair(String itemType)" NewName="PKTool.frmMain.cdbacacdb69d9f71eed10686981accee1(String c15f912fee3f462027ef34ed37459625b)" />
+<Entry OldName="PKTool.frmMain.finish()" NewName="PKTool.frmMain.cf591b52648c614880f1376cc1b9d7dc9()" />
+<Entry OldName="PKTool.frmMain.isFinish()" NewName="PKTool.frmMain.c7043bea2a20dc282a6ae941e3a80a670()" />
+<Entry OldName="PKTool.frmMain.isNextUpgrade(Int64 cash)" NewName="PKTool.frmMain.c250110da1457d02cd7e547c5950ca308(Int64 cc9ac22a090cb9058d17edf67aa9714c3)" />
+<Entry OldName="PKTool.frmMain.wheel(String secretKey, String sessionToken)" NewName="PKTool.frmMain.c9606091a8cafbd6d8ca959752cbc7ffd(String c5eac75efa7f340937c0c867017107d04, String cbfad4f06e501d0e70bbc5a3efba6a63e)" />
+<Entry OldName="PKTool.frmMain.attackRandom(String itemType, String secretKey, String sessionToken)" NewName="PKTool.frmMain.c547562d4918001f225ba9213d65cc56c(String c15f912fee3f462027ef34ed37459625b, String c5eac75efa7f340937c0c867017107d04, String cbfad4f06e501d0e70bbc5a3efba6a63e)" />
+<Entry OldName="PKTool.frmMain.steal(Int32 stealIndex, String secretKey, String sessionToken)" NewName="PKTool.frmMain.cb449ef55ae92d1aa122a8bc960202fae(Int32 cd498ed25c99cd0c9af268a4b97b3ebcf, String c5eac75efa7f340937c0c867017107d04, String cbfad4f06e501d0e70bbc5a3efba6a63e)" />
+<Entry OldName="PKTool.frmMain.getItemName(String itemType)" NewName="PKTool.frmMain.ccf551cfd75ee7ef81de2ea318dd609af(String c15f912fee3f462027ef34ed37459625b)" />
+<Entry OldName="PKTool.frmMain.inviteComplete()" NewName="PKTool.frmMain.c5a5351e94d33429b4585861049f0ba64()" />
+<Entry OldName="PKTool.frmMain.videoClaimbonus()" NewName="PKTool.frmMain.ca7aba4e6734715bf1cd7f0f18c67917f()" />
+<Entry OldName="PKTool.frmMain.completedUpgrade(Int32 islandIndex)" NewName="PKTool.frmMain.c63b8abea7de52d5016025c3602e3523f(Int32 c2ae51c5a54a87c1caa1b18c0bab3b6c1)" />
+<Entry OldName="PKTool.frmMain.spinSlot()" NewName="PKTool.frmMain.c0b5a67325c92700ed4d26b154ef6da38()" />
+<Entry OldName="PKTool.frmMain.openChest()" NewName="PKTool.frmMain.c2d22ebb205df7600833ec98cc57ae826()" />
+<Entry OldName="PKTool.frmMain.checkStartUp()" NewName="PKTool.frmMain.c63ea98b0b437d2e5ae40e5fef4492eff()" />
+<Entry OldName="PKTool.frmMain.setIslandIndex(JToken data)" NewName="PKTool.frmMain.c64e475f2e6ee2b496106a6991bf2e7a7(JToken cde3f205dd9347c6e8da7533d44744bd9)" />
+<Entry OldName="PKTool.frmMain.startFiddlerApp()" NewName="PKTool.frmMain.c042219adf5dc2cefc6541e0228d8094a()" />
+<Entry OldName="PKTool.frmMain.FiddlerApplication_AfterSessionComplete(Session sess)" NewName="PKTool.frmMain.c47002c43a7be11443aa2efdd0c07bc83(Session c92cc090618a378f2fae778007ee8d775)" />
+<Entry OldName="PKTool.frmMain.shutdowFiddlerApp()" NewName="PKTool.frmMain.ccb29b0bfe5cca7cb53dceddb021e218a()" />
+<Entry OldName="PKTool.frmMain.InitializeComponent()" NewName="PKTool.frmMain.cceec85c1859b0082d7684e34525ee5fd()" />
+<Entry OldName="PKTool.frmMain.&lt;m_Play_DoWork&gt;b__0(Item i)" NewName="PKTool.frmMain.ce28c27faddd11a4acbfcad4423ecf3a5(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;m_Play_DoWork&gt;b__1(Item i)" NewName="PKTool.frmMain.c3a44232c62c7359192bfd5a756a13994(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;m_Play_DoWork&gt;b__2(Item i)" NewName="PKTool.frmMain.c0d2b33de5800e75711ce7149fce7a33d(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;m_Play_DoWork&gt;b__3(Item i)" NewName="PKTool.frmMain.c7154203175bed97bf98a114b3df17323(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;m_Play_DoWork&gt;b__4(Item i)" NewName="PKTool.frmMain.cfb482b36d00ffab4b16736c12c1787dc(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;m_Play_DoWork&gt;b__5(Item i)" NewName="PKTool.frmMain.c9647e9101ab778b2f1e30cfd116cd63b(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;m_Play_DoWork&gt;b__6(Item i)" NewName="PKTool.frmMain.c7f376ef6e4d9cb3012ecd6e6b1a7639b(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;m_Play_DoWork&gt;b__7(Item i)" NewName="PKTool.frmMain.c08b81071941a46870f45849e3ea96e7e(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;btnAdd_Click&gt;b__10(Friend i)" NewName="PKTool.frmMain.cbf19244cba8187cd8e240108baa3b66f(Friend ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;getFriends&gt;b__11(HtmlNode n)" NewName="PKTool.frmMain.cdb2223962019be2a8c05c49084b7dfd5(HtmlNode c2e16206de7c4f3319768840849013e1a)" />
+<Entry OldName="PKTool.frmMain.&lt;getFriends&gt;b__12(HtmlNode n)" NewName="PKTool.frmMain.c5f877a83a60aaf489416429450903227(HtmlNode c2e16206de7c4f3319768840849013e1a)" />
+<Entry OldName="PKTool.frmMain.&lt;getItemTypeAttack&gt;b__15(Item item)" NewName="PKTool.frmMain.c18dca8f49785361671354947f0101618(Item cbd5326ab9cd4aa339181b2e21e2ebdaf)" />
+<Entry OldName="PKTool.frmMain.&lt;getItemTypeAttack&gt;b__16(Item item)" NewName="PKTool.frmMain.c135e5f0ef8236b3d6a7de4a9d50bc259(Item cbd5326ab9cd4aa339181b2e21e2ebdaf)" />
+<Entry OldName="PKTool.frmMain.&lt;getItemTypeAttack&gt;b__17(Item item)" NewName="PKTool.frmMain.c6d2f92d2f24ee8151ca6d811a1ae33da(Item cbd5326ab9cd4aa339181b2e21e2ebdaf)" />
+<Entry OldName="PKTool.frmMain.&lt;steal&gt;b__1b(Key item)" NewName="PKTool.frmMain.c5ef1a449fd4c2b4a8b33ea83f0985295(Key cbd5326ab9cd4aa339181b2e21e2ebdaf)" />
+<Entry OldName="PKTool.frmMain.&lt;steal&gt;b__1c(Key item)" NewName="PKTool.frmMain.c1b728de63a6268fd02a67c54c5a466c2(Key cbd5326ab9cd4aa339181b2e21e2ebdaf)" />
+<Entry OldName="PKTool.frmMain.&lt;getItemTypeAttack&gt;b__1f(Item item)" NewName="PKTool.frmMain.cf4a55dd9ec0b6f1579b3b563cddcdf33(Item cbd5326ab9cd4aa339181b2e21e2ebdaf)" />
+<Entry OldName="PKTool.frmMain.&lt;getItemTypeAttack&gt;b__20(Item item)" NewName="PKTool.frmMain.c324df357a16f046110f6af6308211238(Item cbd5326ab9cd4aa339181b2e21e2ebdaf)" />
+<Entry OldName="PKTool.frmMain.&lt;getItemTypeAttack&gt;b__21(Item item)" NewName="PKTool.frmMain.c120596bcd8f8977db33a37f9d43a71ad(Item cbd5326ab9cd4aa339181b2e21e2ebdaf)" />
+<Entry OldName="PKTool.frmMain.&lt;isFinish&gt;b__25(Item i)" NewName="PKTool.frmMain.cd4df1f87b2075d7d3d1491437bf793c0(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;isFinish&gt;b__26(Item i)" NewName="PKTool.frmMain.c11ed705b62099945d8824c0ffaefdea5(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;isNextUpgrade&gt;b__29(Item i)" NewName="PKTool.frmMain.cac021b177d621ac64313476ce8cbf315(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;isNextUpgrade&gt;b__2a(Item i)" NewName="PKTool.frmMain.c2fd94cbcf5b6324e2510b69832e0ff13(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;isNextUpgrade&gt;b__2b(Item i)" NewName="PKTool.frmMain.c3c4f25d9b181a7b7fb414fae63f78c2f(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;isNextUpgrade&gt;b__2c(Item i)" NewName="PKTool.frmMain.cab45a4a715b9dd83e1b80a742e2cb7a6(Item ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;setIslandIndex&gt;b__31(IslandCompletions i)" NewName="PKTool.frmMain.ce47e244208d4100bb6a63746e878f8ba(c4ba8f03bc895e7e7633a8210cb21f319 ccf4e3573023da1aefa9ace91691322cf)" />
+<Entry OldName="PKTool.frmMain.&lt;FiddlerApplication_AfterSessionComplete&gt;b__33(Dictionary`2 dic)" NewName="PKTool.frmMain.c085e120c558ef1cecfb2d49c9cefdbf9(Dictionary`2 cafdd9aa1b6f811e4818f04a6c19c0d36)" />
+<Entry OldName="PKTool.frmMain.&lt;FiddlerApplication_AfterSessionComplete&gt;b__34(NewsItem news)" NewName="PKTool.frmMain.ce5f096bf46f5edccc7f649d9fa9abfaa(NewsItem cdde86cea185d3471544d1d5e85c26b1f)" />
+<Entry OldName="PKTool.Program.Main()" NewName="A.c53232377d1976dd6465f9b155a06929e.c6fbe287d7ef6a62bb124574bec2ff473()" />
+<Entry OldName="PKTool.Properties.Resources..ctor()" NewName="A.c8a97ada3ee38ec2c6951a62000a07d8b..ctor()" />
+<Entry OldName="PKTool.Properties.Resources.get_ResourceManager()" NewName="A.c8a97ada3ee38ec2c6951a62000a07d8b.get_ResourceManager()" />
+<Entry OldName="PKTool.Properties.Resources.get_Culture()" NewName="A.c8a97ada3ee38ec2c6951a62000a07d8b.get_Culture()" />
+<Entry OldName="PKTool.Properties.Resources.set_Culture(CultureInfo value)" NewName="A.c8a97ada3ee38ec2c6951a62000a07d8b.set_Culture(CultureInfo value)" />
+<Entry OldName="PKTool.ChangeNameRequest" NewName="A.c7455da878245a0b2eccb4c582e6346e3" />
+<Entry OldName="PKTool.IslandCompletions" NewName="A.c4ba8f03bc895e7e7633a8210cb21f319" />
+<Entry OldName="PKTool.Data" NewName="A.c119c08d997c75dd074887b202b17a08c" />
+<Entry OldName="PKTool.Program" NewName="A.c53232377d1976dd6465f9b155a06929e" />
+<Entry OldName="PKTool.Properties.Resources" NewName="A.c8a97ada3ee38ec2c6951a62000a07d8b" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\BasePlayerRequest.cs" NewName="File0" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\ChangeNameRequest.cs" NewName="File1" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\frmNews.cs" NewName="File2" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\frmNews.Designer.cs" NewName="File3" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\IsLand.cs" NewName="File4" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\IslandCompletions.cs" NewName="File5" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\Data.cs" NewName="File6" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\frmMain.cs" NewName="File7" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\frmMain.Designer.cs" NewName="File8" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\Friend.cs" NewName="File9" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\Item.cs" NewName="File10" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\Key.cs" NewName="File11" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\NewsItem.cs" NewName="File12" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\Program.cs" NewName="File13" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\SimplePlayer.cs" NewName="File14" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\UrlCaptureConfiguration.cs" NewName="File15" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\WebPlayerServerCommunicator.cs" NewName="File16" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\Properties\Resources.Designer.cs" NewName="File17" />
+<Entry OldName="d:\Working\P\PKHackTool\PKHackTool\Properties\Settings.Designer.cs" NewName="File18" />
+<Assembly Name="PKTool"><Type Token="33554433" Name="&lt;Module&gt;" />
+<Method Token="100663297" Name="" Variables="" ParamCnt="0" />
+<Type Token="33554434" Name="PKTool.BasePlayerRequest" />
+<Method Token="100663298" Name=".ctor" Variables="this;secretKey;sessionToken;businessToken;" ParamCnt="4" />
+<Method Token="100663299" Name="get_secretKey" Variables="this;" ParamCnt="1" />
+<Method Token="100663300" Name="set_secretKey" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663301" Name="get_sessionToken" Variables="this;" ParamCnt="1" />
+<Method Token="100663302" Name="set_sessionToken" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663303" Name="get_businessToken" Variables="this;" ParamCnt="1" />
+<Method Token="100663304" Name="set_businessToken" Variables="this;value;" ParamCnt="2" />
+<Field Token="67108865" Name="&lt;secretKey&gt;k__BackingField" />
+<Field Token="67108866" Name="&lt;sessionToken&gt;k__BackingField" />
+<Field Token="67108867" Name="&lt;businessToken&gt;k__BackingField" />
+<Type Token="33554436" Name="PKTool.ChangeNameRequest" />
+<Method Token="100663306" Name=".ctor" Variables="this;secretKey;sessionToken;businessToken;newName;newAvatar;" ParamCnt="6" />
+<Field Token="67108868" Name="NewName" />
+<Field Token="67108869" Name="NewAvatar" />
+<Type Token="33554437" Name="PKTool.frmNews" />
+<Method Token="100663307" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663308" Name=".ctor" Variables="this;listNews;" ParamCnt="2" />
+<Method Token="100663309" Name="grdNews_CellFormatting" Variables="this;sender;e;rowIndex;row;" ParamCnt="3" />
+<Method Token="100663310" Name="grdNews_CellContentClick" Variables="this;sender;e;rowIndex;urlFB;id;" ParamCnt="3" />
+<Method Token="100663311" Name="openURL" Variables="this;url;sInfo;" ParamCnt="2" />
+<Method Token="100663312" Name="btnClose_Click" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663313" Name="frmNews_Load" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663314" Name="Dispose" Variables="this;disposing;" ParamCnt="2" />
+<Method Token="100663315" Name="InitializeComponent" Variables="this;dataGridViewCellStyle1;resources;" ParamCnt="1" />
+<Field Token="67108870" Name="LISTNEWS" />
+<Field Token="67108871" Name="components" />
+<Field Token="67108872" Name="tableLayoutPanel1" />
+<Field Token="67108873" Name="grdNews" />
+<Field Token="67108874" Name="FB" />
+<Field Token="67108875" Name="ID" />
+<Field Token="67108876" Name="Message" />
+<Field Token="67108877" Name="panel1" />
+<Field Token="67108878" Name="btnClose" />
+<Type Token="33554439" Name="PKTool.IsLand" />
+<Method Token="100663322" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663323" Name="get_Index" Variables="this;" ParamCnt="1" />
+<Method Token="100663324" Name="set_Index" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663325" Name="get_Items" Variables="this;" ParamCnt="1" />
+<Method Token="100663326" Name="set_Items" Variables="this;value;" ParamCnt="2" />
+<Field Token="67108880" Name="index" />
+<Field Token="67108881" Name="items" />
+<Type Token="33554440" Name="PKTool.IslandCompletions" />
+<Method Token="100663327" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663328" Name="get_CompleteTime" Variables="this;" ParamCnt="1" />
+<Method Token="100663329" Name="set_CompleteTime" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663330" Name="get_IslandLevel" Variables="this;" ParamCnt="1" />
+<Method Token="100663331" Name="set_IslandLevel" Variables="this;value;" ParamCnt="2" />
+<Field Token="67108882" Name="completeTime" />
+<Field Token="67108883" Name="islandLevel" />
+<Type Token="33554441" Name="PKTool.Data" />
+<Method Token="100663332" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663333" Name="get_Rank" Variables="this;" ParamCnt="1" />
+<Method Token="100663334" Name="set_Rank" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663335" Name="get_Msg" Variables="this;" ParamCnt="1" />
+<Method Token="100663336" Name="set_Msg" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663337" Name="get_Friend" Variables="this;" ParamCnt="1" />
+<Method Token="100663338" Name="set_Friend" Variables="this;value;" ParamCnt="2" />
+<Field Token="67108884" Name="rank" />
+<Field Token="67108885" Name="msg" />
+<Field Token="67108886" Name="friend" />
+<Type Token="33554442" Name="PKTool.frmMain" />
+<Method Token="100663339" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663340" Name=".cctor" Variables="" ParamCnt="0" />
+<Method Token="100663341" Name="get_CaptureConfiguration" Variables="this;" ParamCnt="1" />
+<Method Token="100663342" Name="set_CaptureConfiguration" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663343" Name="m_Play_DoWork" Variables="this;sender;e;dic;isAttackRandom;isStealAuto;isFullShields;isAutoUpgrade;retWheel;data;wheelResult;spins;shields;playerInfo;cashKingInfo;cash;retSteal;stealInfo;retInfo;jTokenSteal;info;attackInfo;jTokenAttack;info;itemsDamaged;retRepair;info;itemsUpgrade;retUpgrade;info;retFinish;jTokenFinish;info;retCompleted;jTokenCompleted;info;" ParamCnt="3" />
+<Method Token="100663344" Name="m_Play_ProgressChanged" Variables="this;sender;e;data;" ParamCnt="3" />
+<Method Token="100663345" Name="m_Play_RunWorkerCompleted" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663346" Name="m_Kill_DoWork" Variables="this;sender;e;friend;retWheel;data;wheelResult;spins;playerInfo;retSteal;" ParamCnt="3" />
+<Method Token="100663347" Name="m_Kill_ProgressChanged" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663348" Name="m_Kill_RunWorkerCompleted" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663349" Name="m_Attack_RunWorkerCompleted" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663350" Name="m_Attack_DoWork" Variables="this;sender;e;dic;attackers;victim;num;rnd;index;attacker;count;retWheel;data;itemTypes;wheelResult;spins;rank;retSteal;ret;jToken;" ParamCnt="3" />
+<Method Token="100663351" Name="m_Attack_ProgressChanged" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663352" Name="m_oWorker_RunWorkerCompleted" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663353" Name="m_oWorker_ProgressChanged" Variables="this;sender;e;data;info;" ParamCnt="3" />
+<Method Token="100663354" Name="m_oWorker_DoWork" Variables="this;sender;e;lst;counter;friend;data;urlLogin;ret;jToken;percentage;info;" ParamCnt="3" />
+<Method Token="100663355" Name="bntOpen_Click" Variables="this;sender;e;file;text;" ParamCnt="3" />
+<Method Token="100663356" Name="btnClearLogInvite_Click" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663357" Name="btnNews_Click" Variables="this;sender;e;frmNews;" ParamCnt="3" />
+<Method Token="100663358" Name="btnViewFB_Click" Variables="this;sender;e;friend;urlFB;" ParamCnt="3" />
+<Method Token="100663359" Name="btnHTML_Click" Variables="this;sender;e;html;txtBtn;" ParamCnt="3" />
+<Method Token="100663360" Name="btnSetVicTim_Click" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663361" Name="btnSetAttacker_Click" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663362" Name="btnAttack_Click" Variables="this;sender;e;txtBtn;itemTypes;attackers;att;att;data;" ParamCnt="3" />
+<Method Token="100663363" Name="rdoOther_CheckedChanged" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663364" Name="btnRemove_Click" Variables="this;sender;e;atacker;" ParamCnt="3" />
+<Method Token="100663365" Name="btnClear_Click" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663366" Name="btnView_Click" Variables="this;sender;e;friend;retWheel;jToken;friendInfo;" ParamCnt="3" />
+<Method Token="100663367" Name="btnPlay_Click" Variables="this;sender;e;txtBtn;dic;" ParamCnt="3" />
+<Method Token="100663368" Name="btnKill_Click" Variables="this;sender;e;friend;txtBtn;" ParamCnt="3" />
+<Method Token="100663369" Name="btnAdd_Click" Variables="this;sender;e;lstGet;att;" ParamCnt="3" />
+<Method Token="100663370" Name="btnGet_Click" Variables="this;sender;e;retWheel;jToken;friendInfo;" ParamCnt="3" />
+<Method Token="100663371" Name="btnRefresh_Click" Variables="this;sender;e;data;urlLogin;retLogin;jTokenLogin;infoRet;" ParamCnt="3" />
+<Method Token="100663372" Name="btnVideo_Click" Variables="this;sender;e;ret;jToken;" ParamCnt="3" />
+<Method Token="100663373" Name="btnInvite_Click" Variables="this;sender;e;ret;jToken;" ParamCnt="3" />
+<Method Token="100663374" Name="btnOpen_Click" Variables="this;sender;e;ret;jToken;" ParamCnt="3" />
+<Method Token="100663375" Name="btnSpinSlot_Click" Variables="this;sender;e;ret;jToken;" ParamCnt="3" />
+<Method Token="100663376" Name="frmMain_FormClosing" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663377" Name="frmMain_Load" Variables="this;sender;e;" ParamCnt="3" />
+<Method Token="100663378" Name="openURL" Variables="this;url;sInfo;" ParamCnt="2" />
+<Method Token="100663379" Name="getDataLogin" Variables="this;fbId;friendFBIDs;dicResult;" ParamCnt="3" />
+<Method Token="100663380" Name="getFriends" Variables="this;html;lst;doc;root;row_nodes;a_node;friend;" ParamCnt="2" />
+<Method Token="100663381" Name="doPost" Variables="this;uri;parameters;request;bytes;requestStream;response;stream;reader;result;ex;" ParamCnt="3" />
+<Method Token="100663382" Name="getFriends" Variables="this;data;index;child;name;fbid;friend;" ParamCnt="2" />
+<Method Token="100663383" Name="islandViewFriend" Variables="this;fid;ret;url;dicResult;" ParamCnt="2" />
+<Method Token="100663384" Name="attackFriend" Variables="this;attacker;fbidVictim;itemType;ret;url;dicResult;" ParamCnt="4" />
+<Method Token="100663385" Name="getItemTypeAttack" Variables="this;fbidVictim;itemTypes;retView;data;i;query;" ParamCnt="2" />
+<Method Token="100663386" Name="doGet" Variables="this;url;request;response;stream;reader;data;ex;" ParamCnt="2" />
+<Method Token="100663387" Name="attack" Variables="this;attacker;victim;retWheel;data;wheelResult;spins;retSteal;itemTypes;ret;" ParamCnt="3" />
+<Method Token="100663388" Name="steal" Variables="this;secretKey;sessionToken;data;isStealAuto;retSteal;index;lstKeys;child;keyItem;rank;lstKeysOrder;query;query;" ParamCnt="6" />
+<Method Token="100663389" Name="setLogin" Variables="this;friend;isUpdate;data;urlLogin;retLogin;f;" ParamCnt="3" />
+<Method Token="100663390" Name="getItemTypeAttack" Variables="this;data;isSort;itemTypes;i;query;" ParamCnt="3" />
+<Method Token="100663391" Name="attackRandom" Variables="this;secretKey;sessionToken;data;itemTypes;itemAttackName;rnd;idxItem;" ParamCnt="4" />
+<Method Token="100663392" Name="getTimes" Variables="this;time;min;second;" ParamCnt="2" />
+<Method Token="100663393" Name="getFriendByFBID" Variables="this;fbID;friend;retLogin;jData;" ParamCnt="2" />
+<Method Token="100663394" Name="displayInfo" Variables="this;header;content;data;" ParamCnt="3" />
+<Method Token="100663395" Name="displayAvatar" Variables="this;rank;baseName;baseNamePre;baseNameNext;" ParamCnt="2" />
+<Method Token="100663396" Name="getItems" Variables="this;jToken;items;item;" ParamCnt="2" />
+<Method Token="100663397" Name="setPrices" Variables="this;items;item;basePrice;priceStep;price;" ParamCnt="2" />
+<Method Token="100663398" Name="upgrade" Variables="this;itemType;ret;url;dic;" ParamCnt="2" />
+<Method Token="100663399" Name="repair" Variables="this;itemType;ret;url;dic;" ParamCnt="2" />
+<Method Token="100663400" Name="finish" Variables="this;ret;url;dic;" ParamCnt="1" />
+<Method Token="100663401" Name="isFinish" Variables="this;items;" ParamCnt="1" />
+<Method Token="100663402" Name="isNextUpgrade" Variables="this;cash;itemsDamaged;itemsUpgrade;" ParamCnt="2" />
+<Method Token="100663403" Name="wheel" Variables="this;secretKey;sessionToken;ret;url;dic;" ParamCnt="3" />
+<Method Token="100663404" Name="attackRandom" Variables="this;itemType;secretKey;sessionToken;ret;url;dic;" ParamCnt="4" />
+<Method Token="100663405" Name="steal" Variables="this;stealIndex;secretKey;sessionToken;ret;url;dic;" ParamCnt="4" />
+<Method Token="100663406" Name="getItemName" Variables="this;itemType;" ParamCnt="2" />
+<Method Token="100663407" Name="inviteComplete" Variables="this;ret;url;dic;" ParamCnt="1" />
+<Method Token="100663408" Name="videoClaimbonus" Variables="this;ret;url;dic;" ParamCnt="1" />
+<Method Token="100663409" Name="completedUpgrade" Variables="this;islandIndex;ret;url;dic;" ParamCnt="2" />
+<Method Token="100663410" Name="spinSlot" Variables="this;ret;url;dic;" ParamCnt="1" />
+<Method Token="100663411" Name="openChest" Variables="this;ret;url;dic;" ParamCnt="1" />
+<Method Token="100663412" Name="checkStartUp" Variables="this;ret;dic;isOpen;" ParamCnt="1" />
+<Method Token="100663413" Name="setIslandIndex" Variables="this;data;completedIsland;datas;" ParamCnt="2" />
+<Method Token="100663414" Name="startFiddlerApp" Variables="this;" ParamCnt="1" />
+<Method Token="100663415" Name="FiddlerApplication_AfterSessionComplete" Variables="this;sess;url;extensions;ext;filters;urlFilter;reqBody;respBody;dicResult;" ParamCnt="2" />
+<Method Token="100663416" Name="shutdowFiddlerApp" Variables="this;" ParamCnt="1" />
+<Method Token="100663417" Name="Dispose" Variables="this;disposing;" ParamCnt="2" />
+<Method Token="100663418" Name="InitializeComponent" Variables="this;resources;" ParamCnt="1" />
+<Method Token="100663419" Name="&lt;m_Play_DoWork&gt;b__0" Variables="i;" ParamCnt="1" />
+<Method Token="100663420" Name="&lt;m_Play_DoWork&gt;b__1" Variables="i;" ParamCnt="1" />
+<Method Token="100663421" Name="&lt;m_Play_DoWork&gt;b__2" Variables="i;" ParamCnt="1" />
+<Method Token="100663422" Name="&lt;m_Play_DoWork&gt;b__3" Variables="i;" ParamCnt="1" />
+<Method Token="100663423" Name="&lt;m_Play_DoWork&gt;b__4" Variables="i;" ParamCnt="1" />
+<Method Token="100663424" Name="&lt;m_Play_DoWork&gt;b__5" Variables="i;" ParamCnt="1" />
+<Method Token="100663425" Name="&lt;m_Play_DoWork&gt;b__6" Variables="i;" ParamCnt="1" />
+<Method Token="100663426" Name="&lt;m_Play_DoWork&gt;b__7" Variables="i;" ParamCnt="1" />
+<Method Token="100663427" Name="&lt;btnAdd_Click&gt;b__10" Variables="this;i;" ParamCnt="2" />
+<Method Token="100663428" Name="&lt;getFriends&gt;b__11" Variables="n;" ParamCnt="1" />
+<Method Token="100663429" Name="&lt;getFriends&gt;b__12" Variables="n;" ParamCnt="1" />
+<Method Token="100663430" Name="&lt;getItemTypeAttack&gt;b__15" Variables="item;" ParamCnt="1" />
+<Method Token="100663431" Name="&lt;getItemTypeAttack&gt;b__16" Variables="item;" ParamCnt="1" />
+<Method Token="100663432" Name="&lt;getItemTypeAttack&gt;b__17" Variables="item;" ParamCnt="1" />
+<Method Token="100663433" Name="&lt;steal&gt;b__1b" Variables="item;" ParamCnt="1" />
+<Method Token="100663434" Name="&lt;steal&gt;b__1c" Variables="item;" ParamCnt="1" />
+<Method Token="100663435" Name="&lt;getItemTypeAttack&gt;b__1f" Variables="item;" ParamCnt="1" />
+<Method Token="100663436" Name="&lt;getItemTypeAttack&gt;b__20" Variables="item;" ParamCnt="1" />
+<Method Token="100663437" Name="&lt;getItemTypeAttack&gt;b__21" Variables="item;" ParamCnt="1" />
+<Method Token="100663438" Name="&lt;isFinish&gt;b__25" Variables="i;" ParamCnt="1" />
+<Method Token="100663439" Name="&lt;isFinish&gt;b__26" Variables="i;" ParamCnt="1" />
+<Method Token="100663440" Name="&lt;isNextUpgrade&gt;b__29" Variables="i;" ParamCnt="1" />
+<Method Token="100663441" Name="&lt;isNextUpgrade&gt;b__2a" Variables="i;" ParamCnt="1" />
+<Method Token="100663442" Name="&lt;isNextUpgrade&gt;b__2b" Variables="i;" ParamCnt="1" />
+<Method Token="100663443" Name="&lt;isNextUpgrade&gt;b__2c" Variables="i;" ParamCnt="1" />
+<Method Token="100663444" Name="&lt;setIslandIndex&gt;b__31" Variables="i;" ParamCnt="1" />
+<Method Token="100663445" Name="&lt;FiddlerApplication_AfterSessionComplete&gt;b__33" Variables="this;dic;jTokenReq;jTokenResp;listNews;" ParamCnt="2" />
+<Method Token="100663446" Name="&lt;FiddlerApplication_AfterSessionComplete&gt;b__34" Variables="news;" ParamCnt="1" />
+<Field Token="67108887" Name="SEPARATOR" />
+<Field Token="67108888" Name="CAPTUREDOMAIN" />
+<Field Token="67108889" Name="RANKPOINT_STEAL" />
+<Field Token="67108890" Name="URLLOGIN" />
+<Field Token="67108891" Name="URLWHEEL" />
+<Field Token="67108892" Name="URLATTACKFRIEND" />
+<Field Token="67108893" Name="URLATTACKRANDOM" />
+<Field Token="67108894" Name="URLVIEW" />
+<Field Token="67108895" Name="URLSTEAL" />
+<Field Token="67108896" Name="URLUPGRADE" />
+<Field Token="67108897" Name="URLREPAIR" />
+<Field Token="67108898" Name="URLFINISH" />
+<Field Token="67108899" Name="URLINVITEBONUS" />
+<Field Token="67108900" Name="URLVIDEOCLAIMBONUS" />
+<Field Token="67108901" Name="URLCOMPLETEDUPGRADE" />
+<Field Token="67108902" Name="URLSPINSLOT" />
+<Field Token="67108903" Name="URLSLOTCHEST" />
+<Field Token="67108904" Name="URL" />
+<Field Token="67108905" Name="KEY" />
+<Field Token="67108906" Name="REGEX_ID" />
+<Field Token="67108907" Name="REGEX_NAME" />
+<Field Token="67108908" Name="BUSINESSTOKEN" />
+<Field Token="67108909" Name="ACCESSTOKEN" />
+<Field Token="67108910" Name="SECRETKEY" />
+<Field Token="67108911" Name="SESSIONTOKEN" />
+<Field Token="67108912" Name="FRIENDS" />
+<Field Token="67108913" Name="M_OWORKER" />
+<Field Token="67108914" Name="M_KILL" />
+<Field Token="67108915" Name="M_PLAY" />
+<Field Token="67108916" Name="M_ATTACK" />
+<Field Token="67108917" Name="IDATTACKER" />
+<Field Token="67108918" Name="VICTIM" />
+<Field Token="67108919" Name="FIDVIPS" />
+<Field Token="67108920" Name="NAME" />
+<Field Token="67108921" Name="FBID" />
+<Field Token="67108922" Name="ARRITEMS" />
+<Field Token="67108923" Name="BASEPRICES" />
+<Field Token="67108924" Name="PRICESTEPS" />
+<Field Token="67108925" Name="ITEMS" />
+<Field Token="67108926" Name="FRIENDFBIDS" />
+<Field Token="67108927" Name="ISLANDINDEX" />
+<Field Token="67108928" Name="LISTNEWS" />
+<Field Token="67108929" Name="UDID" />
+<Field Token="67108930" Name="components" />
+<Field Token="67108931" Name="label3" />
+<Field Token="67108932" Name="imageList" />
+<Field Token="67108933" Name="tab2" />
+<Field Token="67108934" Name="rtbRetIn" />
+<Field Token="67108935" Name="rtbHTML" />
+<Field Token="67108936" Name="btnHTML" />
+<Field Token="67108937" Name="label1" />
+<Field Token="67108938" Name="tab1" />
+<Field Token="67108939" Name="gbBonus" />
+<Field Token="67108940" Name="btnOpen" />
+<Field Token="67108941" Name="btnSpinSlot" />
+<Field Token="67108942" Name="btnInvite" />
+<Field Token="67108943" Name="btnVideo" />
+<Field Token="67108944" Name="label4" />
+<Field Token="67108945" Name="lbFriends" />
+<Field Token="67108946" Name="btnAdd" />
+<Field Token="67108947" Name="txtFBID" />
+<Field Token="67108948" Name="txtVictim" />
+<Field Token="67108949" Name="rtbRet" />
+<Field Token="67108950" Name="lblName" />
+<Field Token="67108951" Name="label2" />
+<Field Token="67108952" Name="btnSetAttacker" />
+<Field Token="67108953" Name="btnClear" />
+<Field Token="67108954" Name="btnView" />
+<Field Token="67108955" Name="groupBox2" />
+<Field Token="67108956" Name="nudNum" />
+<Field Token="67108957" Name="btnRemove" />
+<Field Token="67108958" Name="rdoOther" />
+<Field Token="67108959" Name="rdoByme" />
+<Field Token="67108960" Name="rdoRandom" />
+<Field Token="67108961" Name="lbAttackers" />
+<Field Token="67108962" Name="btnAttack" />
+<Field Token="67108963" Name="btnSetVicTim" />
+<Field Token="67108964" Name="btnKill" />
+<Field Token="67108965" Name="groupBox1" />
+<Field Token="67108966" Name="chkAutoUpgrade" />
+<Field Token="67108967" Name="btnGet" />
+<Field Token="67108968" Name="avatarPre" />
+<Field Token="67108969" Name="btnPlay" />
+<Field Token="67108970" Name="chkFull" />
+<Field Token="67108971" Name="chkAutoSteal" />
+<Field Token="67108972" Name="chkAutoAttack" />
+<Field Token="67108973" Name="avatarNext" />
+<Field Token="67108974" Name="avatar" />
+<Field Token="67108975" Name="tab" />
+<Field Token="67108976" Name="btnViewFB" />
+<Field Token="67108977" Name="btnNews" />
+<Field Token="67108978" Name="bntOpen" />
+<Field Token="67108979" Name="btnClearLogInvite" />
+<Field Token="67108980" Name="openFileDialog" />
+<Field Token="67108981" Name="&lt;CaptureConfiguration&gt;k__BackingField" />
+<Field Token="67108982" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate8" />
+<Field Token="67108983" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate9" />
+<Field Token="67108984" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegatea" />
+<Field Token="67108985" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegateb" />
+<Field Token="67108986" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegatec" />
+<Field Token="67108987" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegated" />
+<Field Token="67108988" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegatee" />
+<Field Token="67108989" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegatef" />
+<Field Token="67108990" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate13" />
+<Field Token="67108991" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate14" />
+<Field Token="67108992" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate18" />
+<Field Token="67108993" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate19" />
+<Field Token="67108994" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate1a" />
+<Field Token="67108995" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate1d" />
+<Field Token="67108996" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate1e" />
+<Field Token="67108997" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate22" />
+<Field Token="67108998" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate23" />
+<Field Token="67108999" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate24" />
+<Field Token="67109000" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate27" />
+<Field Token="67109001" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate28" />
+<Field Token="67109002" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate2d" />
+<Field Token="67109003" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate2e" />
+<Field Token="67109004" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate2f" />
+<Field Token="67109005" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate30" />
+<Field Token="67109006" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate32" />
+<Field Token="67109007" Name="CS$&lt;&gt;9__CachedAnonymousMethodDelegate35" />
+<Type Token="33554443" Name="PKTool.Friend" />
+<Method Token="100663447" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663448" Name="get_Index" Variables="this;" ParamCnt="1" />
+<Method Token="100663449" Name="set_Index" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663450" Name="get_Id" Variables="this;" ParamCnt="1" />
+<Method Token="100663451" Name="set_Id" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663452" Name="get_Name" Variables="this;" ParamCnt="1" />
+<Method Token="100663453" Name="set_Name" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663454" Name="get_Key" Variables="this;" ParamCnt="1" />
+<Method Token="100663455" Name="set_Key" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663456" Name="get_Rank" Variables="this;" ParamCnt="1" />
+<Method Token="100663457" Name="set_Rank" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663458" Name="get_Spin" Variables="this;" ParamCnt="1" />
+<Method Token="100663459" Name="set_Spin" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663460" Name="get_Cash" Variables="this;" ParamCnt="1" />
+<Method Token="100663461" Name="set_Cash" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663462" Name="get_SToken" Variables="this;" ParamCnt="1" />
+<Method Token="100663463" Name="set_SToken" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663464" Name="get_BToken" Variables="this;" ParamCnt="1" />
+<Method Token="100663465" Name="set_BToken" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663466" Name="get_Type" Variables="this;" ParamCnt="1" />
+<Method Token="100663467" Name="set_Type" Variables="this;value;" ParamCnt="2" />
+<Field Token="67109008" Name="index" />
+<Field Token="67109009" Name="id" />
+<Field Token="67109010" Name="name" />
+<Field Token="67109011" Name="key" />
+<Field Token="67109012" Name="rank" />
+<Field Token="67109013" Name="spin" />
+<Field Token="67109014" Name="cash" />
+<Field Token="67109015" Name="sToken" />
+<Field Token="67109016" Name="bToken" />
+<Field Token="67109017" Name="type" />
+<Type Token="33554444" Name="PKTool.Item" />
+<Method Token="100663468" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663469" Name="get_Index" Variables="this;" ParamCnt="1" />
+<Method Token="100663470" Name="set_Index" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663471" Name="get_Name" Variables="this;" ParamCnt="1" />
+<Method Token="100663472" Name="set_Name" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663473" Name="get_Isdamaged" Variables="this;" ParamCnt="1" />
+<Method Token="100663474" Name="set_Isdamaged" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663475" Name="get_Level" Variables="this;" ParamCnt="1" />
+<Method Token="100663476" Name="set_Level" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663477" Name="get_Price" Variables="this;" ParamCnt="1" />
+<Method Token="100663478" Name="set_Price" Variables="this;value;" ParamCnt="2" />
+<Field Token="67109018" Name="index" />
+<Field Token="67109019" Name="name" />
+<Field Token="67109020" Name="isdamaged" />
+<Field Token="67109021" Name="level" />
+<Field Token="67109022" Name="price" />
+<Type Token="33554445" Name="PKTool.Key" />
+<Method Token="100663479" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663480" Name="get_Index" Variables="this;" ParamCnt="1" />
+<Method Token="100663481" Name="set_Index" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663482" Name="get_Level" Variables="this;" ParamCnt="1" />
+<Method Token="100663483" Name="set_Level" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663484" Name="get_Data" Variables="this;" ParamCnt="1" />
+<Method Token="100663485" Name="set_Data" Variables="this;value;" ParamCnt="2" />
+<Field Token="67109023" Name="index" />
+<Field Token="67109024" Name="level" />
+<Field Token="67109025" Name="data" />
+<Type Token="33554446" Name="PKTool.NewsItem" />
+<Method Token="100663486" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663487" Name="CompareTo" Variables="this;other;" ParamCnt="2" />
+<Method Token="100663488" Name="ToString" Variables="this;type;message;byWhom;args;" ParamCnt="1" />
+<Field Token="67109026" Name="AttackData" />
+<Field Token="67109027" Name="ByWhom" />
+<Field Token="67109028" Name="LocalEventTime" />
+<Field Token="67109029" Name="PromoData" />
+<Field Token="67109030" Name="SecondsAgo" />
+<Field Token="67109031" Name="StealData" />
+<Field Token="67109032" Name="StringData" />
+<Field Token="67109033" Name="Type" />
+<Type Token="33554448" Name="PKTool.AttackNewsData" />
+<Method Token="100663496" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663497" Name="ToString" Variables="this;args;" ParamCnt="1" />
+<Field Token="67109036" Name="AttackedItem" />
+<Field Token="67109037" Name="Result" />
+<Field Token="67109038" Name="Type" />
+<Type Token="33554450" Name="PKTool.IslandItemType" />
+<Field Token="67109040" Name="value__" />
+<Field Token="67109041" Name="Artifacts" />
+<Field Token="67109042" Name="Nature" />
+<Field Token="67109043" Name="Ships" />
+<Field Token="67109044" Name="Building" />
+<Field Token="67109045" Name="Animals" />
+<Type Token="33554451" Name="PKTool.AttackResult" />
+<Field Token="67109046" Name="value__" />
+<Field Token="67109047" Name="Shield" />
+<Field Token="67109048" Name="DamagedItem" />
+<Field Token="67109049" Name="DestroyedItem" />
+<Type Token="33554452" Name="PKTool.AttackType" />
+<Field Token="67109050" Name="value__" />
+<Field Token="67109051" Name="Random" />
+<Field Token="67109052" Name="Friend" />
+<Field Token="67109053" Name="Revenge" />
+<Type Token="33554454" Name="PKTool.PromoNewsData" />
+<Method Token="100663508" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Field Token="67109060" Name="Amount" />
+<Field Token="67109061" Name="Type" />
+<Type Token="33554455" Name="PKTool.PromoType" />
+<Field Token="67109062" Name="value__" />
+<Field Token="67109063" Name="Cash" />
+<Field Token="67109064" Name="Spins" />
+<Type Token="33554456" Name="PKTool.NewsType" />
+<Field Token="67109065" Name="value__" />
+<Field Token="67109066" Name="Attack" />
+<Field Token="67109067" Name="Steal" />
+<Field Token="67109068" Name="PromoUse" />
+<Field Token="67109069" Name="FriendFinishIsland" />
+<Field Token="67109070" Name="InviteFBFriend" />
+<Field Token="67109071" Name="AdminMessage" />
+<Type Token="33554457" Name="PKTool.StealNewsData" />
+<Method Token="100663509" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663510" Name="ToString" Variables="this;args;" ParamCnt="1" />
+<Field Token="67109072" Name="StolenAmount" />
+<Type Token="33554458" Name="PKTool.Program" />
+<Method Token="100663511" Name="Main" Variables="" ParamCnt="0" />
+<Type Token="33554459" Name="PKTool.SimplePlayer" />
+<Method Token="100663512" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663513" Name="CompareTo" Variables="this;other;" ParamCnt="2" />
+<Method Token="100663514" Name="ToString" Variables="this;args;" ParamCnt="1" />
+<Field Token="67109073" Name="Name" />
+<Field Token="67109074" Name="Avatar" />
+<Field Token="67109075" Name="ExtraData" />
+<Field Token="67109076" Name="FBID" />
+<Field Token="67109077" Name="Flag" />
+<Field Token="67109078" Name="PlayerType" />
+<Field Token="67109079" Name="RankPoints" />
+<Type Token="33554460" Name="PKTool.SimplePlayer/SimplePlayerType" />
+<Field Token="67109080" Name="value__" />
+<Field Token="67109081" Name="Random" />
+<Field Token="67109082" Name="Friend" />
+<Field Token="67109083" Name="Revenge" />
+<Field Token="67109084" Name="News" />
+<Field Token="67109085" Name="Me" />
+<Field Token="67109086" Name="Invite" />
+<Type Token="33554461" Name="PKTool.UrlCaptureConfiguration" />
+<Method Token="100663515" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663516" Name="get_ProcessId" Variables="this;" ParamCnt="1" />
+<Method Token="100663517" Name="set_ProcessId" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663518" Name="get_IgnoreResources" Variables="this;" ParamCnt="1" />
+<Method Token="100663519" Name="set_IgnoreResources" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663520" Name="get_CaptureDomain" Variables="this;" ParamCnt="1" />
+<Method Token="100663521" Name="set_CaptureDomain" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663522" Name="get_UrlFilterExclusions" Variables="this;" ParamCnt="1" />
+<Method Token="100663523" Name="set_UrlFilterExclusions" Variables="this;value;" ParamCnt="2" />
+<Method Token="100663524" Name="get_ExtensionFilterExclusions" Variables="this;" ParamCnt="1" />
+<Method Token="100663525" Name="set_ExtensionFilterExclusions" Variables="this;value;" ParamCnt="2" />
+<Field Token="67109087" Name="&lt;ProcessId&gt;k__BackingField" />
+<Field Token="67109088" Name="&lt;IgnoreResources&gt;k__BackingField" />
+<Field Token="67109089" Name="&lt;CaptureDomain&gt;k__BackingField" />
+<Field Token="67109090" Name="&lt;UrlFilterExclusions&gt;k__BackingField" />
+<Field Token="67109091" Name="&lt;ExtensionFilterExclusions&gt;k__BackingField" />
+<Type Token="33554462" Name="PKTool.WebPlayerServerCommunicator" />
+<Method Token="100663526" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663527" Name="BuildURL" Variables="this;FunctionName;parameters;stringBuilder;str;" ParamCnt="3" />
+<Field Token="67109092" Name="ServerBaseAddress" />
+<Type Token="33554463" Name="PKTool.Properties.Resources" />
+<Method Token="100663528" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663529" Name="get_ResourceManager" Variables="temp;" ParamCnt="0" />
+<Method Token="100663530" Name="get_Culture" Variables="" ParamCnt="0" />
+<Method Token="100663531" Name="set_Culture" Variables="value;" ParamCnt="1" />
+<Field Token="67109093" Name="resourceMan" />
+<Field Token="67109094" Name="resourceCulture" />
+<Type Token="33554464" Name="PKTool.Properties.Settings" />
+<Method Token="100663532" Name=".ctor" Variables="this;" ParamCnt="1" />
+<Method Token="100663533" Name=".cctor" Variables="" ParamCnt="0" />
+<Method Token="100663534" Name="get_Default" Variables="" ParamCnt="0" />
+<Field Token="67109095" Name="defaultInstance" />
+<Type Token="33554435" Name="A.AssemblyInfoAttribute" />
+<Method Token="100663305" Name="" Variables="this;str;" ParamCnt="2" />
+</Assembly><File OldName="d:\Working\P\PKHackTool\PKHackTool\BasePlayerRequest.cs" NewName="File0" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\ChangeNameRequest.cs" NewName="File1" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\frmNews.cs" NewName="File2" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\frmNews.Designer.cs" NewName="File3" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\IsLand.cs" NewName="File4" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\IslandCompletions.cs" NewName="File5" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\Data.cs" NewName="File6" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\frmMain.cs" NewName="File7" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\frmMain.Designer.cs" NewName="File8" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\Friend.cs" NewName="File9" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\Item.cs" NewName="File10" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\Key.cs" NewName="File11" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\NewsItem.cs" NewName="File12" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\Program.cs" NewName="File13" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\SimplePlayer.cs" NewName="File14" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\UrlCaptureConfiguration.cs" NewName="File15" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\WebPlayerServerCommunicator.cs" NewName="File16" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\Properties\Resources.Designer.cs" NewName="File17" />
+<File OldName="d:\Working\P\PKHackTool\PKHackTool\Properties\Settings.Designer.cs" NewName="File18" />
+</Mappings>

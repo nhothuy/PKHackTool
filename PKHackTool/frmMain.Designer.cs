@@ -33,12 +33,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tab2 = new System.Windows.Forms.TabPage();
+            this.btnClearLogInvite = new System.Windows.Forms.Button();
+            this.bntOpen = new System.Windows.Forms.Button();
             this.rtbRetIn = new System.Windows.Forms.RichTextBox();
             this.rtbHTML = new System.Windows.Forms.RichTextBox();
             this.btnHTML = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tab1 = new System.Windows.Forms.TabPage();
-            //this.automaticUpdater = new wyDay.Controls.AutomaticUpdater();
+            this.txtID = new System.Windows.Forms.TextBox();
             this.btnNews = new System.Windows.Forms.Button();
             this.btnViewFB = new System.Windows.Forms.Button();
             this.gbBonus = new System.Windows.Forms.GroupBox();
@@ -78,9 +80,19 @@
             this.avatarNext = new System.Windows.Forms.PictureBox();
             this.avatar = new System.Windows.Forms.PictureBox();
             this.tab = new System.Windows.Forms.TabControl();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFriendsToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFriendsFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutPKToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.openFileDialogF = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tab2.SuspendLayout();
             this.tab1.SuspendLayout();
-            //((System.ComponentModel.ISupportInitialize)(this.automaticUpdater)).BeginInit();
             this.gbBonus.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNum)).BeginInit();
@@ -89,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatar)).BeginInit();
             this.tab.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -131,6 +144,8 @@
             // tab2
             // 
             this.tab2.BackColor = System.Drawing.SystemColors.Control;
+            this.tab2.Controls.Add(this.btnClearLogInvite);
+            this.tab2.Controls.Add(this.bntOpen);
             this.tab2.Controls.Add(this.rtbRetIn);
             this.tab2.Controls.Add(this.rtbHTML);
             this.tab2.Controls.Add(this.btnHTML);
@@ -138,9 +153,29 @@
             this.tab2.Location = new System.Drawing.Point(4, 22);
             this.tab2.Name = "tab2";
             this.tab2.Padding = new System.Windows.Forms.Padding(3);
-            this.tab2.Size = new System.Drawing.Size(751, 451);
+            this.tab2.Size = new System.Drawing.Size(751, 447);
             this.tab2.TabIndex = 1;
             this.tab2.Text = "Invites Cheat";
+            // 
+            // btnClearLogInvite
+            // 
+            this.btnClearLogInvite.Location = new System.Drawing.Point(6, 420);
+            this.btnClearLogInvite.Name = "btnClearLogInvite";
+            this.btnClearLogInvite.Size = new System.Drawing.Size(59, 23);
+            this.btnClearLogInvite.TabIndex = 24;
+            this.btnClearLogInvite.Text = "Clear";
+            this.btnClearLogInvite.UseVisualStyleBackColor = true;
+            this.btnClearLogInvite.Click += new System.EventHandler(this.btnClearLogInvite_Click);
+            // 
+            // bntOpen
+            // 
+            this.bntOpen.Location = new System.Drawing.Point(220, 420);
+            this.bntOpen.Name = "bntOpen";
+            this.bntOpen.Size = new System.Drawing.Size(75, 23);
+            this.bntOpen.TabIndex = 23;
+            this.bntOpen.Text = "Open file";
+            this.bntOpen.UseVisualStyleBackColor = true;
+            this.bntOpen.Click += new System.EventHandler(this.bntOpen_Click);
             // 
             // rtbRetIn
             // 
@@ -181,7 +216,7 @@
             // tab1
             // 
             this.tab1.BackColor = System.Drawing.SystemColors.Control;
-            //this.tab1.Controls.Add(this.automaticUpdater);
+            this.tab1.Controls.Add(this.txtID);
             this.tab1.Controls.Add(this.btnNews);
             this.tab1.Controls.Add(this.btnViewFB);
             this.tab1.Controls.Add(this.gbBonus);
@@ -203,22 +238,17 @@
             this.tab1.Location = new System.Drawing.Point(4, 22);
             this.tab1.Name = "tab1";
             this.tab1.Padding = new System.Windows.Forms.Padding(3);
-            this.tab1.Size = new System.Drawing.Size(751, 451);
+            this.tab1.Size = new System.Drawing.Size(751, 447);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "Play PK";
             // 
-            // automaticUpdater
+            // txtID
             // 
-            //this.automaticUpdater.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            //this.automaticUpdater.ContainerForm = this;
-            //this.automaticUpdater.GUID = "af8c3020-a11a-48af-b8a3-4867951a9142";
-            //this.automaticUpdater.Location = new System.Drawing.Point(721, 6);
-            //this.automaticUpdater.Name = "automaticUpdater";
-            //this.automaticUpdater.Size = new System.Drawing.Size(16, 16);
-            //this.automaticUpdater.TabIndex = 32;
-            //this.automaticUpdater.wyUpdateCommandline = null;
-            //this.automaticUpdater.wyUpdateLocation = "pkUpdate.exe";
-            //this.automaticUpdater.ReadyToBeInstalled += new System.EventHandler(this.automaticUpdater_ReadyToBeInstalled);
+            this.txtID.Location = new System.Drawing.Point(6, 327);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(139, 20);
+            this.txtID.TabIndex = 14;
+            this.txtID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnNews
             // 
@@ -308,9 +338,10 @@
             this.lbFriends.FormattingEnabled = true;
             this.lbFriends.Location = new System.Drawing.Point(6, 31);
             this.lbFriends.Name = "lbFriends";
-            this.lbFriends.Size = new System.Drawing.Size(139, 316);
+            this.lbFriends.Size = new System.Drawing.Size(139, 290);
             this.lbFriends.TabIndex = 0;
             this.lbFriends.ValueMember = "Id";
+            this.lbFriends.SelectedIndexChanged += new System.EventHandler(this.lbFriends_SelectedIndexChanged);
             // 
             // btnAdd
             // 
@@ -533,9 +564,9 @@
             this.chkAutoUpgrade.AutoSize = true;
             this.chkAutoUpgrade.Location = new System.Drawing.Point(7, 45);
             this.chkAutoUpgrade.Name = "chkAutoUpgrade";
-            this.chkAutoUpgrade.Size = new System.Drawing.Size(92, 17);
+            this.chkAutoUpgrade.Size = new System.Drawing.Size(90, 17);
             this.chkAutoUpgrade.TabIndex = 5;
-            this.chkAutoUpgrade.Text = "Auto Upgrade";
+            this.chkAutoUpgrade.Text = "Auto upgrade";
             this.chkAutoUpgrade.UseVisualStyleBackColor = true;
             // 
             // btnGet
@@ -623,21 +654,96 @@
             this.tab.Controls.Add(this.tab1);
             this.tab.Controls.Add(this.tab2);
             this.tab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tab.Location = new System.Drawing.Point(0, 0);
+            this.tab.Location = new System.Drawing.Point(0, 24);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(759, 477);
+            this.tab.Size = new System.Drawing.Size(759, 473);
             this.tab.TabIndex = 0;
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.Filter = "Html File (.htm,*.html)|*.htm;*.html|Text Files (.txt)|*.txt|All Files (*.*)|*.*";
+            // 
+            // menuStrip
+            // 
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(759, 24);
+            this.menuStrip.TabIndex = 28;
+            this.menuStrip.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveFriendsToFileToolStripMenuItem,
+            this.addFriendsFromFileToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.fileToolStripMenuItem.Text = "&FILE";
+            // 
+            // saveFriendsToFileToolStripMenuItem
+            // 
+            this.saveFriendsToFileToolStripMenuItem.Name = "saveFriendsToFileToolStripMenuItem";
+            this.saveFriendsToFileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.saveFriendsToFileToolStripMenuItem.Text = "&Save Friend Lists";
+            this.saveFriendsToFileToolStripMenuItem.Click += new System.EventHandler(this.saveFriendsToFileToolStripMenuItem_Click);
+            // 
+            // addFriendsFromFileToolStripMenuItem
+            // 
+            this.addFriendsFromFileToolStripMenuItem.Name = "addFriendsFromFileToolStripMenuItem";
+            this.addFriendsFromFileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.addFriendsFromFileToolStripMenuItem.Text = "&Add Friend Lists";
+            this.addFriendsFromFileToolStripMenuItem.Click += new System.EventHandler(this.addFriendsFromFileToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.exitToolStripMenuItem.Text = "&Exit";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutPKToolToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.aboutToolStripMenuItem.Text = "&HELP";
+            // 
+            // aboutPKToolToolStripMenuItem
+            // 
+            this.aboutPKToolToolStripMenuItem.Name = "aboutPKToolToolStripMenuItem";
+            this.aboutPKToolToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutPKToolToolStripMenuItem.Text = "&About PKTool";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            // 
+            // openFileDialogF
+            // 
+            this.openFileDialogF.Filter = "PKTool File (*.lnt)|*.lnt";
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "PKTool File (*.lnt)|*.lnt";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(759, 477);
+            this.ClientSize = new System.Drawing.Size(759, 497);
             this.Controls.Add(this.tab);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -648,7 +754,6 @@
             this.tab2.PerformLayout();
             this.tab1.ResumeLayout(false);
             this.tab1.PerformLayout();
-            //((System.ComponentModel.ISupportInitialize)(this.automaticUpdater)).EndInit();
             this.gbBonus.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -659,6 +764,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatar)).EndInit();
             this.tab.ResumeLayout(false);
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -713,6 +820,20 @@
         private System.Windows.Forms.TabControl tab;
         private System.Windows.Forms.Button btnViewFB;
         private System.Windows.Forms.Button btnNews;
+        private System.Windows.Forms.Button bntOpen;
+        private System.Windows.Forms.Button btnClearLogInvite;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.TextBox txtID;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveFriendsToFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addFriendsFromFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem aboutPKToolToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialogF;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         //private wyDay.Controls.AutomaticUpdater automaticUpdater;
         
     }
