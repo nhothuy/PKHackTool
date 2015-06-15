@@ -39,7 +39,7 @@
             this.txtInput.Name = "txtInput";
             this.txtInput.Size = new System.Drawing.Size(603, 96);
             this.txtInput.TabIndex = 0;
-            this.txtInput.Text = "";
+            this.txtInput.Text = "{\"open\":true,\"vips\":[\"10153223750579791\",\"917613761592912\"]}";
             // 
             // txtOutput
             // 
