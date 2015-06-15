@@ -1970,9 +1970,12 @@ namespace PKTool
                     if (jTokenResp["News"] != null)
                     {
                         List<NewsItem> listNews = JsonConvert.DeserializeObject<List<NewsItem>>(jTokenResp["News"].ToString());
-                        LISTNEWS = (from news in listNews
-                                    where news.Type == NewsType.Attack || news.Type == NewsType.Steal
-                                    select news).ToList();
+                        if (listNews != null)
+                        {
+                            LISTNEWS = (from news in listNews
+                                        where news.Type == NewsType.Attack || news.Type == NewsType.Steal
+                                        select news).ToList();
+                        }
                     }
                     setIslandIndex(jTokenResp);
                     getFriends(jTokenResp);
