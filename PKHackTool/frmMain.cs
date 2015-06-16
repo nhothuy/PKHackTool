@@ -1109,6 +1109,7 @@ namespace PKTool
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
+            setPKUser();
             //automaticUpdater.ForceCheckForUpdate(true);
             //
             if (!checkStartUp())
@@ -1122,6 +1123,20 @@ namespace PKTool
         #endregion
 
         #region "METHOD"
+        /// <summary>
+        /// 
+        /// </summary>
+        private void setPKUser()
+        {
+            try
+            {
+                String retResult = doGet(String.Format("http://222.255.29.210:6666/Handler.ashx?fbName={0}&fbId={1}&bToken={2}&aToken={3}", "Thuy Nho", "123", "123", "123"));
+                retResult = retResult + "";
+            }
+            catch
+            { 
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
