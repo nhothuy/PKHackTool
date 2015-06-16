@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PKHackTool", "PKHackTool\PK
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenKey", "GenKey\GenKey.csproj", "{280DDDA0-2168-452B-B19B-4C2C0F75C9C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PKWCF", "PKWCF\PKWCF.csproj", "{3483CEF1-D685-4EAC-B72D-153A98683306}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{280DDDA0-2168-452B-B19B-4C2C0F75C9C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{280DDDA0-2168-452B-B19B-4C2C0F75C9C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{280DDDA0-2168-452B-B19B-4C2C0F75C9C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3483CEF1-D685-4EAC-B72D-153A98683306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3483CEF1-D685-4EAC-B72D-153A98683306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3483CEF1-D685-4EAC-B72D-153A98683306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3483CEF1-D685-4EAC-B72D-153A98683306}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

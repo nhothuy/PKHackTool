@@ -1,0 +1,7 @@
+E:\Working\Projects\PKHackTool\PKWCF\bin\PKWCF.dll
+E:\Working\Projects\PKHackTool\PKWCF\bin\PKWCF.pdb
+E:\Working\Projects\PKHackTool\PKWCF\obj\Release\PKWCF.dll
+E:\Working\Projects\PKHackTool\PKWCF\obj\Release\PKWCF.pdb
+E:\Working\Projects\PKHackTool\PKWCF\bin\MyUtility.dll
+E:\Working\Projects\PKHackTool\PKWCF\bin\Newtonsoft.Json.dll
+E:\Working\Projects\PKHackTool\PKWCF\bin\Newtonsoft.Json.xml

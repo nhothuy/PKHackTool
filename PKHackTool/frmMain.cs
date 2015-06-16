@@ -46,7 +46,7 @@ namespace PKTool
         private const Int32 RANKPOINT_STEAL = 200;
         private List<Int32> IDATTACKER = new List<int>();
         private Friend VICTIM = null;
-        private List<String> FIDVIPS = new List<string>(new String[] {});
+        //private List<String> FIDVIPS = new List<string>(new String[] {});
         private String NAME = String.Empty;
         private String FBID = String.Empty;
         private static String[] ARRITEMS = { "Animals", "Nature", "Building", "Ships", "Artifacts" };
@@ -75,6 +75,7 @@ namespace PKTool
         List<NewsItem> LISTNEWS = new List<NewsItem>();
         private String UDID = "108a61cda531152f01e5436ba1a5b4fcf0acc23f";
         private const String KEY = "LEnHOtHuY";
+        private Boolean ISVIP = false;
         #endregion
 
         #region "INIT"
@@ -626,6 +627,13 @@ namespace PKTool
         #endregion
         
         #region "EVENTS ON CONTROLS"
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you want to exit PKTool?", "PKTool", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
         private void saveFriendsToFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -662,15 +670,33 @@ namespace PKTool
                                       select i).ToList();
                         if (lstGet.Count == 0)
                         {
-                            count = count + 1;
-                            //
-                            att.Index = FRIENDS.Count + 1;
-                            //Reset value
-                            att.SToken = String.Empty;
-                            att.BToken = String.Empty;
-                            //
-                            FRIENDS.Add(att);
-                            FRIENDFBIDS.Add(att.Id);
+                            if (ISVIP)
+                            {
+                                if (att.Id != FBID)
+                                {
+                                    count = count + 1;
+                                    //
+                                    att.Index = FRIENDS.Count + 1;
+                                    //Reset value
+                                    att.SToken = String.Empty;
+                                    att.BToken = String.Empty;
+                                    //
+                                    FRIENDS.Add(att);
+                                    FRIENDFBIDS.Add(att.Id);
+                                }
+                            }
+                            else
+                            {
+                                count = count + 1;
+                                //
+                                att.Index = FRIENDS.Count + 1;
+                                //Reset value
+                                att.SToken = String.Empty;
+                                att.BToken = String.Empty;
+                                //
+                                FRIENDS.Add(att);
+                                FRIENDFBIDS.Add(att.Id);
+                            }
                         }
                     }
                     ((CurrencyManager)lbFriends.BindingContext[FRIENDS]).Refresh();
@@ -796,11 +822,11 @@ namespace PKTool
         private void btnSetAttacker_Click(object sender, EventArgs e)
         {
             if (lbFriends.SelectedItem == null) return;
+            if (ISVIP && ((Friend)lbFriends.SelectedItem).Id == FBID) return;
             if (VICTIM != null)
             {
                 if (((Friend)lbFriends.SelectedItem).Index == VICTIM.Index) return;
             }
-            if (FIDVIPS.Contains(((Friend)lbFriends.SelectedItem).Id)) return;
             if (IDATTACKER.Contains(((Friend)lbFriends.SelectedItem).Index)) return;
             IDATTACKER.Add(((Friend)lbFriends.SelectedItem).Index);
             lbAttackers.Items.Add(((Friend)lbFriends.SelectedItem));
@@ -808,7 +834,7 @@ namespace PKTool
         private void btnAttack_Click(object sender, EventArgs e)
         {
             if (VICTIM == null) return;
-            if (FIDVIPS.Contains(VICTIM.Id)) return;
+            if (ISVIP && VICTIM.Id == FBID) return;
             if (rdoRandom.Checked || rdoOther.Checked)
             {
                 if (FRIENDS.Count == 0) return;
@@ -889,7 +915,7 @@ namespace PKTool
                 if (lbFriends.SelectedItem == null) return;
                 //
                 Friend friend = (Friend)lbFriends.SelectedItem;
-                if (FIDVIPS.Contains(friend.Id)) return;
+                if (ISVIP && friend.Id == FBID) return;
                 setLogin(friend, true);
                 if (friend.Key == String.Empty) return;
                 String retWheel = wheel(friend.Key, friend.SToken);
@@ -932,7 +958,7 @@ namespace PKTool
         {
             if (lbFriends.SelectedItem == null) return;
             Friend friend = (Friend)lbFriends.SelectedItem;
-            if (FIDVIPS.Contains(friend.Id)) return;
+            if (ISVIP && friend.Id == FBID) return;
             String txtBtn = btnKill.Text;
             switch (txtBtn.ToUpper())
             {
@@ -954,7 +980,7 @@ namespace PKTool
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (txtFBID.Text.Trim() == String.Empty) return;
-            if (FIDVIPS.Contains(txtFBID.Text.Trim())) return;
+            if (ISVIP && FBID == txtFBID.Text.Trim()) return;
             var lstGet = (from i in FRIENDS
                                 where i.Id == txtFBID.Text.Trim()
                                 select i).ToList();
@@ -1244,7 +1270,21 @@ namespace PKTool
                 if (name != "")
                 {
                     String fbid = child["FBID"] != null ? child["FBID"].ToString() : "";
-                    if (!FIDVIPS.Contains(fbid.ToUpper()))
+                    //Check again
+                    if (ISVIP)
+                    {
+                        if (fbid.ToUpper() != FBID.ToUpper())
+                        {
+                            Friend friend = new Friend();
+                            friend.Name = name;
+                            friend.Id = child["FBID"] != null ? child["FBID"].ToString() : "";
+                            friend.Index = index;
+                            friend.Rank = Convert.ToInt32(child["RankPoints"]);
+                            index = index + 1;
+                            FRIENDS.Add(friend);
+                        }
+                    }
+                    else
                     {
                         Friend friend = new Friend();
                         friend.Name = name;
@@ -1598,7 +1638,7 @@ namespace PKTool
         private Friend getFriendByFBID(String fbID)
         {
             if (fbID.Trim() == String.Empty) return null;
-            if (FIDVIPS.Contains(fbID.Trim())) return null;
+            if (ISVIP && fbID.Trim() == FBID) return null;
             try
             {
                 Friend friend = new Friend();
@@ -1980,17 +2020,17 @@ namespace PKTool
                 if (ret == String.Empty) return false;
                 ret = MySecurity.TripleDES_De(ret, KEY); ;
                 Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(ret);
+                //Set other
                 Boolean isOpen = Convert.ToBoolean(dic["open"]);
-                //Boolean isOpen = true;
                 if (isOpen)
                 {
-                    FIDVIPS = JsonConvert.DeserializeObject<List<String>>(dic["vips"].ToString());
                     return true;
                 }
                 else
                 {
                     return false;
                 }
+                //
             }
             catch
             {
@@ -2005,10 +2045,13 @@ namespace PKTool
             if (data["IslandCompletions"] != null)
             {
                 List<IslandCompletions> completedIsland = JsonConvert.DeserializeObject<List<IslandCompletions>>(data["IslandCompletions"].ToString());
-                var datas = (from i in completedIsland
-                             orderby i.IslandLevel descending
-                                select i).ToList();
-                ISLANDINDEX = datas[0].IslandLevel;
+                if (completedIsland != null)
+                {
+                    var datas = (from i in completedIsland
+                                 orderby i.IslandLevel descending
+                                 select i).ToList();
+                    ISLANDINDEX = datas[0].IslandLevel;
+                }
             }
         }
         #endregion

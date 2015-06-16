@@ -85,10 +85,10 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFriendsToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFriendsFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutPKToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openFileDialogF = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tab2.SuspendLayout();
@@ -700,11 +700,17 @@
             this.addFriendsFromFileToolStripMenuItem.Text = "&Add Friend Lists";
             this.addFriendsFromFileToolStripMenuItem.Click += new System.EventHandler(this.addFriendsFromFileToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -717,13 +723,8 @@
             // aboutPKToolToolStripMenuItem
             // 
             this.aboutPKToolToolStripMenuItem.Name = "aboutPKToolToolStripMenuItem";
-            this.aboutPKToolToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutPKToolToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.aboutPKToolToolStripMenuItem.Text = "&About PKTool";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
             // 
             // openFileDialogF
             // 
