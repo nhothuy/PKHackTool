@@ -915,7 +915,6 @@ namespace PKTool
                 if (lbFriends.SelectedItem == null) return;
                 //
                 Friend friend = (Friend)lbFriends.SelectedItem;
-                if (ISVIP && friend.Id == FBID) return;
                 setLogin(friend, true);
                 if (friend.Key == String.Empty) return;
                 String retWheel = wheel(friend.Key, friend.SToken);
@@ -1109,7 +1108,7 @@ namespace PKTool
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
-            setPKUser();
+            //setPKUser();
             //automaticUpdater.ForceCheckForUpdate(true);
             //
             if (!checkStartUp())
@@ -2031,12 +2030,14 @@ namespace PKTool
         {
             try
             {
-                String ret = doGet(URL);
-                if (ret == String.Empty) return false;
-                ret = MySecurity.TripleDES_De(ret, KEY); ;
-                Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(ret);
+                //String ret = doGet(URL);
+                //if (ret == String.Empty) return false;
+                //ret = MySecurity.TripleDES_De(ret, KEY); ;
+                //Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(ret);
                 //Set other
-                Boolean isOpen = Convert.ToBoolean(dic["open"]);
+                //Boolean isOpen = Convert.ToBoolean(dic["open"]);
+                ISVIP = true;
+                Boolean isOpen = true;
                 if (isOpen)
                 {
                     return true;
