@@ -1,1 +1,0 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="PKWCF.Service1" CodeBehind="Service1.svc.cs" %>

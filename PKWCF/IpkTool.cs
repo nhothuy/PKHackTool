@@ -10,10 +10,10 @@ namespace PKWCF
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
-    public interface IService1
+    public interface IpkTool
     {
-
         [OperationContract]
-        String GetPK(String fbid, String accesstoken, String key);
+        [WebInvoke(UriTemplate = "/getPK/{fbName}/{fbId}/{bToken}/{aToken}", ResponseFormat = WebMessageFormat.Json)]
+        String getPK(String fbName, String fbId, String bToken, String aToken);
     }
 }

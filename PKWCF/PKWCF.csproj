@@ -66,33 +66,22 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Global.asax" />
     <Content Include="Libs\MyUtility.dll" />
-    <Content Include="Service1.svc" />
+    <Content Include="pkTool.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="data.json.cs">
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="pkTool.svc.cs">
+      <DependentUpon>pkTool.svc</DependentUpon>
     </Compile>
-    <Compile Include="data.json.designer.cs">
-      <DependentUpon>data.json.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Service1.svc.cs">
-      <DependentUpon>Service1.svc</DependentUpon>
-    </Compile>
-    <Compile Include="IService1.cs" />
+    <Compile Include="IpkTool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="data.pk" />
+    <None Include="App_Data\data.pk" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\PKWCF.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -113,7 +102,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>1826</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:3083/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

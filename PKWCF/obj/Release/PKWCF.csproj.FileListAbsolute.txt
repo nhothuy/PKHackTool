@@ -5,3 +5,10 @@ E:\Working\Projects\PKHackTool\PKWCF\obj\Release\PKWCF.pdb
 E:\Working\Projects\PKHackTool\PKWCF\bin\MyUtility.dll
 E:\Working\Projects\PKHackTool\PKWCF\bin\Newtonsoft.Json.dll
 E:\Working\Projects\PKHackTool\PKWCF\bin\Newtonsoft.Json.xml
+D:\Working\P\PKHackTool\PKWCF\bin\PKWCF.dll
+D:\Working\P\PKHackTool\PKWCF\bin\PKWCF.pdb
+D:\Working\P\PKHackTool\PKWCF\bin\MyUtility.dll
+D:\Working\P\PKHackTool\PKWCF\bin\Newtonsoft.Json.dll
+D:\Working\P\PKHackTool\PKWCF\bin\Newtonsoft.Json.xml
+D:\Working\P\PKHackTool\PKWCF\obj\Release\PKWCF.dll
+D:\Working\P\PKHackTool\PKWCF\obj\Release\PKWCF.pdb
