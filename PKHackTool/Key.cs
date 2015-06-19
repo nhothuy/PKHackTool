@@ -15,17 +15,25 @@ namespace PKTool
             set { index = value; }
         }
 
-        private int level;
+        private Int32 level;
 
-        public int Level
+        public Int32 Level
         {
             get { return level; }
             set { level = value; }
         }
 
-        private string data;
+        private Int32 levelEx;
 
-        public string Data
+        public Int32 LevelEx
+        {
+            get { return levelEx; }
+            set { levelEx = value; }
+        }
+
+        private String data;
+
+        public String Data
         {
             get { return data; }
             set { data = value; }

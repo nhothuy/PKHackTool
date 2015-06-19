@@ -30,5 +30,14 @@ namespace PKTool
             get { return friend; }
             set { friend = value; }
         }
+
+        private Boolean isOK = false;
+
+        public Boolean IsOK
+        {
+            get { return isOK; }
+            set { isOK = value; }
+        }
+
     }
 }

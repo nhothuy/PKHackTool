@@ -32,14 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.label3 = new System.Windows.Forms.Label();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.tab2 = new System.Windows.Forms.TabPage();
-            this.btnClearLogInvite = new System.Windows.Forms.Button();
-            this.bntOpen = new System.Windows.Forms.Button();
-            this.rtbRetIn = new System.Windows.Forms.RichTextBox();
-            this.rtbHTML = new System.Windows.Forms.RichTextBox();
-            this.btnHTML = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.tab1 = new System.Windows.Forms.TabPage();
+            this.nudNum = new System.Windows.Forms.NumericUpDown();
             this.txtID = new System.Windows.Forms.TextBox();
             this.btnNews = new System.Windows.Forms.Button();
             this.btnViewFB = new System.Windows.Forms.Button();
@@ -56,22 +50,14 @@
             this.rtbRet = new System.Windows.Forms.RichTextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnSetAttacker = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnView = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.nudNum = new System.Windows.Forms.NumericUpDown();
-            this.btnRemove = new System.Windows.Forms.Button();
-            this.rdoOther = new System.Windows.Forms.RadioButton();
-            this.rdoByme = new System.Windows.Forms.RadioButton();
-            this.rdoRandom = new System.Windows.Forms.RadioButton();
-            this.lbAttackers = new System.Windows.Forms.ListBox();
-            this.btnAttack = new System.Windows.Forms.Button();
             this.btnSetVicTim = new System.Windows.Forms.Button();
-            this.btnKill = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.rdoFriend = new System.Windows.Forms.RadioButton();
+            this.rdoRandom = new System.Windows.Forms.RadioButton();
             this.chkAutoUpgrade = new System.Windows.Forms.CheckBox();
-            this.btnGet = new System.Windows.Forms.Button();
             this.avatarPre = new System.Windows.Forms.PictureBox();
             this.btnPlay = new System.Windows.Forms.Button();
             this.chkFull = new System.Windows.Forms.CheckBox();
@@ -91,11 +77,9 @@
             this.aboutPKToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogF = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.tab2.SuspendLayout();
             this.tab1.SuspendLayout();
-            this.gbBonus.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNum)).BeginInit();
+            this.gbBonus.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.avatarNext)).BeginInit();
@@ -141,81 +125,10 @@
             this.imageList.Images.SetKeyName(21, "15.png");
             this.imageList.Images.SetKeyName(22, "18.png");
             // 
-            // tab2
-            // 
-            this.tab2.BackColor = System.Drawing.SystemColors.Control;
-            this.tab2.Controls.Add(this.btnClearLogInvite);
-            this.tab2.Controls.Add(this.bntOpen);
-            this.tab2.Controls.Add(this.rtbRetIn);
-            this.tab2.Controls.Add(this.rtbHTML);
-            this.tab2.Controls.Add(this.btnHTML);
-            this.tab2.Controls.Add(this.label1);
-            this.tab2.Location = new System.Drawing.Point(4, 22);
-            this.tab2.Name = "tab2";
-            this.tab2.Padding = new System.Windows.Forms.Padding(3);
-            this.tab2.Size = new System.Drawing.Size(751, 447);
-            this.tab2.TabIndex = 1;
-            this.tab2.Text = "Invites Cheat";
-            // 
-            // btnClearLogInvite
-            // 
-            this.btnClearLogInvite.Location = new System.Drawing.Point(6, 420);
-            this.btnClearLogInvite.Name = "btnClearLogInvite";
-            this.btnClearLogInvite.Size = new System.Drawing.Size(59, 23);
-            this.btnClearLogInvite.TabIndex = 24;
-            this.btnClearLogInvite.Text = "Clear";
-            this.btnClearLogInvite.UseVisualStyleBackColor = true;
-            this.btnClearLogInvite.Click += new System.EventHandler(this.btnClearLogInvite_Click);
-            // 
-            // bntOpen
-            // 
-            this.bntOpen.Location = new System.Drawing.Point(220, 420);
-            this.bntOpen.Name = "bntOpen";
-            this.bntOpen.Size = new System.Drawing.Size(75, 23);
-            this.bntOpen.TabIndex = 23;
-            this.bntOpen.Text = "Open file";
-            this.bntOpen.UseVisualStyleBackColor = true;
-            this.bntOpen.Click += new System.EventHandler(this.bntOpen_Click);
-            // 
-            // rtbRetIn
-            // 
-            this.rtbRetIn.Location = new System.Drawing.Point(6, 19);
-            this.rtbRetIn.Name = "rtbRetIn";
-            this.rtbRetIn.ReadOnly = true;
-            this.rtbRetIn.Size = new System.Drawing.Size(208, 395);
-            this.rtbRetIn.TabIndex = 1;
-            this.rtbRetIn.Text = "";
-            // 
-            // rtbHTML
-            // 
-            this.rtbHTML.Location = new System.Drawing.Point(220, 19);
-            this.rtbHTML.Name = "rtbHTML";
-            this.rtbHTML.Size = new System.Drawing.Size(523, 395);
-            this.rtbHTML.TabIndex = 0;
-            this.rtbHTML.Text = "";
-            // 
-            // btnHTML
-            // 
-            this.btnHTML.Location = new System.Drawing.Point(668, 420);
-            this.btnHTML.Name = "btnHTML";
-            this.btnHTML.Size = new System.Drawing.Size(75, 23);
-            this.btnHTML.TabIndex = 9;
-            this.btnHTML.Text = "Start";
-            this.btnHTML.UseVisualStyleBackColor = true;
-            this.btnHTML.Click += new System.EventHandler(this.btnHTML_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(220, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "HTML";
-            // 
             // tab1
             // 
             this.tab1.BackColor = System.Drawing.SystemColors.Control;
+            this.tab1.Controls.Add(this.nudNum);
             this.tab1.Controls.Add(this.txtID);
             this.tab1.Controls.Add(this.btnNews);
             this.tab1.Controls.Add(this.btnViewFB);
@@ -228,12 +141,9 @@
             this.tab1.Controls.Add(this.rtbRet);
             this.tab1.Controls.Add(this.lblName);
             this.tab1.Controls.Add(this.label2);
-            this.tab1.Controls.Add(this.btnSetAttacker);
             this.tab1.Controls.Add(this.btnClear);
             this.tab1.Controls.Add(this.btnView);
-            this.tab1.Controls.Add(this.groupBox2);
             this.tab1.Controls.Add(this.btnSetVicTim);
-            this.tab1.Controls.Add(this.btnKill);
             this.tab1.Controls.Add(this.groupBox1);
             this.tab1.Location = new System.Drawing.Point(4, 22);
             this.tab1.Name = "tab1";
@@ -241,6 +151,18 @@
             this.tab1.Size = new System.Drawing.Size(751, 447);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "Play PK";
+            // 
+            // nudNum
+            // 
+            this.nudNum.Location = new System.Drawing.Point(77, 357);
+            this.nudNum.Maximum = new decimal(new int[] {
+            13,
+            0,
+            0,
+            0});
+            this.nudNum.Name = "nudNum";
+            this.nudNum.Size = new System.Drawing.Size(68, 20);
+            this.nudNum.TabIndex = 2;
             // 
             // txtID
             // 
@@ -262,7 +184,7 @@
             // 
             // btnViewFB
             // 
-            this.btnViewFB.Location = new System.Drawing.Point(287, 230);
+            this.btnViewFB.Location = new System.Drawing.Point(220, 251);
             this.btnViewFB.Name = "btnViewFB";
             this.btnViewFB.Size = new System.Drawing.Size(67, 23);
             this.btnViewFB.TabIndex = 4;
@@ -276,7 +198,7 @@
             this.gbBonus.Controls.Add(this.btnSpinSlot);
             this.gbBonus.Controls.Add(this.btnInvite);
             this.gbBonus.Controls.Add(this.btnVideo);
-            this.gbBonus.Location = new System.Drawing.Point(151, 167);
+            this.gbBonus.Location = new System.Drawing.Point(151, 188);
             this.gbBonus.Name = "gbBonus";
             this.gbBonus.Size = new System.Drawing.Size(325, 57);
             this.gbBonus.TabIndex = 1;
@@ -326,7 +248,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 381);
+            this.label4.Location = new System.Drawing.Point(6, 381);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 8;
@@ -345,7 +267,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(119, 398);
+            this.btnAdd.Location = new System.Drawing.Point(119, 396);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(27, 23);
             this.btnAdd.TabIndex = 10;
@@ -355,7 +277,7 @@
             // 
             // txtFBID
             // 
-            this.txtFBID.Location = new System.Drawing.Point(6, 399);
+            this.txtFBID.Location = new System.Drawing.Point(6, 398);
             this.txtFBID.Name = "txtFBID";
             this.txtFBID.Size = new System.Drawing.Size(113, 20);
             this.txtFBID.TabIndex = 9;
@@ -395,16 +317,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Name:";
             // 
-            // btnSetAttacker
-            // 
-            this.btnSetAttacker.Location = new System.Drawing.Point(73, 354);
-            this.btnSetAttacker.Name = "btnSetAttacker";
-            this.btnSetAttacker.Size = new System.Drawing.Size(72, 23);
-            this.btnSetAttacker.TabIndex = 7;
-            this.btnSetAttacker.Text = "Attacker";
-            this.btnSetAttacker.UseVisualStyleBackColor = true;
-            this.btnSetAttacker.Click += new System.EventHandler(this.btnSetAttacker_Click);
-            // 
             // btnClear
             // 
             this.btnClear.Location = new System.Drawing.Point(684, 420);
@@ -417,109 +329,13 @@
             // 
             // btnView
             // 
-            this.btnView.Location = new System.Drawing.Point(151, 230);
+            this.btnView.Location = new System.Drawing.Point(151, 251);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(62, 23);
             this.btnView.TabIndex = 2;
             this.btnView.Text = "View";
             this.btnView.UseVisualStyleBackColor = true;
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.nudNum);
-            this.groupBox2.Controls.Add(this.btnRemove);
-            this.groupBox2.Controls.Add(this.rdoOther);
-            this.groupBox2.Controls.Add(this.rdoByme);
-            this.groupBox2.Controls.Add(this.rdoRandom);
-            this.groupBox2.Controls.Add(this.lbAttackers);
-            this.groupBox2.Controls.Add(this.btnAttack);
-            this.groupBox2.Location = new System.Drawing.Point(151, 256);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(325, 179);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Attack";
-            // 
-            // nudNum
-            // 
-            this.nudNum.Location = new System.Drawing.Point(249, 13);
-            this.nudNum.Maximum = new decimal(new int[] {
-            13,
-            0,
-            0,
-            0});
-            this.nudNum.Name = "nudNum";
-            this.nudNum.Size = new System.Drawing.Size(68, 20);
-            this.nudNum.TabIndex = 2;
-            this.nudNum.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.Location = new System.Drawing.Point(256, 125);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(63, 23);
-            this.btnRemove.TabIndex = 5;
-            this.btnRemove.Text = "Delete";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // rdoOther
-            // 
-            this.rdoOther.AutoSize = true;
-            this.rdoOther.Checked = true;
-            this.rdoOther.Location = new System.Drawing.Point(25, 47);
-            this.rdoOther.Name = "rdoOther";
-            this.rdoOther.Size = new System.Drawing.Size(51, 17);
-            this.rdoOther.TabIndex = 3;
-            this.rdoOther.TabStop = true;
-            this.rdoOther.Text = "Other";
-            this.rdoOther.UseVisualStyleBackColor = true;
-            this.rdoOther.CheckedChanged += new System.EventHandler(this.rdoOther_CheckedChanged);
-            // 
-            // rdoByme
-            // 
-            this.rdoByme.AutoSize = true;
-            this.rdoByme.Location = new System.Drawing.Point(88, 18);
-            this.rdoByme.Name = "rdoByme";
-            this.rdoByme.Size = new System.Drawing.Size(69, 17);
-            this.rdoByme.TabIndex = 1;
-            this.rdoByme.Text = "By myself";
-            this.rdoByme.UseVisualStyleBackColor = true;
-            // 
-            // rdoRandom
-            // 
-            this.rdoRandom.AutoSize = true;
-            this.rdoRandom.Location = new System.Drawing.Point(25, 18);
-            this.rdoRandom.Name = "rdoRandom";
-            this.rdoRandom.Size = new System.Drawing.Size(65, 17);
-            this.rdoRandom.TabIndex = 0;
-            this.rdoRandom.Text = "Random";
-            this.rdoRandom.UseVisualStyleBackColor = true;
-            // 
-            // lbAttackers
-            // 
-            this.lbAttackers.DisplayMember = "Name";
-            this.lbAttackers.FormattingEnabled = true;
-            this.lbAttackers.Location = new System.Drawing.Point(168, 39);
-            this.lbAttackers.Name = "lbAttackers";
-            this.lbAttackers.Size = new System.Drawing.Size(149, 82);
-            this.lbAttackers.TabIndex = 4;
-            this.lbAttackers.ValueMember = "Id";
-            // 
-            // btnAttack
-            // 
-            this.btnAttack.Location = new System.Drawing.Point(168, 150);
-            this.btnAttack.Name = "btnAttack";
-            this.btnAttack.Size = new System.Drawing.Size(151, 23);
-            this.btnAttack.TabIndex = 6;
-            this.btnAttack.Text = "Attack";
-            this.btnAttack.UseVisualStyleBackColor = true;
-            this.btnAttack.Click += new System.EventHandler(this.btnAttack_Click);
             // 
             // btnSetVicTim
             // 
@@ -531,20 +347,12 @@
             this.btnSetVicTim.UseVisualStyleBackColor = true;
             this.btnSetVicTim.Click += new System.EventHandler(this.btnSetVicTim_Click);
             // 
-            // btnKill
-            // 
-            this.btnKill.Location = new System.Drawing.Point(220, 230);
-            this.btnKill.Name = "btnKill";
-            this.btnKill.Size = new System.Drawing.Size(62, 23);
-            this.btnKill.TabIndex = 3;
-            this.btnKill.Text = "Kill spin";
-            this.btnKill.UseVisualStyleBackColor = true;
-            this.btnKill.Click += new System.EventHandler(this.btnKill_Click);
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnRefresh);
+            this.groupBox1.Controls.Add(this.rdoFriend);
+            this.groupBox1.Controls.Add(this.rdoRandom);
             this.groupBox1.Controls.Add(this.chkAutoUpgrade);
-            this.groupBox1.Controls.Add(this.btnGet);
             this.groupBox1.Controls.Add(this.avatarPre);
             this.groupBox1.Controls.Add(this.btnPlay);
             this.groupBox1.Controls.Add(this.chkFull);
@@ -554,34 +362,58 @@
             this.groupBox1.Controls.Add(this.avatar);
             this.groupBox1.Location = new System.Drawing.Point(151, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(325, 138);
+            this.groupBox1.Size = new System.Drawing.Size(325, 159);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Play";
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(208, 18);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(57, 23);
+            this.btnRefresh.TabIndex = 33;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // rdoFriend
+            // 
+            this.rdoFriend.AutoSize = true;
+            this.rdoFriend.Enabled = false;
+            this.rdoFriend.Location = new System.Drawing.Point(162, 49);
+            this.rdoFriend.Name = "rdoFriend";
+            this.rdoFriend.Size = new System.Drawing.Size(54, 17);
+            this.rdoFriend.TabIndex = 32;
+            this.rdoFriend.Text = "Friend";
+            this.rdoFriend.UseVisualStyleBackColor = true;
+            // 
+            // rdoRandom
+            // 
+            this.rdoRandom.AutoSize = true;
+            this.rdoRandom.Checked = true;
+            this.rdoRandom.Enabled = false;
+            this.rdoRandom.Location = new System.Drawing.Point(96, 49);
+            this.rdoRandom.Name = "rdoRandom";
+            this.rdoRandom.Size = new System.Drawing.Size(65, 17);
+            this.rdoRandom.TabIndex = 31;
+            this.rdoRandom.TabStop = true;
+            this.rdoRandom.Text = "Random";
+            this.rdoRandom.UseVisualStyleBackColor = true;
+            // 
             // chkAutoUpgrade
             // 
             this.chkAutoUpgrade.AutoSize = true;
-            this.chkAutoUpgrade.Location = new System.Drawing.Point(7, 45);
+            this.chkAutoUpgrade.Location = new System.Drawing.Point(7, 101);
             this.chkAutoUpgrade.Name = "chkAutoUpgrade";
             this.chkAutoUpgrade.Size = new System.Drawing.Size(90, 17);
             this.chkAutoUpgrade.TabIndex = 5;
             this.chkAutoUpgrade.Text = "Auto upgrade";
             this.chkAutoUpgrade.UseVisualStyleBackColor = true;
             // 
-            // btnGet
-            // 
-            this.btnGet.Location = new System.Drawing.Point(225, 19);
-            this.btnGet.Name = "btnGet";
-            this.btnGet.Size = new System.Drawing.Size(40, 23);
-            this.btnGet.TabIndex = 3;
-            this.btnGet.Text = "Play";
-            this.btnGet.UseVisualStyleBackColor = true;
-            this.btnGet.Click += new System.EventHandler(this.btnGet_Click);
-            // 
             // avatarPre
             // 
-            this.avatarPre.Location = new System.Drawing.Point(57, 66);
+            this.avatarPre.Location = new System.Drawing.Point(101, 84);
             this.avatarPre.Name = "avatarPre";
             this.avatarPre.Size = new System.Drawing.Size(64, 64);
             this.avatarPre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -591,7 +423,7 @@
             // 
             // btnPlay
             // 
-            this.btnPlay.Location = new System.Drawing.Point(268, 19);
+            this.btnPlay.Location = new System.Drawing.Point(268, 18);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(51, 23);
             this.btnPlay.TabIndex = 4;
@@ -602,7 +434,7 @@
             // chkFull
             // 
             this.chkFull.AutoSize = true;
-            this.chkFull.Location = new System.Drawing.Point(152, 24);
+            this.chkFull.Location = new System.Drawing.Point(7, 127);
             this.chkFull.Name = "chkFull";
             this.chkFull.Size = new System.Drawing.Size(77, 17);
             this.chkFull.TabIndex = 2;
@@ -612,7 +444,7 @@
             // chkAutoSteal
             // 
             this.chkAutoSteal.AutoSize = true;
-            this.chkAutoSteal.Location = new System.Drawing.Point(83, 24);
+            this.chkAutoSteal.Location = new System.Drawing.Point(7, 75);
             this.chkAutoSteal.Name = "chkAutoSteal";
             this.chkAutoSteal.Size = new System.Drawing.Size(73, 17);
             this.chkAutoSteal.TabIndex = 1;
@@ -622,16 +454,17 @@
             // chkAutoAttack
             // 
             this.chkAutoAttack.AutoSize = true;
-            this.chkAutoAttack.Location = new System.Drawing.Point(7, 24);
+            this.chkAutoAttack.Location = new System.Drawing.Point(7, 49);
             this.chkAutoAttack.Name = "chkAutoAttack";
             this.chkAutoAttack.Size = new System.Drawing.Size(81, 17);
             this.chkAutoAttack.TabIndex = 0;
             this.chkAutoAttack.Text = "Auto attack";
             this.chkAutoAttack.UseVisualStyleBackColor = true;
+            this.chkAutoAttack.CheckedChanged += new System.EventHandler(this.chkAutoAttack_CheckedChanged);
             // 
             // avatarNext
             // 
-            this.avatarNext.Location = new System.Drawing.Point(210, 66);
+            this.avatarNext.Location = new System.Drawing.Point(254, 84);
             this.avatarNext.Name = "avatarNext";
             this.avatarNext.Size = new System.Drawing.Size(64, 64);
             this.avatarNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -641,7 +474,7 @@
             // 
             // avatar
             // 
-            this.avatar.Location = new System.Drawing.Point(134, 66);
+            this.avatar.Location = new System.Drawing.Point(178, 84);
             this.avatar.Name = "avatar";
             this.avatar.Size = new System.Drawing.Size(64, 64);
             this.avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -652,7 +485,6 @@
             // tab
             // 
             this.tab.Controls.Add(this.tab1);
-            this.tab.Controls.Add(this.tab2);
             this.tab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tab.Location = new System.Drawing.Point(0, 24);
             this.tab.Name = "tab";
@@ -751,14 +583,10 @@
             this.Text = "Pirate King Tool - nhothuy48cb@gmail.com";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
-            this.tab2.ResumeLayout(false);
-            this.tab2.PerformLayout();
             this.tab1.ResumeLayout(false);
             this.tab1.PerformLayout();
-            this.gbBonus.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNum)).EndInit();
+            this.gbBonus.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPre)).EndInit();
@@ -776,11 +604,6 @@
 
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ImageList imageList;
-        private System.Windows.Forms.TabPage tab2;
-        private System.Windows.Forms.RichTextBox rtbRetIn;
-        private System.Windows.Forms.RichTextBox rtbHTML;
-        private System.Windows.Forms.Button btnHTML;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tab1;
         private System.Windows.Forms.GroupBox gbBonus;
         private System.Windows.Forms.Button btnOpen;
@@ -795,34 +618,20 @@
         private System.Windows.Forms.RichTextBox rtbRet;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnSetAttacker;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnView;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.NumericUpDown nudNum;
-        private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.RadioButton rdoOther;
-        private System.Windows.Forms.RadioButton rdoByme;
-        private System.Windows.Forms.RadioButton rdoRandom;
-        private System.Windows.Forms.ListBox lbAttackers;
-        private System.Windows.Forms.Button btnAttack;
         private System.Windows.Forms.Button btnSetVicTim;
-        private System.Windows.Forms.Button btnKill;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox chkAutoUpgrade;
-        private System.Windows.Forms.Button btnGet;
-        private System.Windows.Forms.PictureBox avatarPre;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.CheckBox chkFull;
         private System.Windows.Forms.CheckBox chkAutoSteal;
         private System.Windows.Forms.CheckBox chkAutoAttack;
-        private System.Windows.Forms.PictureBox avatarNext;
         private System.Windows.Forms.PictureBox avatar;
         private System.Windows.Forms.TabControl tab;
         private System.Windows.Forms.Button btnViewFB;
         private System.Windows.Forms.Button btnNews;
-        private System.Windows.Forms.Button bntOpen;
-        private System.Windows.Forms.Button btnClearLogInvite;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.MenuStrip menuStrip;
@@ -835,6 +644,11 @@
         private System.Windows.Forms.ToolStripMenuItem aboutPKToolToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialogF;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.PictureBox avatarPre;
+        private System.Windows.Forms.PictureBox avatarNext;
+        private System.Windows.Forms.RadioButton rdoRandom;
+        private System.Windows.Forms.RadioButton rdoFriend;
+        private System.Windows.Forms.Button btnRefresh;
         //private wyDay.Controls.AutomaticUpdater automaticUpdater;
         
     }

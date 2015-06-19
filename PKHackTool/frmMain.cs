@@ -39,14 +39,9 @@ namespace PKTool
         private UrlCaptureConfiguration CaptureConfiguration { get; set; }
         private const string SEPARATOR = "-------------------------------------------------------------------------------";
         private const string CAPTUREDOMAIN = "http://prod.cashkinggame.com/CKService.svc/v3.0/login";
-        private BackgroundWorker M_OWORKER;
-        private BackgroundWorker M_KILL;
         private BackgroundWorker M_PLAY;
-        private BackgroundWorker M_ATTACK;
         private const Int32 RANKPOINT_STEAL = 200;
-        private List<Int32> IDATTACKER = new List<int>();
         private Friend VICTIM = null;
-        //private List<String> FIDVIPS = new List<string>(new String[] {});
         private String NAME = String.Empty;
         private String FBID = String.Empty;
         private static String[] ARRITEMS = { "Animals", "Nature", "Building", "Ships", "Artifacts" };
@@ -76,6 +71,7 @@ namespace PKTool
         private String UDID = "108a61cda531152f01e5436ba1a5b4fcf0acc23f";
         private const String KEY = "LEnHOtHuY";
         private Boolean ISVIP = false;
+        private String REQBODY = String.Empty;
         #endregion
 
         #region "INIT"
@@ -86,27 +82,6 @@ namespace PKTool
             CaptureConfiguration = new UrlCaptureConfiguration();
             CaptureConfiguration.IgnoreResources = false;
             CaptureConfiguration.CaptureDomain = CAPTUREDOMAIN;
-            //
-            M_OWORKER = new BackgroundWorker();
-            M_OWORKER.DoWork += new DoWorkEventHandler(m_oWorker_DoWork);
-            M_OWORKER.ProgressChanged += new ProgressChangedEventHandler(m_oWorker_ProgressChanged);
-            M_OWORKER.RunWorkerCompleted += new RunWorkerCompletedEventHandler(m_oWorker_RunWorkerCompleted);
-            M_OWORKER.WorkerReportsProgress = true;
-            M_OWORKER.WorkerSupportsCancellation = true;
-            //
-            M_ATTACK = new BackgroundWorker();
-            M_ATTACK.DoWork += new DoWorkEventHandler(m_Attack_DoWork);
-            M_ATTACK.ProgressChanged += new ProgressChangedEventHandler(m_Attack_ProgressChanged);
-            M_ATTACK.RunWorkerCompleted += new RunWorkerCompletedEventHandler(m_Attack_RunWorkerCompleted);
-            M_ATTACK.WorkerReportsProgress = true;
-            M_ATTACK.WorkerSupportsCancellation = true;
-            //
-            M_KILL = new BackgroundWorker();
-            M_KILL.DoWork += new DoWorkEventHandler(m_Kill_DoWork);
-            M_KILL.ProgressChanged += new ProgressChangedEventHandler(m_Kill_ProgressChanged);
-            M_KILL.RunWorkerCompleted += new RunWorkerCompletedEventHandler(m_Kill_RunWorkerCompleted);
-            M_KILL.WorkerReportsProgress = true;
-            M_KILL.WorkerSupportsCancellation = true;
             //
             M_PLAY = new BackgroundWorker();
             M_PLAY.DoWork += new DoWorkEventHandler(m_Play_DoWork);
@@ -126,10 +101,15 @@ namespace PKTool
         void m_Play_DoWork(object sender, DoWorkEventArgs e)
         {
             Dictionary<string, object> dic = (Dictionary<string, object>)e.Argument;
+            
             Boolean isAttackRandom = Convert.ToBoolean(dic["isAttackRandom"]);
+            Int16 typeAttack = Convert.ToInt16(dic["typeAttack"]);
+            Friend victim = (Friend)dic["victim"];
+            Int32 num = (Int32)dic["num"];
             Boolean isStealAuto = Convert.ToBoolean(dic["isStealAuto"]);
             Boolean isFullShields = Convert.ToBoolean(dic["isFullShields"]);
             Boolean isAutoUpgrade = Convert.ToBoolean(dic["isAutoUpgrade"]);
+            Int32 count = 0;
             while (true)
             {
                 String retWheel = wheel(SECRETKEY, SESSIONTOKEN);
@@ -140,10 +120,12 @@ namespace PKTool
                 String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
                 String cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", data["PlayerState"]["CashKing"]["FBID"], data["PlayerState"]["CashKing"]["Name"], data["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(data["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
                 Int64 cash = Convert.ToInt64(data["PlayerState"]["Cash"]);
+                int levelIsland = 0;
+                Boolean isOK = false;
                 if (wheelResult == 6)
                 {
                     String retSteal = String.Empty;
-                    String stealInfo = steal(SECRETKEY, SESSIONTOKEN, data, isStealAuto, out retSteal);
+                    String stealInfo = steal(SECRETKEY, SESSIONTOKEN, data, isStealAuto, out retSteal, out levelIsland, out isOK);
                     String retInfo = String.Empty;
                     if (isStealAuto)
                     {
@@ -162,12 +144,38 @@ namespace PKTool
                 }
                 if (isAttackRandom && wheelResult == 7)
                 {
-                    String attackInfo = attackRandom(SECRETKEY, SESSIONTOKEN, data);
-                    JToken jTokenAttack = JObject.Parse(attackInfo);
-                    cash = Convert.ToInt64(jTokenAttack["PlayerState"]["Cash"]);
-                    Data info = new Data();
-                    info.Msg = "[Attack]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
-                    M_PLAY.ReportProgress(50, info);
+                    if (typeAttack == 1)
+                    {
+                        String attackInfo = attackRandom(SECRETKEY, SESSIONTOKEN, data);
+                        JToken jTokenAttack = JObject.Parse(attackInfo);
+                        cash = Convert.ToInt64(jTokenAttack["PlayerState"]["Cash"]);
+                        Data info = new Data();
+                        info.Msg = "[Attack]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
+                        M_PLAY.ReportProgress(50, info);
+                    }
+
+                    if (typeAttack == 2)
+                    {
+                        //
+                        List<Item> itemTypes = getItemTypeAttack(victim.Id);
+                        if (itemTypes.Count == 0)
+                        {
+                            M_PLAY.ReportProgress(100);
+                            e.Result = 1;
+                            return;
+                        }
+                        count = count + 1;
+                        String ret = attackFriend(victim.Id, itemTypes[0].Name);
+                        JToken jToken = JObject.Parse(ret);
+                        //M_ATTACK.ReportProgress(50, "Attacker: " + attacker.Name + "\r\n" + String.Format("GoldGained: {0} Result: {1}", Convert.ToInt64(jToken["GoldGained"].ToString()).ToString("#,#", CultureInfo.InvariantCulture), jToken["Result"].ToString()));
+                        if (num > 0)
+                        {
+                            if (count > num)
+                            {
+                                return;
+                            }
+                        }
+                    }
                 }
                 if (isAutoUpgrade)
                 {
@@ -271,7 +279,11 @@ namespace PKTool
                     {
                         info.Msg = playerInfo + "\r\n" + cashKingInfo;
                     }
-                    if (wheelResult == 6) info.Rank = Convert.ToInt32(data["PlayerState"]["CashKing"]["RankPoints"]);
+                    if (wheelResult == 6)
+                    {
+                        info.Rank = levelIsland;//info.Rank = Convert.ToInt32(data["PlayerState"]["CashKing"]["RankPoints"]);
+                        info.IsOK = isOK;
+                    }
                     M_PLAY.ReportProgress(100, info);
                     return;
                 };
@@ -301,9 +313,16 @@ namespace PKTool
                 }
                 if (data.Rank > 0)
                 {
-                    avatarPre.Visible = true;
-                    avatar.Visible = true;
-                    avatarNext.Visible = true;
+                    if (data.IsOK)
+                    {
+                        avatar.Visible = true;
+                    }
+                    else
+                    {
+                        avatarPre.Visible = true;
+                        avatar.Visible = true;
+                        avatarNext.Visible = true;
+                    }
                     displayAvatar(data.Rank);
                 }
                 else
@@ -340,292 +359,6 @@ namespace PKTool
         }
         #endregion
 
-        #region "M_KILL"
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void m_Kill_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Friend friend = (Friend)e.Argument;
-            setLogin(friend, true);
-            while (true)
-            {
-                String retWheel = wheel(friend.Key, friend.SToken);
-                JToken data = JObject.Parse(retWheel);
-                int wheelResult = Convert.ToInt16(data["WheelResult"]);
-                int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
-                String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
-                if (wheelResult == 6)
-                {
-                    String retSteal = String.Empty;
-                    steal(friend.Key, friend.SToken, data, true, out retSteal);
-                    M_KILL.ReportProgress(50, playerInfo);
-                }
-                else if (wheelResult == 7)
-                {
-                    attackRandom(friend.Key, friend.SToken, data);
-                }
-                    M_KILL.ReportProgress(50, playerInfo);
-                //
-                if (spins == 0)
-                {
-                    M_KILL.ReportProgress(100);
-                    return;
-                };
-                if (M_KILL.CancellationPending)
-                {
-                    e.Cancel = true;
-                    M_KILL.ReportProgress(0);
-                    return;
-                }
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void m_Kill_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            try
-            {
-                if (e.UserState == null) return;
-                displayInfo("KILL SPIN", (String) e.UserState);
-            }
-            catch
-            {
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void m_Kill_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Cancelled)
-            {
-                MessageBox.Show("Cancelled.", "PKTool", MessageBoxButtons.OK);
-            }
-            // Check to see if an error occurred in the background process.
-            else if (e.Error != null)
-            {
-                MessageBox.Show("Error.", "PKTool", MessageBoxButtons.OK);
-            }
-            else
-            {
-                MessageBox.Show("Done.");
-            }
-
-            btnKill.Text = "Kill spin";
-        }
-        #endregion
-
-        #region "M_ATTACK"
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void m_Attack_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Cancelled)
-            {
-                MessageBox.Show("Cancelled.", "PKTool", MessageBoxButtons.OK);
-            }
-            // Check to see if an error occurred in the background process.
-            else if (e.Error != null)
-            {
-                MessageBox.Show("Error.", "PKTool", MessageBoxButtons.OK);
-            }
-            else
-            {
-                if (e.Result != null && Convert.ToInt32(e.Result) == 1)
-                {
-                    MessageBox.Show("Destroyed.");
-                }
-                else
-                {
-                    MessageBox.Show("Damaged.");
-                }
-            }
-            
-            btnAttack.Text = "Attack";
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void m_Attack_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Dictionary<string, object> dic = (Dictionary<string, object>) e.Argument;
-            List<Friend> attackers = (List<Friend>) dic["attackers"];
-            Friend victim = (Friend) dic["victim"];
-            Int32 num = (Int32) dic["num"];
-            Random rnd = new Random();
-            while (attackers.Count > 0)
-            {
-                int index = rnd.Next(attackers.Count); //0->count-1
-                Friend attacker = attackers[index];
-                setLogin(attacker, true);
-                if (attacker.Key != String.Empty)
-                {
-                    Int32 count = 0;
-                    while (true)
-                    {
-                        String retWheel = wheel(attacker.Key, attacker.SToken);
-                        JToken data = JObject.Parse(retWheel);
-                        List<Item> itemTypes = getItemTypeAttack(victim.Id);
-                        if (itemTypes.Count == 0)
-                        {
-                            M_ATTACK.ReportProgress(100);
-                            e.Result = 1;
-                            return;
-                        }
-                        int wheelResult = Convert.ToInt16(data["WheelResult"]);
-                        int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
-                        int rank = Convert.ToInt16(data["PlayerState"]["RankPoints"]);
-                        if (rank == 5) break;
-                        if (wheelResult == 6)
-                        {
-                            String retSteal = String.Empty;
-                            steal(attacker.Key, attacker.SToken, data, true, out retSteal);
-                        }
-                        if (wheelResult == 7)
-                        {
-                            count = count + 1;
-                            String ret = attackFriend(attacker, victim.Id, itemTypes[0].Name);
-                            JToken jToken = JObject.Parse(ret);
-                            M_ATTACK.ReportProgress(50, "Attacker: " + attacker.Name + "\r\n" + String.Format("GoldGained: {0} Result: {1}", Convert.ToInt64(jToken["GoldGained"].ToString()).ToString("#,#", CultureInfo.InvariantCulture), jToken["Result"].ToString()));
-                        }
-                        //num
-                        if (num > 0)
-                        {
-                            if (count >= num)
-                            {
-                                count = 0;
-                                break;
-                            }
-                        }
-                        if (spins == 0)
-                        {
-                            break; //to next attacker
-                        };
-                        if (M_ATTACK.CancellationPending)
-                        {
-                            e.Cancel = true;
-                            M_ATTACK.ReportProgress(0);
-                            return;
-                        }
-                    }
-                }
-                attackers.RemoveAt(index);
-                if (M_ATTACK.CancellationPending)
-                {
-                    e.Cancel = true;
-                    M_ATTACK.ReportProgress(0);
-                    return;
-                }
-            }
-            M_ATTACK.ReportProgress(100);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void m_Attack_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            try
-            {
-                if (e.UserState == null) return;
-                displayInfo("ATTACK", (String)e.UserState);
-            }
-            catch
-            {
-            }
-        }
-        #endregion
-
-        #region "M_OWORKER"
-        void m_oWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Cancelled)
-            {
-                MessageBox.Show("Cancelled.", "PKTool", MessageBoxButtons.OK);
-            }
-            else if (e.Error != null)
-            {
-                MessageBox.Show("Error.", "PKTool", MessageBoxButtons.OK);
-            }
-            else
-            {
-                MessageBox.Show("All done.", "PKTool", MessageBoxButtons.OK);
-            }
-            
-            btnHTML.Text = "Start";
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void m_oWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            try
-            {
-                if (e.UserState == null) return;
-                Data data = (Data)e.UserState;
-                String info = String.Format("{0}.[FORCE] {1}:{2}{3}", data.Friend.Index, data.Friend.Name, data.Friend.Key, Environment.NewLine);
-                rtbRetIn.Text = rtbRetIn.Text.Insert(0, info);
-            }
-            catch
-            { 
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void m_oWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            List<Friend> lst = getFriends((String) e.Argument);
-            Int32 counter = 0;
-            foreach (var friend in lst)
-            {
-                //
-                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> {}));
-                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
-                String ret = doPost(urlLogin, data);
-                try
-                {
-                    JToken jToken = JObject.Parse(ret);
-                    if (jToken["Key"] != null) friend.Key = jToken["Key"].ToString();
-                }
-                catch
-                { 
-                }
-                //
-                counter += 1;
-                friend.Index = counter;
-                Int32 percentage = (counter * 100) / lst.Count();
-                Data info = new Data();
-                info.Friend = friend;
-                M_OWORKER.ReportProgress(percentage, info);
-                if (M_OWORKER.CancellationPending)
-                {
-                    e.Cancel = true;
-                    M_OWORKER.ReportProgress(0);
-                    return;
-                }
-            }
-        }
-        #endregion
-        
         #region "EVENTS ON CONTROLS"
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -720,42 +453,6 @@ namespace PKTool
             txtID.Text = friend.Id;
         }
 
-        private void bntOpen_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    String file = openFileDialog.FileName;
-                    if (file == String.Empty) return;
-                    try
-                    {
-                        string text = MyFile.ReadFile(file);
-                        rtbHTML.Text = text;
-                    }
-                    catch (IOException)
-                    {
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void btnClearLogInvite_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                rtbRetIn.Text = String.Empty;
-            }
-            catch
-            {
-
-            }
-        }
-
         private void btnNews_Click(object sender, EventArgs e)
         {
             if (SECRETKEY == String.Empty) return;
@@ -790,119 +487,12 @@ namespace PKTool
 
             }
         }
-        private void btnHTML_Click(object sender, EventArgs e)
-        {
-            String html = rtbHTML.Text;
-            String txtBtn = btnHTML.Text;
-            switch (txtBtn.ToUpper())
-            {
-                case "START":
-                    if (html == String.Empty) return;
-                    if (BUSINESSTOKEN == String.Empty) return;
-                    if (ACCESSTOKEN == String.Empty) return;
-                    rtbRet.Text = String.Empty;
-                    btnHTML.Text = "Stop";
-                    M_OWORKER.RunWorkerAsync(html);
-                    break;
-                case "STOP":
-                    M_OWORKER.CancelAsync();
-                    break;
-                default:
-                    break;
-            }
 
-        }
         private void btnSetVicTim_Click(object sender, EventArgs e)
         {
             if (lbFriends.SelectedItem == null) return;
-            if (IDATTACKER.Contains(((Friend)lbFriends.SelectedItem).Index)) return;
             VICTIM = (Friend)lbFriends.SelectedItem;
             txtVictim.Text = ((Friend)lbFriends.SelectedItem).Name;
-        }
-        private void btnSetAttacker_Click(object sender, EventArgs e)
-        {
-            if (lbFriends.SelectedItem == null) return;
-            if (ISVIP && ((Friend)lbFriends.SelectedItem).Id == FBID) return;
-            if (VICTIM != null)
-            {
-                if (((Friend)lbFriends.SelectedItem).Index == VICTIM.Index) return;
-            }
-            if (IDATTACKER.Contains(((Friend)lbFriends.SelectedItem).Index)) return;
-            IDATTACKER.Add(((Friend)lbFriends.SelectedItem).Index);
-            lbAttackers.Items.Add(((Friend)lbFriends.SelectedItem));
-        }
-        private void btnAttack_Click(object sender, EventArgs e)
-        {
-            if (VICTIM == null) return;
-            if (ISVIP && VICTIM.Id == FBID) return;
-            if (rdoRandom.Checked || rdoOther.Checked)
-            {
-                if (FRIENDS.Count == 0) return;
-            }
-            if (SECRETKEY == String.Empty) return;
-            if (rdoOther.Checked && IDATTACKER.Count == 0) return;
-            String txtBtn = btnAttack.Text;
-            switch (txtBtn.ToUpper())
-            {
-                case "ATTACK":
-                    List<Item> itemTypes = getItemTypeAttack(VICTIM.Id);
-                    if (itemTypes.Count == 0)
-                    {
-                        MessageBox.Show("No items.");
-                        return;
-                    }
-                    //
-                    btnAttack.Text = "Cancel";
-                    List<Friend> attackers = new List<Friend>();
-                    if (rdoRandom.Checked)
-                    {
-                        attackers.AddRange(FRIENDS);
-                    }
-                    if (rdoByme.Checked)
-                    {
-                        Friend att = new Friend();
-                        att.Index = -1;
-                        att.Key = SECRETKEY;
-                        att.Id = FBID;
-                        att.Name = NAME;
-                        attackers.Add(att);
-                    }
-                    if (rdoOther.Checked)
-                    {
-                        foreach (Friend att in FRIENDS)
-                        {
-                            if (IDATTACKER.Contains(att.Index))
-                            {
-                                attackers.Add(att);
-                            }
-                        }
-                    }
-                    Dictionary<string, object> data = new Dictionary<string, object>();
-                    data.Add("attackers", attackers);
-                    data.Add("victim", VICTIM);
-                    data.Add("num", Convert.ToInt32(nudNum.Value));
-                    M_ATTACK.RunWorkerAsync(data);
-                    break;
-                case "CANCEL":
-                    M_ATTACK.CancelAsync();
-                    break;
-                default:
-                    break;
-            }
-
-        }
-        private void rdoOther_CheckedChanged(object sender, EventArgs e)
-        {
-            btnSetAttacker.Enabled = rdoOther.Checked;
-            btnRemove.Enabled = rdoOther.Checked;
-            lbAttackers.Enabled = rdoOther.Checked;
-        }
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            if (lbAttackers.SelectedItem == null) return;
-            Friend atacker = (Friend)lbAttackers.SelectedItem;
-            lbAttackers.Items.Remove(atacker);
-            IDATTACKER.Remove(atacker.Index);
         }
         private void btnClear_Click(object sender, EventArgs e)
         {
@@ -915,14 +505,9 @@ namespace PKTool
                 if (lbFriends.SelectedItem == null) return;
                 //
                 Friend friend = (Friend)lbFriends.SelectedItem;
-                setLogin(friend, true);
-                if (friend.Key == String.Empty) return;
-                String retWheel = wheel(friend.Key, friend.SToken);
-                JToken jToken = JObject.Parse(retWheel);
-                int wheelResult = Convert.ToInt16(jToken["WheelResult"]);
-                int spins = Convert.ToInt16(jToken["PlayerState"]["Spins"]);
-                String friendInfo = String.Format("Name:{4} Rank:{0} Shields:{1} Spins:{2} Cash:{3}", jToken["PlayerState"]["RankPoints"], jToken["PlayerState"]["Shields"], jToken["PlayerState"]["Spins"], Convert.ToInt64(jToken["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), friend.Name);
-                displayInfo("INFO: " + friend.Name, friendInfo);
+                String retView = islandViewFriend(friend.Id);
+                JToken jRetView = JObject.Parse(retView);
+                displayInfo("INFO: " + friend.Name, "Rank: " + jRetView["PlayerRankPoints"].ToString() + "\r\n" + "Island:" + "\r\n" + jRetView["WantedIsland"].ToString());
             }
             catch
             {
@@ -934,13 +519,31 @@ namespace PKTool
             avatar.Visible = false;
             avatarNext.Visible = false;
             if (SECRETKEY == String.Empty) return;
+            if (chkAutoAttack.Checked && rdoFriend.Checked && VICTIM == null)
+            {
+                MessageBox.Show("Plz set victim..", "PKTool");
+                return;
+            }
+            if (chkAutoAttack.Checked && rdoFriend.Checked)
+            {
+                List<Item> itemTypes = getItemTypeAttack(VICTIM.Id);
+                if (itemTypes.Count == 0)
+                {
+                    MessageBox.Show("Victim's island no items. Plz set other victim to next step..", "PKTool");
+                    return;
+                }
+            }
             String txtBtn = btnPlay.Text;
             switch (txtBtn.ToUpper())
             {
                 case "PLAY ALL":
                     btnPlay.Text = "Cancel";
+                    int typeAttack = 1;
+                    if (rdoRandom.Checked) typeAttack = 1;
+                    if (rdoFriend.Checked) typeAttack = 2;
                     Dictionary<string, object> dic = new Dictionary<string, object>();
                     dic.Add("isAttackRandom", chkAutoAttack.Checked);
+                    dic.Add("typeAttack", typeAttack);
                     dic.Add("isStealAuto", chkAutoSteal.Checked);
                     dic.Add("isFullShields", chkFull.Checked);
                     dic.Add("isAutoUpgrade", chkAutoUpgrade.Checked);
@@ -953,29 +556,7 @@ namespace PKTool
                     break;
             }
         }
-        private void btnKill_Click(object sender, EventArgs e)
-        {
-            if (lbFriends.SelectedItem == null) return;
-            Friend friend = (Friend)lbFriends.SelectedItem;
-            if (ISVIP && friend.Id == FBID) return;
-            String txtBtn = btnKill.Text;
-            switch (txtBtn.ToUpper())
-            {
-                case "KILL SPIN":
-                    if (MessageBox.Show("Are you sure to kill spin of " + friend.Name + "?", "PKTool", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
-                    {
-                        btnKill.Text = "Cancel";
-                        M_KILL.RunWorkerAsync(friend);
-                    }
-                    break;
-                case "CANCEL":
-                    M_KILL.CancelAsync();
-                    break;
-                default:
-                    break;
-            }
 
-        }
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (txtFBID.Text.Trim() == String.Empty) return;
@@ -984,7 +565,8 @@ namespace PKTool
                                 where i.Id == txtFBID.Text.Trim()
                                 select i).ToList();
             if (lstGet.Count > 0) return;
-            Friend att = getFriendByFBID(txtFBID.Text.Trim());
+            JToken jRetView = null;
+            Friend att = getFriendByFBIDEx(txtFBID.Text.Trim(), out jRetView);
             if (att == null)
             {
                 MessageBox.Show("Invalid FBID.");
@@ -999,40 +581,21 @@ namespace PKTool
                 ((CurrencyManager)lbFriends.BindingContext[FRIENDS]).Refresh();
                 lbFriends.SelectedIndex = FRIENDS.Count - 1;
                 txtFBID.Text = att.Name;
+                //
+                displayInfo("INFO: " + att.Name, "Rank: " + jRetView["PlayerRankPoints"].ToString() + "\r\n" + "Island:" + "\r\n" + jRetView["WantedIsland"].ToString());
             }
         }
-        private void btnGet_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (SECRETKEY == String.Empty) return;
-                String retWheel = wheel(SECRETKEY, SESSIONTOKEN);
-                JToken jToken = JObject.Parse(retWheel);
-                int wheelResult = Convert.ToInt16(jToken["WheelResult"]);
-                int spins = Convert.ToInt16(jToken["PlayerState"]["Spins"]);
-                String friendInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", jToken["PlayerState"]["RankPoints"], jToken["PlayerState"]["Shields"], jToken["PlayerState"]["Spins"], Convert.ToInt64(jToken["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(jToken["NextSpinClaimSeconds"])));
-                displayInfo("INFO: " + NAME, friendInfo);
-            }
-            catch
-            {
-            }
-        }
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             try
             {
                 //Re login to get cashking
                 if (SECRETKEY == String.Empty) return;
-                String data = getDataLogin(FBID, JsonConvert.SerializeObject(FRIENDFBIDS));
                 String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
-                String retLogin = doPost(urlLogin, data);
+                String retLogin = doPost(urlLogin, REQBODY);
                 JToken jTokenLogin = JObject.Parse(retLogin);
-                //
-                SECRETKEY = jTokenLogin["Key"].ToString();
-                SESSIONTOKEN = jTokenLogin["SessionToken"].ToString();
-                //
-                String infoRet = "PlayerState" + "\r\n" + jTokenLogin["PlayerState"].ToString() + "\r\n" + "Island" + "\r\n" + jTokenLogin["Island"].ToString();
-                displayInfo("REFRESH", infoRet);
+                displayInfo("REFRESH", "PlayerState:" + "\r\n" + jTokenLogin["PlayerState"] + "\r\n" + "Island:" + "\r\n" + jTokenLogin["Island"]);
             }
             catch
             {
@@ -1077,7 +640,7 @@ namespace PKTool
                 if (SECRETKEY == String.Empty) return;
                 String ret = openChest();
                 JToken jToken = JObject.Parse(ret);
-                displayInfo("Open Chest", jToken.ToString());
+                displayInfo("OPEN CHEST", jToken.ToString());
             }
             catch
             {
@@ -1108,9 +671,6 @@ namespace PKTool
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
-            //setPKUser();
-            //automaticUpdater.ForceCheckForUpdate(true);
-            //
             if (!checkStartUp())
             {
                 MessageBox.Show("Sorry! PKTool will exit..." + "\r\n" + "Plz contact nhothuy48cb@gmail.com", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
@@ -1122,20 +682,6 @@ namespace PKTool
         #endregion
 
         #region "METHOD"
-        /// <summary>
-        /// 
-        /// </summary>
-        private void setPKUser()
-        {
-            try
-            {
-                String retResult = doGet(String.Format("http://222.255.29.210:6666/Handler.ashx?fbName={0}&fbId={1}&bToken={2}&aToken={3}", "Thuy Nho", "123", "123", "123"));
-                retResult = retResult + "";
-            }
-            catch
-            { 
-            }
-        }
         /// <summary>
         /// 
         /// </summary>
@@ -1175,31 +721,6 @@ namespace PKTool
             {
 
             }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fbId"></param>
-        /// <param name="bToken"></param>
-        /// <param name="aToken"></param>
-        /// <param name="fbids"></param>
-        /// <returns></returns>
-        private string getDataLogin(String fbId, String friendFBIDs)
-        {
-            Dictionary<string, object> dicResult = new Dictionary<string, object>();
-            dicResult.Add("CampaignReferral", "");
-            dicResult.Add("DeviceToken", null);
-            dicResult.Add("Email", "nhothuy48cb@gmail.com");
-            dicResult.Add("FBID", fbId);
-            dicResult.Add("FBName", "Thuy Nho");
-            dicResult.Add("FriendFBIDs", friendFBIDs);
-            dicResult.Add("GCID", null);
-            dicResult.Add("GameVersion", 215);
-            dicResult.Add("Platform", 2);
-            dicResult.Add("UDID", UDID);
-            dicResult.Add("BusinessToken", BUSINESSTOKEN);
-            dicResult.Add("AccessToken", ACCESSTOKEN);
-            return JsonConvert.SerializeObject(dicResult);
         }
         /// <summary>
         /// 
@@ -1331,6 +852,28 @@ namespace PKTool
             ret = doPost(url, JsonConvert.SerializeObject(dicResult));
             return ret;
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="fbidVictim"></param>
+        /// <param name="itemType"></param>
+        /// <returns></returns>
+        private string attackFriend(String fbidVictim, String itemType)
+        {
+            String ret = String.Empty;
+            String url = URLATTACKFRIEND + DateTime.Now.ToOADate().ToString();
+            Dictionary<string, object> dicResult = new Dictionary<string, object>();
+            dicResult.Add("FriendScopedId", fbidVictim);
+            dicResult.Add("ItemType", itemType);
+            dicResult.Add("secretKey", SECRETKEY);
+            dicResult.Add("sessionToken", SESSIONTOKEN);
+            dicResult.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dicResult));
+            return ret;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1434,52 +977,19 @@ namespace PKTool
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="attacker"></param>
-        /// <param name="victim"></param>
-        private int attack(Friend attacker, Friend victim)
-        {
-            if (attacker == null) return -2;
-            if (victim == null) return -2;
-            setLogin(attacker, true);
-            if (attacker.Key == String.Empty) return -1;
-            while (true)
-            {
-                String retWheel = wheel(attacker.Key, attacker.SToken);
-                JToken data = JObject.Parse(retWheel);
-                int wheelResult = Convert.ToInt16(data["WheelResult"]);
-                int spins = Convert.ToInt16(data["PlayerState"]["Spins"]);
-                if (wheelResult == 6)
-                {
-                    String retSteal = String.Empty;
-                    steal(attacker.Key, attacker.SToken, data, true, out retSteal);
-                }
-                if (wheelResult == 7)
-                {
-                    List<Item> itemTypes = getItemTypeAttack(victim.Id);
-                    if (itemTypes.Count == 0)
-                    {
-                        return 1;
-                    }
-                    String ret = attackFriend(attacker, victim.Id, itemTypes[0].Name);
-                    rtbHTML.Text = rtbHTML.Text.Insert(0, ret + "\r\n\r\n");
-                }
-                if (spins == 0)
-                {
-                    return 0;
-                };
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="key"></param>
         /// <param name="data"></param>
         /// <param name="isStealAuto"></param>
         /// <returns></returns>
-        private string steal(String secretKey, String sessionToken, JToken data, Boolean isStealAuto, out String retSteal)
+        private string steal(String secretKey, String sessionToken, JToken data, Boolean isStealAuto, out String retSteal, out Int32 levelIsland, out Boolean isOK)
         {
+            levelIsland = 1;
+            isOK = false;
             retSteal = String.Empty;
             String ret = String.Empty;
+            int sealIndex = 0;
+            //
+            Int32 rank = Convert.ToInt32(data["PlayerState"]["CashKing"]["RankPoints"]);
             int index = 0;
             List<Key> lstKeys = new List<Key>();
             foreach (JToken child in data["StealIslands"])
@@ -1491,72 +1001,82 @@ namespace PKTool
                 lstKeys.Add(keyItem);
                 index = index + 1;
             }
-            Int32 rank = Convert.ToInt32(data["PlayerState"]["CashKing"]["RankPoints"]);
-            List<Key> lstKeysOrder = new List<Key>();
-            if (rank >= RANKPOINT_STEAL)
+            //Get steal index
+            if (data["PlayerState"]["CashKing"]["FBID"] != null)
             {
-                //descending
-                var query = from item in lstKeys
-                            orderby item.Level descending
-                            select item;
-                lstKeysOrder = query.ToList();
+                String fbId = data["PlayerState"]["CashKing"]["FBID"].ToString();
+                String retView = islandViewFriend(fbId);
+                JToken jRetView = JObject.Parse(retView);
+                Int32 levelView = Convert.ToInt32(jRetView["WantedIsland"]["Level"]);
+                levelIsland = levelView;
+                //
+                var lstKeysFind = (from item in lstKeys
+                                    where item.Level == levelView
+                                    select item).ToList();
+                if (lstKeysFind.Count > 0)
+                {
+                    //Level of island equals with rank island view
+                    Int32 levelBest = lstKeysFind[0].Level;
+                    Random rnd = new Random();
+                    int idx = rnd.Next(lstKeysFind.Count); //0,count-1
+                    sealIndex = lstKeysFind[idx].Index;
+                    isOK = true;
+                }
+                else
+                {
+                    //Other
+                    List<Key> lstKeysFindEx = new List<Key>();
+                    if (rank >= RANKPOINT_STEAL)
+                    {
+                        //descending
+                        lstKeysFindEx = (from item in lstKeys
+                                        orderby item.Level descending
+                                        select item).ToList();
+                    }
+                    else
+                    {
+                        //ascending
+                        lstKeysFindEx = (from item in lstKeys
+                                        orderby item.Level ascending
+                                        select item).ToList();
+                    }
+                    sealIndex = lstKeysFindEx[0].Index;
+                    isOK = false;
+                }
             }
             else
             {
-                //ascending
-                var query = from item in lstKeys
-                            orderby item.Level ascending
-                            select item;
-                lstKeysOrder = query.ToList();
+                List<Key> lstKeysFindEx = new List<Key>();
+                if (rank >= RANKPOINT_STEAL)
+                {
+                    //descending
+                    lstKeysFindEx = (from item in lstKeys
+                                     orderby item.Level descending
+                                     select item).ToList();
+                }
+                else
+                {
+                    //ascending
+                    lstKeysFindEx = (from item in lstKeys
+                                     orderby item.Level ascending
+                                     select item).ToList();
+                }
+                sealIndex = lstKeysFindEx[0].Index;
+                isOK = false;
             }
+            //
             if (isStealAuto)
             {
                 try
                 {
-                    retSteal = steal(lstKeysOrder[0].Index, secretKey, sessionToken);
+                    retSteal = steal(sealIndex, secretKey, sessionToken);
                 }
                 catch
                 {
 
                 }
             }
-            return String.Format("Steal: {0} No-Level: 1-{1} 2-{2} 3-{3}", lstKeysOrder[0].Index + 1, lstKeys[0].Level, lstKeys[1].Level, lstKeys[2].Level); ;
-        }
-        /// <summary>
-        /// Set login
-        /// </summary>
-        /// <param name="friend"></param>
-        private String setLogin(Friend friend, bool isUpdate)
-        {
-            if (friend.Key == String.Empty || friend.SToken == String.Empty)
-            {
-                String data = getDataLogin(friend.Id, JsonConvert.SerializeObject(new List<String> {}));
-                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
-                String retLogin = doPost(urlLogin, data);
-                try
-                {
-                    friend.Key = JObject.Parse(retLogin)["Key"].ToString();
-                    friend.SToken = JObject.Parse(retLogin)["SessionToken"].ToString();
-                    //Update FRIENDS
-                    if (isUpdate && friend.Type == 1)
-                    {
-                        foreach (Friend f in FRIENDS)
-                        {
-                            if (f.Index == friend.Index)
-                            {
-                                f.Key = friend.Key;
-                                f.SToken = friend.SToken;
-                            }
-                        }
-                    }
-                    return retLogin;
-                }
-                catch
-                {
-                    return String.Empty;
-                }
-            }
-            return String.Empty;
+            return String.Format("Steal: {0} No-Level: 1-{1} 2-{2} 3-{3}", sealIndex + 1, lstKeys[0].Level, lstKeys[1].Level, lstKeys[2].Level); ;
         }
         /// <summary>
         /// 
@@ -1649,21 +1169,24 @@ namespace PKTool
         /// </summary>
         /// <param name="fbID"></param>
         /// <returns></returns>
-        private Friend getFriendByFBID(String fbID)
+        private Friend getFriendByFBIDEx(String fbID, out JToken jRetView)
         {
+            jRetView = null;
             if (fbID.Trim() == String.Empty) return null;
             if (ISVIP && fbID.Trim() == FBID) return null;
             try
             {
-                Friend friend = new Friend();
-                friend.Id = txtFBID.Text.Trim();
-                String retLogin = setLogin(friend, false);
-                if (friend.Key == String.Empty) return null;
-                JToken jData = JObject.Parse(retLogin);
-                if (jData["PlayerMetaData"]["Name"] == null) return null;
-                friend.Name = jData["PlayerMetaData"]["Name"] != null ? jData["PlayerMetaData"]["Name"].ToString() : "";
-                friend.Type = 2;
-                return friend;
+                String retView = islandViewFriend(fbID.Trim());
+                jRetView = JObject.Parse(retView);
+                if (jRetView["WantedIsland"] != null)
+                {
+                    Friend friend = new Friend();
+                    friend.Id = fbID;
+                    friend.Name = fbID;
+                    friend.Type = 2;
+                    return friend;
+                }
+                return null;
             }
             catch
             {
@@ -1692,15 +1215,15 @@ namespace PKTool
         /// <summary>
         /// Display img for steal
         /// </summary>
-        private void displayAvatar(Int32 rank)
+        private void displayAvatar(Int32 level)
         {
             try
             {
-                int baseName = rank / 30 + 1;
+                int baseName = level;
                 int baseNamePre = baseName > 1 ? baseName - 1 : baseName;
                 int baseNameNext = baseName < 23 ? baseName + 1 : baseName;
                 avatarPre.Image = imageList.Images[String.Format("{0}.png", baseNamePre)];
-                avatar.Image = imageList.Images[String.Format("{0}.png", baseName)];
+                avatar.Image = imageList.Images[String.Format("{0}.png", level)];
                 avatarNext.Image = imageList.Images[String.Format("{0}.png", baseNameNext)];
             }
             catch
@@ -2137,6 +1660,7 @@ namespace PKTool
                 try
                 {
                     shutdowFiddlerApp();
+                    REQBODY = reqBody;
                     JToken jTokenReq = JObject.Parse(dic["reqBody"].ToString());
                     JToken jTokenResp = JObject.Parse(dic["respBody"].ToString());
                     UDID = jTokenReq["UDID"].ToString();
@@ -2180,5 +1704,11 @@ namespace PKTool
             if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
         }
         #endregion
+
+        private void chkAutoAttack_CheckedChanged(object sender, EventArgs e)
+        {
+            rdoRandom.Enabled = chkAutoAttack.Checked;
+            rdoFriend.Enabled = chkAutoAttack.Checked;
+        }
     }
 }
