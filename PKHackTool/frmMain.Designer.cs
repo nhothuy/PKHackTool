@@ -42,10 +42,7 @@
             this.btnSpinSlot = new System.Windows.Forms.Button();
             this.btnInvite = new System.Windows.Forms.Button();
             this.btnVideo = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.lbFriends = new System.Windows.Forms.ListBox();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.txtFBID = new System.Windows.Forms.TextBox();
             this.txtVictim = new System.Windows.Forms.TextBox();
             this.rtbRet = new System.Windows.Forms.RichTextBox();
             this.lblName = new System.Windows.Forms.Label();
@@ -133,10 +130,7 @@
             this.tab1.Controls.Add(this.btnNews);
             this.tab1.Controls.Add(this.btnViewFB);
             this.tab1.Controls.Add(this.gbBonus);
-            this.tab1.Controls.Add(this.label4);
             this.tab1.Controls.Add(this.lbFriends);
-            this.tab1.Controls.Add(this.btnAdd);
-            this.tab1.Controls.Add(this.txtFBID);
             this.tab1.Controls.Add(this.txtVictim);
             this.tab1.Controls.Add(this.rtbRet);
             this.tab1.Controls.Add(this.lblName);
@@ -154,7 +148,7 @@
             // 
             // nudNum
             // 
-            this.nudNum.Location = new System.Drawing.Point(77, 357);
+            this.nudNum.Location = new System.Drawing.Point(77, 398);
             this.nudNum.Maximum = new decimal(new int[] {
             13,
             0,
@@ -166,7 +160,7 @@
             // 
             // txtID
             // 
-            this.txtID.Location = new System.Drawing.Point(6, 327);
+            this.txtID.Location = new System.Drawing.Point(6, 368);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(139, 20);
             this.txtID.TabIndex = 14;
@@ -245,42 +239,16 @@
             this.btnVideo.UseVisualStyleBackColor = true;
             this.btnVideo.Click += new System.EventHandler(this.btnVideo_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 381);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Add from PKID";
-            // 
             // lbFriends
             // 
             this.lbFriends.DisplayMember = "Name";
             this.lbFriends.FormattingEnabled = true;
             this.lbFriends.Location = new System.Drawing.Point(6, 31);
             this.lbFriends.Name = "lbFriends";
-            this.lbFriends.Size = new System.Drawing.Size(139, 290);
+            this.lbFriends.Size = new System.Drawing.Size(139, 329);
             this.lbFriends.TabIndex = 0;
             this.lbFriends.ValueMember = "Id";
             this.lbFriends.SelectedIndexChanged += new System.EventHandler(this.lbFriends_SelectedIndexChanged);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(119, 396);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(27, 23);
-            this.btnAdd.TabIndex = 10;
-            this.btnAdd.Text = "+";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // txtFBID
-            // 
-            this.txtFBID.Location = new System.Drawing.Point(6, 398);
-            this.txtFBID.Name = "txtFBID";
-            this.txtFBID.Size = new System.Drawing.Size(113, 20);
-            this.txtFBID.TabIndex = 9;
             // 
             // txtVictim
             // 
@@ -339,7 +307,7 @@
             // 
             // btnSetVicTim
             // 
-            this.btnSetVicTim.Location = new System.Drawing.Point(6, 354);
+            this.btnSetVicTim.Location = new System.Drawing.Point(6, 395);
             this.btnSetVicTim.Name = "btnSetVicTim";
             this.btnSetVicTim.Size = new System.Drawing.Size(61, 23);
             this.btnSetVicTim.TabIndex = 6;
@@ -610,10 +578,7 @@
         private System.Windows.Forms.Button btnSpinSlot;
         private System.Windows.Forms.Button btnInvite;
         private System.Windows.Forms.Button btnVideo;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox lbFriends;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.TextBox txtFBID;
         private System.Windows.Forms.TextBox txtVictim;
         private System.Windows.Forms.RichTextBox rtbRet;
         private System.Windows.Forms.Label lblName;

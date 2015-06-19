@@ -105,7 +105,7 @@ namespace PKTool
             Boolean isAttackRandom = Convert.ToBoolean(dic["isAttackRandom"]);
             Int16 typeAttack = Convert.ToInt16(dic["typeAttack"]);
             Friend victim = (Friend)dic["victim"];
-            Int32 num = (Int32)dic["num"];
+            Int32 num = Convert.ToInt32(dic["num"]);
             Boolean isStealAuto = Convert.ToBoolean(dic["isStealAuto"]);
             Boolean isFullShields = Convert.ToBoolean(dic["isFullShields"]);
             Boolean isAutoUpgrade = Convert.ToBoolean(dic["isAutoUpgrade"]);
@@ -114,6 +114,12 @@ namespace PKTool
             {
                 String retWheel = wheel(SECRETKEY, SESSIONTOKEN);
                 JToken data = JObject.Parse(retWheel);
+                if (Convert.ToInt32(data["ErrorCode"]) != 100)
+                {
+                    refresh();
+                    retWheel = wheel(SECRETKEY, SESSIONTOKEN);
+                    data = JObject.Parse(retWheel);
+                }
                 int wheelResult = Convert.ToInt16(data["WheelResult"]);
                 Int64 spins = Convert.ToInt64(data["PlayerState"]["Spins"]);
                 int shields = Convert.ToInt16(data["PlayerState"]["Shields"]);
@@ -195,14 +201,16 @@ namespace PKTool
                             while (true)
                             {
                                 String retRepair = repair(itemsDamaged[0].Name);
-
+                                JToken jRetRepair = JObject.Parse(retRepair);
+                                if (jRetRepair["Island"] == null || Convert.ToInt32(jRetRepair["ErrorCode"]) == 101) break;
+                                Int32 cashSpent = Convert.ToInt32(jRetRepair["CashSpent"]);
                                 Data info = new Data();
                                 info.Msg = "[Repair] " + itemsDamaged[0].Name + " \r\n" + JObject.Parse(retRepair)["Island"][getItemName(itemsDamaged[0].Name)];
                                 M_PLAY.ReportProgress(50, info);
 
                                 ITEMS = getItems(JObject.Parse(retRepair));
                                 setPrices(ITEMS);
-                                cash = cash - itemsDamaged[0].Price;
+                                cash = cash - cashSpent;
                                 itemsDamaged = (from i in ITEMS
                                                 orderby i.Level ascending
                                                 where i.Isdamaged == true
@@ -223,13 +231,15 @@ namespace PKTool
                             while (true)
                             {
                                 String retUpgrade = upgrade(itemsUpgrade[0].Name);
-
+                                JToken jRetUpgrade = JObject.Parse(retUpgrade);
+                                if (jRetUpgrade["Island"] == null || Convert.ToInt32(jRetUpgrade["ErrorCode"]) == 101) break;
+                                Int32 cashSpent = Convert.ToInt32(jRetUpgrade["CashSpent"]);
                                 Data info = new Data();
                                 info.Msg = "[Upgrade] " + itemsUpgrade[0].Name + "\r\n" + JObject.Parse(retUpgrade)["Island"][getItemName(itemsUpgrade[0].Name)];
                                 M_PLAY.ReportProgress(50, info);
                                 ITEMS = getItems(JObject.Parse(retUpgrade));
                                 setPrices(ITEMS);
-                                cash = cash - itemsUpgrade[0].Price;
+                                cash = cash - cashSpent;
                                 itemsUpgrade = (from i in ITEMS
                                                 orderby i.Price ascending
                                                 where i.Level < 5
@@ -245,7 +255,6 @@ namespace PKTool
                         {
                             //finish
                             String retFinish = finish();
-                            //
                             JToken jTokenFinish = JObject.Parse(retFinish);
                             if (Convert.ToInt32(jTokenFinish["ErrorCode"]) == 113)
                             {
@@ -254,6 +263,8 @@ namespace PKTool
                                 M_PLAY.ReportProgress(100, info);
                                 return;
                             }
+                            //
+                            if (jTokenFinish["Island"] == null) break;
                             ITEMS = getItems(jTokenFinish);
                             //
                             BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(JObject.Parse(retFinish)["NewIslandShopPrice"]["BasePrices"].ToString());
@@ -290,7 +301,13 @@ namespace PKTool
                     }
                     M_PLAY.ReportProgress(100, info);
                     return;
-                };
+                }
+                else
+                {
+                    Data info = new Data();
+                    info.Msg = playerInfo + "\r\n" + cashKingInfo + "\r\n" + "WheelResult: " + wheelResult;
+                    M_PLAY.ReportProgress(50, info);
+                }
 
                 if (M_PLAY.CancellationPending)
                 {
@@ -563,51 +580,21 @@ namespace PKTool
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            if (txtFBID.Text.Trim() == String.Empty) return;
-            if (ISVIP && FBID == txtFBID.Text.Trim()) return;
-            var lstGet = (from i in FRIENDS
-                                where i.Id == txtFBID.Text.Trim()
-                                select i).ToList();
-            if (lstGet.Count > 0) return;
-            JToken jRetView = null;
-            Friend att = getFriendByFBIDEx(txtFBID.Text.Trim(), out jRetView);
-            if (att == null)
-            {
-                MessageBox.Show("Invalid FBID.");
-                txtFBID.Text = String.Empty;
-            }
-            else
-            {
-                if (att.Name == String.Empty) return;
-                att.Index = FRIENDS.Count + 1;
-                FRIENDS.Add(att);
-                FRIENDFBIDS.Add(att.Id);
-                ((CurrencyManager)lbFriends.BindingContext[FRIENDS]).Refresh();
-                lbFriends.SelectedIndex = FRIENDS.Count - 1;
-                txtFBID.Text = att.Name;
-                //
-                displayInfo("INFO: " + att.Name, "Rank: " + jRetView["PlayerRankPoints"].ToString() + "\r\n" + "Island:" + "\r\n" + jRetView["WantedIsland"].ToString());
-            }
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             try
             {
                 //Re login to get cashking
                 if (SECRETKEY == String.Empty) return;
-                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
-                String retLogin = doPost(urlLogin, REQBODY);
-                JToken jTokenLogin = JObject.Parse(retLogin);
-                displayInfo("REFRESH", "PlayerState:" + "\r\n" + jTokenLogin["PlayerState"] + "\r\n" + "Island:" + "\r\n" + jTokenLogin["Island"]);
+                JToken jTokenResp = refresh();
+                displayInfo("REFRESH", "PlayerState:" + "\r\n" + jTokenResp["PlayerState"] + "\r\n" + "Island:" + "\r\n" + jTokenResp["Island"]);
             }
             catch
             {
 
             }
         }
+        
         private void btnVideo_Click(object sender, EventArgs e)
         {
             try
@@ -677,17 +664,50 @@ namespace PKTool
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
-            if (!checkStartUp())
-            {
-                MessageBox.Show("Sorry! PKTool will exit..." + "\r\n" + "Plz contact nhothuy48cb@gmail.com", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                Application.Exit();
-            }
+            //if (!checkStartUp())
+            //{
+            //    MessageBox.Show("Sorry! PKTool will exit..." + "\r\n" + "Plz contact nhothuy48cb@gmail.com", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            //    Application.Exit();
+            //}
             //
             startFiddlerApp();
         }
         #endregion
 
         #region "METHOD"
+        private JToken refresh()
+        {
+            try
+            {
+                String urlLogin = String.Format(URLLOGIN, DateTime.Now.ToOADate().ToString());
+                String retLogin = doPost(urlLogin, REQBODY);
+                JToken jTokenResp = JObject.Parse(retLogin);
+                //
+                if (jTokenResp["News"] != null)
+                {
+                    List<NewsItem> listNews = JsonConvert.DeserializeObject<List<NewsItem>>(jTokenResp["News"].ToString());
+                    if (listNews != null)
+                    {
+                        LISTNEWS = (from news in listNews
+                                    where news.Type == NewsType.Attack || news.Type == NewsType.Steal
+                                    select news).ToList();
+                    }
+                }
+                setIslandIndex(jTokenResp);
+                getFriends(jTokenResp);
+                ITEMS = getItems(jTokenResp);
+                BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(jTokenResp["IslandShopPrice"]["BasePrices"].ToString());
+                PRICESTEPS = JsonConvert.DeserializeObject<List<double>>(jTokenResp["IslandShopPrice"]["PriceSteps"].ToString());
+                setPrices(ITEMS);
+                SECRETKEY = jTokenResp["Key"].ToString();
+                SESSIONTOKEN = jTokenResp["SessionToken"].ToString();
+                return jTokenResp;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
