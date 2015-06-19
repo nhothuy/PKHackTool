@@ -132,7 +132,7 @@ namespace PKTool
                         JToken jTokenSteal = JObject.Parse(retSteal);
                         cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", jTokenSteal["PlayerState"]["CashKing"]["FBID"], jTokenSteal["PlayerState"]["CashKing"]["Name"], jTokenSteal["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(jTokenSteal["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
                         cash = Convert.ToInt64(jTokenSteal["PlayerState"]["Cash"]);
-                        retInfo = "[Steal]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
+                        retInfo = "[Steal]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo + "\r\n" + "StolenAmount: " + Convert.ToInt64(jTokenSteal["StolenAmount"].ToString()).ToString("#,#", CultureInfo.InvariantCulture);
                     }
                     else
                     {
@@ -150,28 +150,32 @@ namespace PKTool
                         JToken jTokenAttack = JObject.Parse(attackInfo);
                         cash = Convert.ToInt64(jTokenAttack["PlayerState"]["Cash"]);
                         Data info = new Data();
-                        info.Msg = "[Attack]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo;
+                        info.Msg = "[Attack]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo + "\r\n" + String.Format("GoldGained: {0} Result: {1}", Convert.ToInt64(jTokenAttack["GoldGained"].ToString()).ToString("#,#", CultureInfo.InvariantCulture), jTokenAttack["Result"].ToString());
                         M_PLAY.ReportProgress(50, info);
                     }
 
                     if (typeAttack == 2)
                     {
+                        Data info = new Data();
                         //
                         List<Item> itemTypes = getItemTypeAttack(victim.Id);
                         if (itemTypes.Count == 0)
                         {
-                            M_PLAY.ReportProgress(100);
-                            e.Result = 1;
+                            info.Msg = "[Attack]" + "\r\n" + victim.Name + "'s island destroyed.";
+                            M_PLAY.ReportProgress(100, info);
                             return;
                         }
                         count = count + 1;
                         String ret = attackFriend(victim.Id, itemTypes[0].Name);
                         JToken jToken = JObject.Parse(ret);
-                        //M_ATTACK.ReportProgress(50, "Attacker: " + attacker.Name + "\r\n" + String.Format("GoldGained: {0} Result: {1}", Convert.ToInt64(jToken["GoldGained"].ToString()).ToString("#,#", CultureInfo.InvariantCulture), jToken["Result"].ToString()));
+                        info.Msg = "[Attack]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo + "\r\n" + String.Format("GoldGained: {0} Result: {1}", Convert.ToInt64(jToken["GoldGained"].ToString()).ToString("#,#", CultureInfo.InvariantCulture), jToken["Result"].ToString());
+                        M_PLAY.ReportProgress(50, info);
                         if (num > 0)
                         {
                             if (count > num)
                             {
+                                info.Msg = "[Attack]" + "\r\n" + String.Format("Attack {0}'s island {1} times", victim.Name,num);
+                                M_PLAY.ReportProgress(100, info);
                                 return;
                             }
                         }
@@ -281,7 +285,7 @@ namespace PKTool
                     }
                     if (wheelResult == 6)
                     {
-                        info.Rank = levelIsland;//info.Rank = Convert.ToInt32(data["PlayerState"]["CashKing"]["RankPoints"]);
+                        info.Rank = levelIsland;
                         info.IsOK = isOK;
                     }
                     M_PLAY.ReportProgress(100, info);
@@ -360,6 +364,12 @@ namespace PKTool
         #endregion
 
         #region "EVENTS ON CONTROLS"
+        private void chkAutoAttack_CheckedChanged(object sender, EventArgs e)
+        {
+            rdoRandom.Enabled = chkAutoAttack.Checked;
+            rdoFriend.Enabled = chkAutoAttack.Checked;
+        }
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Do you want to exit PKTool?", "PKTool", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
@@ -459,12 +469,6 @@ namespace PKTool
             frmNews frmNews = new frmNews(LISTNEWS);
             frmNews.ShowDialog();
         }
-
-        //private void automaticUpdater_ReadyToBeInstalled(object sender, EventArgs e)
-        //{
-        //    automaticUpdater.InstallNow();
-        //}
-
         private void btnViewFB_Click(object sender, EventArgs e)
         {
             try
@@ -544,6 +548,8 @@ namespace PKTool
                     Dictionary<string, object> dic = new Dictionary<string, object>();
                     dic.Add("isAttackRandom", chkAutoAttack.Checked);
                     dic.Add("typeAttack", typeAttack);
+                    dic.Add("num", nudNum.Value);
+                    dic.Add("victim", VICTIM);
                     dic.Add("isStealAuto", chkAutoSteal.Checked);
                     dic.Add("isFullShields", chkFull.Checked);
                     dic.Add("isAutoUpgrade", chkAutoUpgrade.Checked);
@@ -1705,10 +1711,6 @@ namespace PKTool
         }
         #endregion
 
-        private void chkAutoAttack_CheckedChanged(object sender, EventArgs e)
-        {
-            rdoRandom.Enabled = chkAutoAttack.Checked;
-            rdoFriend.Enabled = chkAutoAttack.Checked;
-        }
+        
     }
 }
