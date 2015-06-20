@@ -61,6 +61,7 @@ namespace PKTool
         private const String URLSLOTCHEST = "http://prod.cashkinggame.com/CKService.svc/v3.0/slot/chest/?{0}";
         ////private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/name/?{0}";
         ////private const String URLISLANDCOMPLETEDCLAIM = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/claim/?{0}";
+        private const String URLCHEAT = "http://prod.cashkinggame.com/CKService.svc/v3.0/cheat/?{0}";
         private const String URL = "http://222.255.29.210/ws_mbox/pk.json";
         private List<Int32> BASEPRICES = new List<Int32>();
         private List<double> PRICESTEPS = new List<double>();
@@ -72,6 +73,7 @@ namespace PKTool
         private const String KEY = "LEnHOtHuY";
         private Boolean ISVIP = false;
         private String REQBODY = String.Empty;
+        private int RETRYCOUNT = 0;
         #endregion
 
         #region "INIT"
@@ -114,12 +116,6 @@ namespace PKTool
             {
                 String retWheel = wheel(SECRETKEY, SESSIONTOKEN);
                 JToken data = JObject.Parse(retWheel);
-                if (Convert.ToInt32(data["ErrorCode"]) != 100)
-                {
-                    refresh();
-                    retWheel = wheel(SECRETKEY, SESSIONTOKEN);
-                    data = JObject.Parse(retWheel);
-                }
                 int wheelResult = Convert.ToInt16(data["WheelResult"]);
                 Int64 spins = Convert.ToInt64(data["PlayerState"]["Spins"]);
                 int shields = Convert.ToInt16(data["PlayerState"]["Shields"]);
@@ -128,6 +124,9 @@ namespace PKTool
                 Int64 cash = Convert.ToInt64(data["PlayerState"]["Cash"]);
                 int levelIsland = 0;
                 Boolean isOK = false;
+                //Set retry
+                RETRYCOUNT = 0;
+                //
                 if (wheelResult == 6)
                 {
                     String retSteal = String.Empty;
@@ -305,7 +304,14 @@ namespace PKTool
                 else
                 {
                     Data info = new Data();
-                    info.Msg = playerInfo + "\r\n" + cashKingInfo + "\r\n" + "WheelResult: " + wheelResult;
+                    if (wheelResult == 6 || wheelResult == 7)
+                    {
+                        info.Msg = String.Empty;
+                    }
+                    else
+                    {
+                        info.Msg = playerInfo + "\r\n" + cashKingInfo + "\r\n" + "WheelResult: " + wheelResult;
+                    }
                     M_PLAY.ReportProgress(50, info);
                 }
 
@@ -367,16 +373,29 @@ namespace PKTool
             if (e.Cancelled)
             {
                 MessageBox.Show("Cancelled.", "PKTool", MessageBoxButtons.OK);
+                btnPlay.Text = "Play all";
+                return;
             }
             // Check to see if an error occurred in the background process.
             else if (e.Error != null)
             {
-                MessageBox.Show("Error.", "PKTool", MessageBoxButtons.OK);
+                RETRYCOUNT = RETRYCOUNT + 1;
+                if (RETRYCOUNT == 2)
+                {
+                    MessageBox.Show("Error.", "PKTool", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    refresh();
+                    btnPlay.Text = "Play all";
+                    btnPlay_Click(null, null);
+                    return;
+                }
             }
             else
             {
+                btnPlay.Text = "Play all";
             }
-            btnPlay.Text = "Play all";
         }
         #endregion
 
@@ -1353,7 +1372,21 @@ namespace PKTool
             ret = doPost(url, JsonConvert.SerializeObject(dic));
             return ret;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private String cheat()
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLCHEAT, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
         /// <summary>
         /// 
         /// </summary>
