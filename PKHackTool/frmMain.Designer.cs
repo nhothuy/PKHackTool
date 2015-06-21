@@ -495,8 +495,6 @@
             // 
             // toolStripMenuItemCharles
             // 
-            this.toolStripMenuItemCharles.Checked = true;
-            this.toolStripMenuItemCharles.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripMenuItemCharles.Name = "toolStripMenuItemCharles";
             this.toolStripMenuItemCharles.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItemCharles.Text = "Login using charles";

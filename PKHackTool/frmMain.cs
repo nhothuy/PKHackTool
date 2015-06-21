@@ -18,7 +18,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using HAP = HtmlAgilityPack;
 namespace PKTool
 {
     /// <summary>
@@ -59,8 +58,8 @@ namespace PKTool
         private const String URLCOMPLETEDUPGRADE = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/upgrade/?{0}";
         private const String URLSPINSLOT = "http://prod.cashkinggame.com/CKService.svc/v3.0/spin/slot/?{0}";
         private const String URLSLOTCHEST = "http://prod.cashkinggame.com/CKService.svc/v3.0/slot/chest/?{0}";
-        ////private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/name/?{0}";
-        ////private const String URLISLANDCOMPLETEDCLAIM = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/claim/?{0}";
+        private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/name/?{0}";
+        private const String URLISLANDCOMPLETEDCLAIM = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/claim/?{0}";
         private const String URLCHEAT = "http://prod.cashkinggame.com/CKService.svc/v3.0/cheat/?{0}";
         private const String URL = "http://222.255.29.210/ws_mbox/pk.json";
         private List<Int32> BASEPRICES = new List<Int32>();
@@ -74,6 +73,7 @@ namespace PKTool
         private Boolean ISVIP = false;
         private String REQBODY = String.Empty;
         private int RETRYCOUNT = 0;
+        private Int32 AVATAR = 0;
         #endregion
 
         #region "INIT"
@@ -93,6 +93,7 @@ namespace PKTool
             M_PLAY.WorkerSupportsCancellation = true;
         }
         #endregion
+
         #region "M_PLAY"
         /// <summary>
         /// 
@@ -399,6 +400,37 @@ namespace PKTool
         #endregion
 
         #region "EVENTS ON CONTROLS"
+        private void toolStripMenuItemCharles_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                toolStripMenuItemProxy.Checked = false;
+                shutdowFiddlerApp();
+                toolStripMenuItemCharles.Checked = true;
+                frmLogin frmLogin = new frmLogin();
+                if (frmLogin.ShowDialog() == DialogResult.OK)
+                {
+                    String req = frmLogin.Req;
+                    String resp = frmLogin.Resp;
+                    if (req == String.Empty || resp == String.Empty) return;
+                    setLogin(req, resp);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Failled login. Please try again.", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void toolStripMenuItemProxy_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItemProxy.Checked = true;
+            shutdowFiddlerApp();
+            startFiddlerApp();
+            MessageBox.Show("Config proxy 127.0.0.1 port 8080. Plz, login on web to next...!", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            toolStripMenuItemCharles.Checked = false;
+        }
+
         private void chkAutoAttack_CheckedChanged(object sender, EventArgs e)
         {
             rdoRandom.Enabled = chkAutoAttack.Checked;
@@ -729,6 +761,7 @@ namespace PKTool
                 SECRETKEY = jTokenResp["Key"].ToString();
                 SESSIONTOKEN = jTokenResp["SessionToken"].ToString();
                 NAME = jTokenResp["PlayerMetaData"]["Name"].ToString();
+                AVATAR = Convert.ToInt32(jTokenResp["PlayerMetaData"]["Avatar"]);
                 REQBODY = req;
                 lblName.Text = NAME;
             }
@@ -767,6 +800,7 @@ namespace PKTool
                 setPrices(ITEMS);
                 SECRETKEY = jTokenResp["Key"].ToString();
                 SESSIONTOKEN = jTokenResp["SessionToken"].ToString();
+                AVATAR = Convert.ToInt32(jTokenResp["PlayerMetaData"]["Avatar"]);
                 return jTokenResp;
             }
             catch
@@ -814,39 +848,6 @@ namespace PKTool
 
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
-        private List<Friend> getFriends(String html)
-        {
-            List<Friend> lst = new List<Friend>();
-            try
-            {
-                if (html != String.Empty)
-                {
-                    var doc = new HAP.HtmlDocument();
-                    doc.LoadHtml(html);
-                    var root = doc.DocumentNode;
-                    var row_nodes = root.Descendants()
-                                    .Where(n => n.Name == "a")
-                                    .Where(n => n.GetAttributeValue("class", null) == "_5q6s _8o _8t lfloat _ohe");
-                    foreach (var a_node in row_nodes)
-                    {
-                        Friend friend = new Friend();
-                        friend.Id = REGEX_ID.Match(a_node.GetAttributeValue("data-hovercard", "")).Groups["fid"].Value;
-                        friend.Name = REGEX_NAME.Match(a_node.GetAttributeValue("href", "")).Groups["fname"].Value;
-                        lst.Add(friend);
-                    }
-                }
-            }
-            catch
-            {
-            }
-            return lst;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -1422,6 +1423,25 @@ namespace PKTool
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="newName"></param>
+        /// <param name="newAvatar"></param>
+        /// <returns></returns>
+        private String changeName(String newName, String newAvatar)
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLCHANGENAME, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            dic.Add("newName", newName);
+            dic.Add("newAvatar", newAvatar);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         private String cheat()
         {
@@ -1556,7 +1576,6 @@ namespace PKTool
         /// <returns></returns>
         private String getItemName(String itemType)
         {
-            //"Animals", "Nature", "Building", "Ships", "Artifacts"
             switch (itemType)
             {
                 case "Animals":
@@ -1762,6 +1781,7 @@ namespace PKTool
                     SECRETKEY = jTokenResp["Key"].ToString();
                     SESSIONTOKEN = jTokenResp["SessionToken"].ToString();
                     NAME = jTokenResp["PlayerMetaData"]["Name"].ToString();
+                    AVATAR = Convert.ToInt32(jTokenResp["PlayerMetaData"]["Avatar"]);
                     lblName.Text = NAME;
                 }
                 catch
@@ -1779,38 +1799,5 @@ namespace PKTool
             if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
         }
         #endregion
-
-        private void toolStripMenuItemCharles_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                toolStripMenuItemProxy.Checked = false;
-                shutdowFiddlerApp();
-                toolStripMenuItemCharles.Checked = true;
-                frmLogin frmLogin = new frmLogin();
-                if (frmLogin.ShowDialog() == DialogResult.OK)
-                {
-                    String req = frmLogin.Req;
-                    String resp = frmLogin.Resp;
-                    if (req == String.Empty || resp == String.Empty) return;
-                    setLogin(req, resp);
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Failled login. Please try again.", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void toolStripMenuItemProxy_Click(object sender, EventArgs e)
-        {
-            toolStripMenuItemProxy.Checked = true;
-            shutdowFiddlerApp();
-            startFiddlerApp();
-            MessageBox.Show("Config proxy 127.0.0.1 port 8080. Plz, login on web to next...!", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            toolStripMenuItemCharles.Checked = false;
-        }
-
-        
     }
 }
