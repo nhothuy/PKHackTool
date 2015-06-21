@@ -61,6 +61,7 @@ namespace PKTool
         private const String URLCHANGENAME = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/name/?{0}";
         private const String URLISLANDCOMPLETEDCLAIM = "http://prod.cashkinggame.com/CKService.svc/v3.0/island/completed/claim/?{0}";
         private const String URLCHEAT = "http://prod.cashkinggame.com/CKService.svc/v3.0/cheat/?{0}";
+        private const String URLCHANGEREFERRAL = "http://prod.cashkinggame.com/CKService.svc/v3.0/change/referral/?{0}";
         private const String URL = "http://222.255.29.210/ws_mbox/pk.json";
         private List<Int32> BASEPRICES = new List<Int32>();
         private List<double> PRICESTEPS = new List<double>();
@@ -400,7 +401,25 @@ namespace PKTool
         #endregion
 
         #region "EVENTS ON CONTROLS"
+        private void btnClaim_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String retClaim = completedClaim();
+                JToken jRetClaim = JObject.Parse(retClaim);
+                displayInfo("ISLAND COMPLETED CLAIM", jRetClaim.ToString());
+            }
+            catch
+            {
 
+            }
+        }
+
+        private void aboutPKToolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAbout frmAbout = new frmAbout();
+            frmAbout.ShowDialog();
+        }
         private void timer_Tick(object sender, EventArgs e)
         {
             try
@@ -1593,7 +1612,7 @@ namespace PKTool
             //{
             //    dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { }));
             //}
-            dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { }));
+            dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { "1427601934231801" }));
             dic.Add("secretKey", secretKey);
             dic.Add("sessionToken", sessionToken);
             dic.Add("businessToken", BUSINESSTOKEN);
@@ -1622,6 +1641,25 @@ namespace PKTool
                 default:
                     return String.Empty;
             }
+        }
+        /// <summary>
+        /// Change Referral
+        /// </summary>
+        /// <param name="referral"></param>
+        /// <param name="platform"></param>
+        /// <returns></returns>
+        private String changeReferral(String referral, String platform)
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLCHANGEREFERRAL, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("Referral", referral);
+            dic.Add("Platform", platform);
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
         }
         /// <summary>
         /// 
@@ -1831,24 +1869,6 @@ namespace PKTool
         }
         #endregion
 
-        private void btnClaim_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                String retClaim = completedClaim();
-                JToken jRetClaim = JObject.Parse(retClaim);
-                displayInfo("ISLAND COMPLETED CLAIM", jRetClaim.ToString());
-            }
-            catch
-            { 
-            
-            }
-        }
-
-        private void aboutPKToolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmAbout frmAbout = new frmAbout();
-            frmAbout.ShowDialog();
-        }
+        
     }
 }

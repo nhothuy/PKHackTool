@@ -540,7 +540,7 @@
             // 
             this.aboutPKToolToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutPKToolToolStripMenuItem.Image")));
             this.aboutPKToolToolStripMenuItem.Name = "aboutPKToolToolStripMenuItem";
-            this.aboutPKToolToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutPKToolToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.aboutPKToolToolStripMenuItem.Text = "&About PKTool";
             this.aboutPKToolToolStripMenuItem.Click += new System.EventHandler(this.aboutPKToolToolStripMenuItem_Click);
             // 
