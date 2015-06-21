@@ -400,6 +400,20 @@ namespace PKTool
         #endregion
 
         #region "EVENTS ON CONTROLS"
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SECRETKEY != String.Empty) return;
+                refresh();
+            }
+            catch
+            {
+
+            }
+        }
+
         private void toolStripMenuItemCharles_Click(object sender, EventArgs e)
         {
             try
@@ -1388,6 +1402,21 @@ namespace PKTool
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        private String completedClaim()
+        {
+            String ret = String.Empty;
+            String url = String.Format(URLISLANDCOMPLETEDCLAIM, DateTime.Now.ToOADate().ToString());
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("secretKey", SECRETKEY);
+            dic.Add("sessionToken", SESSIONTOKEN);            
+            dic.Add("businessToken", BUSINESSTOKEN);
+            ret = doPost(url, JsonConvert.SerializeObject(dic));
+            return ret;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="itemType"></param>
         /// <returns></returns>
         private String upgrade(String itemType)
@@ -1678,7 +1707,7 @@ namespace PKTool
             if (data["IslandCompletions"] != null)
             {
                 List<IslandCompletions> completedIsland = JsonConvert.DeserializeObject<List<IslandCompletions>>(data["IslandCompletions"].ToString());
-                if (completedIsland != null)
+                if (completedIsland != null && completedIsland.Count > 0)
                 {
                     var datas = (from i in completedIsland
                                  orderby i.IslandLevel descending
@@ -1799,5 +1828,25 @@ namespace PKTool
             if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
         }
         #endregion
+
+        private void btnClaim_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String retClaim = completedClaim();
+                JToken jRetClaim = JObject.Parse(retClaim);
+                displayInfo("ISLAND COMPLETED CLAIM", jRetClaim.ToString());
+            }
+            catch
+            { 
+            
+            }
+        }
+
+        private void aboutPKToolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAbout frmAbout = new frmAbout();
+            frmAbout.ShowDialog();
+        }
     }
 }

@@ -94,6 +94,12 @@
   <ItemGroup>
     <Compile Include="BasePlayerRequest.cs" />
     <Compile Include="ChangeNameRequest.cs" />
+    <Compile Include="frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     <Compile Include="SimplePlayer.cs" />
     <Compile Include="UrlCaptureConfiguration.cs" />
     <Compile Include="WebPlayerServerCommunicator.cs" />
+    <EmbeddedResource Include="frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -184,7 +193,11 @@
     <Content Include="imgs\7.png" />
     <Content Include="imgs\8.png" />
     <Content Include="imgs\9.png" />
+    <Content Include="imgs\charles.jpg" />
+    <Content Include="imgs\exit.png" />
+    <Content Include="imgs\get_info.png" />
     <Content Include="imgs\pk.jpg" />
+    <Content Include="imgs\stock_proxy.png" />
     <Content Include="Libs\AutomaticUpdater.dll" />
     <Content Include="Libs\BCMakeCert.dll" />
     <Content Include="Libs\CertMaker.dll" />

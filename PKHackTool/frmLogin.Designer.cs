@@ -47,9 +47,9 @@
             this.lblData.AutoSize = true;
             this.lblData.Location = new System.Drawing.Point(4, 4);
             this.lblData.Name = "lblData";
-            this.lblData.Size = new System.Drawing.Size(30, 13);
+            this.lblData.Size = new System.Drawing.Size(47, 13);
             this.lblData.TabIndex = 1;
-            this.lblData.Text = "Data";
+            this.lblData.Text = "Request";
             // 
             // btnOK
             // 
@@ -73,6 +73,7 @@
             // 
             // frmLogin
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(403, 175);

@@ -38,6 +38,7 @@
             this.btnNews = new System.Windows.Forms.Button();
             this.btnViewFB = new System.Windows.Forms.Button();
             this.gbBonus = new System.Windows.Forms.GroupBox();
+            this.btnClaim = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnSpinSlot = new System.Windows.Forms.Button();
             this.btnInvite = new System.Windows.Forms.Button();
@@ -74,6 +75,7 @@
             this.aboutPKToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogF = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.tab1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNum)).BeginInit();
             this.gbBonus.SuspendLayout();
@@ -156,14 +158,14 @@
             0});
             this.nudNum.Name = "nudNum";
             this.nudNum.Size = new System.Drawing.Size(68, 20);
-            this.nudNum.TabIndex = 2;
+            this.nudNum.TabIndex = 12;
             // 
             // txtID
             // 
             this.txtID.Location = new System.Drawing.Point(6, 368);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(139, 20);
-            this.txtID.TabIndex = 14;
+            this.txtID.TabIndex = 10;
             this.txtID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnNews
@@ -171,7 +173,7 @@
             this.btnNews.Location = new System.Drawing.Point(383, 3);
             this.btnNews.Name = "btnNews";
             this.btnNews.Size = new System.Drawing.Size(93, 23);
-            this.btnNews.TabIndex = 0;
+            this.btnNews.TabIndex = 2;
             this.btnNews.Text = "View News";
             this.btnNews.UseVisualStyleBackColor = true;
             this.btnNews.Click += new System.EventHandler(this.btnNews_Click);
@@ -181,13 +183,14 @@
             this.btnViewFB.Location = new System.Drawing.Point(220, 251);
             this.btnViewFB.Name = "btnViewFB";
             this.btnViewFB.Size = new System.Drawing.Size(67, 23);
-            this.btnViewFB.TabIndex = 4;
+            this.btnViewFB.TabIndex = 7;
             this.btnViewFB.Text = "Facebook";
             this.btnViewFB.UseVisualStyleBackColor = true;
             this.btnViewFB.Click += new System.EventHandler(this.btnViewFB_Click);
             // 
             // gbBonus
             // 
+            this.gbBonus.Controls.Add(this.btnClaim);
             this.gbBonus.Controls.Add(this.btnOpen);
             this.gbBonus.Controls.Add(this.btnSpinSlot);
             this.gbBonus.Controls.Add(this.btnInvite);
@@ -195,16 +198,26 @@
             this.gbBonus.Location = new System.Drawing.Point(151, 188);
             this.gbBonus.Name = "gbBonus";
             this.gbBonus.Size = new System.Drawing.Size(325, 57);
-            this.gbBonus.TabIndex = 1;
+            this.gbBonus.TabIndex = 5;
             this.gbBonus.TabStop = false;
             this.gbBonus.Text = "Get bonus";
+            // 
+            // btnClaim
+            // 
+            this.btnClaim.Location = new System.Drawing.Point(11, 19);
+            this.btnClaim.Name = "btnClaim";
+            this.btnClaim.Size = new System.Drawing.Size(56, 23);
+            this.btnClaim.TabIndex = 0;
+            this.btnClaim.Text = "Claim";
+            this.btnClaim.UseVisualStyleBackColor = true;
+            this.btnClaim.Click += new System.EventHandler(this.btnClaim_Click);
             // 
             // btnOpen
             // 
             this.btnOpen.Location = new System.Drawing.Point(69, 19);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(78, 23);
-            this.btnOpen.TabIndex = 0;
+            this.btnOpen.TabIndex = 1;
             this.btnOpen.Text = "Open chest";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
@@ -214,7 +227,7 @@
             this.btnSpinSlot.Location = new System.Drawing.Point(148, 19);
             this.btnSpinSlot.Name = "btnSpinSlot";
             this.btnSpinSlot.Size = new System.Drawing.Size(55, 23);
-            this.btnSpinSlot.TabIndex = 1;
+            this.btnSpinSlot.TabIndex = 2;
             this.btnSpinSlot.Text = "Spin slot";
             this.btnSpinSlot.UseVisualStyleBackColor = true;
             this.btnSpinSlot.Click += new System.EventHandler(this.btnSpinSlot_Click);
@@ -224,7 +237,7 @@
             this.btnInvite.Location = new System.Drawing.Point(262, 19);
             this.btnInvite.Name = "btnInvite";
             this.btnInvite.Size = new System.Drawing.Size(55, 23);
-            this.btnInvite.TabIndex = 3;
+            this.btnInvite.TabIndex = 4;
             this.btnInvite.Text = "Invite";
             this.btnInvite.UseVisualStyleBackColor = true;
             this.btnInvite.Click += new System.EventHandler(this.btnInvite_Click);
@@ -234,7 +247,7 @@
             this.btnVideo.Location = new System.Drawing.Point(205, 19);
             this.btnVideo.Name = "btnVideo";
             this.btnVideo.Size = new System.Drawing.Size(55, 23);
-            this.btnVideo.TabIndex = 2;
+            this.btnVideo.TabIndex = 3;
             this.btnVideo.Text = "Video";
             this.btnVideo.UseVisualStyleBackColor = true;
             this.btnVideo.Click += new System.EventHandler(this.btnVideo_Click);
@@ -246,7 +259,7 @@
             this.lbFriends.Location = new System.Drawing.Point(6, 31);
             this.lbFriends.Name = "lbFriends";
             this.lbFriends.Size = new System.Drawing.Size(139, 329);
-            this.lbFriends.TabIndex = 0;
+            this.lbFriends.TabIndex = 3;
             this.lbFriends.ValueMember = "Id";
             this.lbFriends.SelectedIndexChanged += new System.EventHandler(this.lbFriends_SelectedIndexChanged);
             // 
@@ -256,7 +269,7 @@
             this.txtVictim.Name = "txtVictim";
             this.txtVictim.ReadOnly = true;
             this.txtVictim.Size = new System.Drawing.Size(139, 20);
-            this.txtVictim.TabIndex = 11;
+            this.txtVictim.TabIndex = 13;
             // 
             // rtbRet
             // 
@@ -264,7 +277,7 @@
             this.rtbRet.Name = "rtbRet";
             this.rtbRet.ReadOnly = true;
             this.rtbRet.Size = new System.Drawing.Size(261, 383);
-            this.rtbRet.TabIndex = 12;
+            this.rtbRet.TabIndex = 8;
             this.rtbRet.Text = "";
             // 
             // lblName
@@ -290,7 +303,7 @@
             this.btnClear.Location = new System.Drawing.Point(684, 420);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(59, 23);
-            this.btnClear.TabIndex = 13;
+            this.btnClear.TabIndex = 0;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -300,7 +313,7 @@
             this.btnView.Location = new System.Drawing.Point(151, 251);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(62, 23);
-            this.btnView.TabIndex = 2;
+            this.btnView.TabIndex = 6;
             this.btnView.Text = "View";
             this.btnView.UseVisualStyleBackColor = true;
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
@@ -310,7 +323,7 @@
             this.btnSetVicTim.Location = new System.Drawing.Point(6, 395);
             this.btnSetVicTim.Name = "btnSetVicTim";
             this.btnSetVicTim.Size = new System.Drawing.Size(61, 23);
-            this.btnSetVicTim.TabIndex = 6;
+            this.btnSetVicTim.TabIndex = 11;
             this.btnSetVicTim.Text = "Victim";
             this.btnSetVicTim.UseVisualStyleBackColor = true;
             this.btnSetVicTim.Click += new System.EventHandler(this.btnSetVicTim_Click);
@@ -331,7 +344,7 @@
             this.groupBox1.Location = new System.Drawing.Point(151, 23);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(325, 159);
-            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Play";
             // 
@@ -340,7 +353,7 @@
             this.btnRefresh.Location = new System.Drawing.Point(208, 18);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(57, 23);
-            this.btnRefresh.TabIndex = 33;
+            this.btnRefresh.TabIndex = 0;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
@@ -352,7 +365,7 @@
             this.rdoFriend.Location = new System.Drawing.Point(162, 49);
             this.rdoFriend.Name = "rdoFriend";
             this.rdoFriend.Size = new System.Drawing.Size(54, 17);
-            this.rdoFriend.TabIndex = 32;
+            this.rdoFriend.TabIndex = 4;
             this.rdoFriend.Text = "Friend";
             this.rdoFriend.UseVisualStyleBackColor = true;
             // 
@@ -364,7 +377,7 @@
             this.rdoRandom.Location = new System.Drawing.Point(96, 49);
             this.rdoRandom.Name = "rdoRandom";
             this.rdoRandom.Size = new System.Drawing.Size(65, 17);
-            this.rdoRandom.TabIndex = 31;
+            this.rdoRandom.TabIndex = 3;
             this.rdoRandom.TabStop = true;
             this.rdoRandom.Text = "Random";
             this.rdoRandom.UseVisualStyleBackColor = true;
@@ -375,7 +388,7 @@
             this.chkAutoUpgrade.Location = new System.Drawing.Point(7, 101);
             this.chkAutoUpgrade.Name = "chkAutoUpgrade";
             this.chkAutoUpgrade.Size = new System.Drawing.Size(90, 17);
-            this.chkAutoUpgrade.TabIndex = 5;
+            this.chkAutoUpgrade.TabIndex = 6;
             this.chkAutoUpgrade.Text = "Auto upgrade";
             this.chkAutoUpgrade.UseVisualStyleBackColor = true;
             // 
@@ -394,7 +407,7 @@
             this.btnPlay.Location = new System.Drawing.Point(268, 18);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(51, 23);
-            this.btnPlay.TabIndex = 4;
+            this.btnPlay.TabIndex = 1;
             this.btnPlay.Text = "Play all";
             this.btnPlay.UseVisualStyleBackColor = true;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
@@ -405,7 +418,7 @@
             this.chkFull.Location = new System.Drawing.Point(7, 127);
             this.chkFull.Name = "chkFull";
             this.chkFull.Size = new System.Drawing.Size(77, 17);
-            this.chkFull.TabIndex = 2;
+            this.chkFull.TabIndex = 7;
             this.chkFull.Text = "Full shields";
             this.chkFull.UseVisualStyleBackColor = true;
             // 
@@ -415,7 +428,7 @@
             this.chkAutoSteal.Location = new System.Drawing.Point(7, 75);
             this.chkAutoSteal.Name = "chkAutoSteal";
             this.chkAutoSteal.Size = new System.Drawing.Size(73, 17);
-            this.chkAutoSteal.TabIndex = 1;
+            this.chkAutoSteal.TabIndex = 5;
             this.chkAutoSteal.Text = "Auto steal";
             this.chkAutoSteal.UseVisualStyleBackColor = true;
             // 
@@ -425,7 +438,7 @@
             this.chkAutoAttack.Location = new System.Drawing.Point(7, 49);
             this.chkAutoAttack.Name = "chkAutoAttack";
             this.chkAutoAttack.Size = new System.Drawing.Size(81, 17);
-            this.chkAutoAttack.TabIndex = 0;
+            this.chkAutoAttack.TabIndex = 2;
             this.chkAutoAttack.Text = "Auto attack";
             this.chkAutoAttack.UseVisualStyleBackColor = true;
             this.chkAutoAttack.CheckedChanged += new System.EventHandler(this.chkAutoAttack_CheckedChanged);
@@ -488,6 +501,7 @@
             // 
             // toolStripMenuItemProxy
             // 
+            this.toolStripMenuItemProxy.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemProxy.Image")));
             this.toolStripMenuItemProxy.Name = "toolStripMenuItemProxy";
             this.toolStripMenuItemProxy.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItemProxy.Text = "Login using proxy";
@@ -495,6 +509,7 @@
             // 
             // toolStripMenuItemCharles
             // 
+            this.toolStripMenuItemCharles.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemCharles.Image")));
             this.toolStripMenuItemCharles.Name = "toolStripMenuItemCharles";
             this.toolStripMenuItemCharles.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItemCharles.Text = "Login using charles";
@@ -507,6 +522,7 @@
             // 
             // exitToolStripMenuItem
             // 
+            this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
@@ -522,9 +538,11 @@
             // 
             // aboutPKToolToolStripMenuItem
             // 
+            this.aboutPKToolToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutPKToolToolStripMenuItem.Image")));
             this.aboutPKToolToolStripMenuItem.Name = "aboutPKToolToolStripMenuItem";
-            this.aboutPKToolToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.aboutPKToolToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutPKToolToolStripMenuItem.Text = "&About PKTool";
+            this.aboutPKToolToolStripMenuItem.Click += new System.EventHandler(this.aboutPKToolToolStripMenuItem_Click);
             // 
             // openFileDialogF
             // 
@@ -533,6 +551,12 @@
             // saveFileDialog
             // 
             this.saveFileDialog.Filter = "PKTool File (*.lnt)|*.lnt";
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 300000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // frmMain
             // 
@@ -614,6 +638,8 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemProxy;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCharles;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Button btnClaim;
         //private wyDay.Controls.AutomaticUpdater automaticUpdater;
         
     }
