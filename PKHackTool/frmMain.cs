@@ -93,7 +93,6 @@ namespace PKTool
             M_PLAY.WorkerSupportsCancellation = true;
         }
         #endregion
-
         #region "M_PLAY"
         /// <summary>
         /// 
@@ -119,8 +118,8 @@ namespace PKTool
                 int wheelResult = Convert.ToInt16(data["WheelResult"]);
                 Int64 spins = Convert.ToInt64(data["PlayerState"]["Spins"]);
                 int shields = Convert.ToInt16(data["PlayerState"]["Shields"]);
-                String playerInfo = String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
-                String cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", data["PlayerState"]["CashKing"]["FBID"], data["PlayerState"]["CashKing"]["Name"], data["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(data["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
+                String playerInfo = "PlayerState:" + "\r\n" + String.Format("Rank:{0} Shields:{1} Spins:{2} Cash:{3} NextSpin: {4}", data["PlayerState"]["RankPoints"], data["PlayerState"]["Shields"], data["PlayerState"]["Spins"], Convert.ToInt64(data["PlayerState"]["Cash"]).ToString("#,#", CultureInfo.InvariantCulture), getTimes(Convert.ToInt32(data["NextSpinClaimSeconds"])));
+                String cashKingInfo = "CashKing:" + "\r\n" + String.Format("Name:{1} Rank:{2} Cash:{3}", data["PlayerState"]["CashKing"]["FBID"], data["PlayerState"]["CashKing"]["Name"], data["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(data["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
                 Int64 cash = Convert.ToInt64(data["PlayerState"]["Cash"]);
                 int levelIsland = 0;
                 Boolean isOK = false;
@@ -135,7 +134,7 @@ namespace PKTool
                     if (isStealAuto)
                     {
                         JToken jTokenSteal = JObject.Parse(retSteal);
-                        cashKingInfo = String.Format("Name:{1} Rank:{2} Cash:{3}", jTokenSteal["PlayerState"]["CashKing"]["FBID"], jTokenSteal["PlayerState"]["CashKing"]["Name"], jTokenSteal["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(jTokenSteal["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
+                        cashKingInfo = "CashKing:" + "\r\n" + String.Format("Name:{1} Rank:{2} Cash:{3}", jTokenSteal["PlayerState"]["CashKing"]["FBID"], jTokenSteal["PlayerState"]["CashKing"]["Name"], jTokenSteal["PlayerState"]["CashKing"]["RankPoints"], Convert.ToInt64(jTokenSteal["PlayerState"]["CashKingCash"]).ToString("#,#", CultureInfo.InvariantCulture));
                         cash = Convert.ToInt64(jTokenSteal["PlayerState"]["Cash"]);
                         retInfo = "[Steal]" + "\r\n" + playerInfo + "\r\n" + cashKingInfo + "\r\n" + "StolenAmount: " + Convert.ToInt64(jTokenSteal["StolenAmount"].ToString()).ToString("#,#", CultureInfo.InvariantCulture);
                     }
@@ -679,21 +678,69 @@ namespace PKTool
         #region "EVENT ON FORM"
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            shutdowFiddlerApp();
+            try
+            {
+                shutdowFiddlerApp();
+            }
+            catch
+            { 
+            
+            }
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
-            //if (!checkStartUp())
-            //{
-            //    MessageBox.Show("Sorry! PKTool will exit..." + "\r\n" + "Plz contact nhothuy48cb@gmail.com", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-            //    Application.Exit();
-            //}
-            //
-            startFiddlerApp();
+
         }
         #endregion
 
         #region "METHOD"
+        /// <summary>
+        /// Set login
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="resp"></param>
+        private void setLogin(String req, String resp)
+        {
+            try
+            {
+                JToken jTokenReq = JObject.Parse(req);
+                JToken jTokenResp = JObject.Parse(resp);
+                UDID = jTokenReq["UDID"].ToString();
+                FRIENDFBIDS = JsonConvert.DeserializeObject<List<String>>(jTokenReq["FriendFBIDs"].ToString());
+                if (jTokenResp["News"] != null)
+                {
+                    List<NewsItem> listNews = JsonConvert.DeserializeObject<List<NewsItem>>(jTokenResp["News"].ToString());
+                    if (listNews != null)
+                    {
+                        LISTNEWS = (from news in listNews
+                                    where news.Type == NewsType.Attack || news.Type == NewsType.Steal
+                                    select news).ToList();
+                    }
+                }
+                setIslandIndex(jTokenResp);
+                getFriends(jTokenResp);
+                ITEMS = getItems(jTokenResp);
+                BASEPRICES = JsonConvert.DeserializeObject<List<Int32>>(jTokenResp["IslandShopPrice"]["BasePrices"].ToString());
+                PRICESTEPS = JsonConvert.DeserializeObject<List<double>>(jTokenResp["IslandShopPrice"]["PriceSteps"].ToString());
+                setPrices(ITEMS);
+                BUSINESSTOKEN = jTokenReq["BusinessToken"].ToString();
+                ACCESSTOKEN = jTokenReq["AccessToken"].ToString();
+                FBID = jTokenReq["FBID"].ToString();
+                SECRETKEY = jTokenResp["Key"].ToString();
+                SESSIONTOKEN = jTokenResp["SessionToken"].ToString();
+                NAME = jTokenResp["PlayerMetaData"]["Name"].ToString();
+                REQBODY = req;
+                lblName.Text = NAME;
+            }
+            catch
+            {
+                lblName.Text = "Please login to next...";
+            }
+        }
+        /// <summary>
+        /// s
+        /// </summary>
+        /// <returns></returns>
         private JToken refresh()
         {
             try
@@ -1607,37 +1654,6 @@ namespace PKTool
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        private bool checkStartUp()
-        {
-            try
-            {
-                //String ret = doGet(URL);
-                //if (ret == String.Empty) return false;
-                //ret = MySecurity.TripleDES_De(ret, KEY); ;
-                //Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(ret);
-                //Set other
-                //Boolean isOpen = Convert.ToBoolean(dic["open"]);
-                ISVIP = true;
-                Boolean isOpen = true;
-                if (isOpen)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-                //
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="data"></param>
         private void setIslandIndex(JToken data) {
             if (data["IslandCompletions"] != null)
@@ -1763,6 +1779,37 @@ namespace PKTool
             if (FiddlerApplication.IsStarted()) FiddlerApplication.Shutdown();
         }
         #endregion
+
+        private void toolStripMenuItemCharles_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                toolStripMenuItemProxy.Checked = false;
+                shutdowFiddlerApp();
+                toolStripMenuItemCharles.Checked = true;
+                frmLogin frmLogin = new frmLogin();
+                if (frmLogin.ShowDialog() == DialogResult.OK)
+                {
+                    String req = frmLogin.Req;
+                    String resp = frmLogin.Resp;
+                    if (req == String.Empty || resp == String.Empty) return;
+                    setLogin(req, resp);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Failled login. Please try again.", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void toolStripMenuItemProxy_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItemProxy.Checked = true;
+            shutdowFiddlerApp();
+            startFiddlerApp();
+            MessageBox.Show("Config proxy 127.0.0.1 port 8080. Plz, login on web to next...!", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            toolStripMenuItemCharles.Checked = false;
+        }
 
         
     }

@@ -66,8 +66,8 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveFriendsToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addFriendsFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemProxy = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCharles = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -478,37 +478,39 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveFriendsToFileToolStripMenuItem,
-            this.addFriendsFromFileToolStripMenuItem,
+            this.toolStripMenuItemProxy,
+            this.toolStripMenuItemCharles,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.fileToolStripMenuItem.Text = "&FILE";
             // 
-            // saveFriendsToFileToolStripMenuItem
+            // toolStripMenuItemProxy
             // 
-            this.saveFriendsToFileToolStripMenuItem.Name = "saveFriendsToFileToolStripMenuItem";
-            this.saveFriendsToFileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.saveFriendsToFileToolStripMenuItem.Text = "&Save Friend Lists";
-            this.saveFriendsToFileToolStripMenuItem.Click += new System.EventHandler(this.saveFriendsToFileToolStripMenuItem_Click);
+            this.toolStripMenuItemProxy.Name = "toolStripMenuItemProxy";
+            this.toolStripMenuItemProxy.Size = new System.Drawing.Size(176, 22);
+            this.toolStripMenuItemProxy.Text = "Login using proxy";
+            this.toolStripMenuItemProxy.Click += new System.EventHandler(this.toolStripMenuItemProxy_Click);
             // 
-            // addFriendsFromFileToolStripMenuItem
+            // toolStripMenuItemCharles
             // 
-            this.addFriendsFromFileToolStripMenuItem.Name = "addFriendsFromFileToolStripMenuItem";
-            this.addFriendsFromFileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.addFriendsFromFileToolStripMenuItem.Text = "&Add Friend Lists";
-            this.addFriendsFromFileToolStripMenuItem.Click += new System.EventHandler(this.addFriendsFromFileToolStripMenuItem_Click);
+            this.toolStripMenuItemCharles.Checked = true;
+            this.toolStripMenuItemCharles.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripMenuItemCharles.Name = "toolStripMenuItemCharles";
+            this.toolStripMenuItemCharles.Size = new System.Drawing.Size(176, 22);
+            this.toolStripMenuItemCharles.Text = "Login using charles";
+            this.toolStripMenuItemCharles.Click += new System.EventHandler(this.toolStripMenuItemCharles_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(173, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -601,8 +603,6 @@
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveFriendsToFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addFriendsFromFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -614,6 +614,8 @@
         private System.Windows.Forms.RadioButton rdoRandom;
         private System.Windows.Forms.RadioButton rdoFriend;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemProxy;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCharles;
         //private wyDay.Controls.AutomaticUpdater automaticUpdater;
         
     }
