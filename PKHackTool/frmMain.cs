@@ -905,6 +905,7 @@ namespace PKTool
         private void getFriends(JToken data)
         {
             //
+            FRIENDS = new List<Friend>();
             Int32 index = 1;
             foreach (JToken child in data["FriendScores"])
             {
@@ -1584,14 +1585,15 @@ namespace PKTool
             String url = String.Format(URLSTEAL, DateTime.Now.ToOADate().ToString());
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("StealIndex", stealIndex);
-            if (secretKey == SECRETKEY)
-            {
-                dic.Add("FriendFBIDs", JsonConvert.SerializeObject(FRIENDFBIDS));
-            }
-            else
-            {
-                dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { }));
-            }
+            //if (secretKey == SECRETKEY)
+            //{
+                
+            //}
+            //else
+            //{
+            //    dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { }));
+            //}
+            dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { }));
             dic.Add("secretKey", secretKey);
             dic.Add("sessionToken", sessionToken);
             dic.Add("businessToken", BUSINESSTOKEN);
