@@ -76,6 +76,15 @@
             this.openFileDialogF = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.tab2 = new System.Windows.Forms.TabPage();
+            this.rtbOut = new System.Windows.Forms.RichTextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.rtbHtml = new System.Windows.Forms.RichTextBox();
+            this.btnOpenEx = new System.Windows.Forms.Button();
+            this.btnGetFBID = new System.Windows.Forms.Button();
+            this.lblCount = new System.Windows.Forms.Label();
+            this.btnOpenPath = new System.Windows.Forms.Button();
+            this.btnClearHtml = new System.Windows.Forms.Button();
             this.tab1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNum)).BeginInit();
             this.gbBonus.SuspendLayout();
@@ -85,6 +94,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.avatar)).BeginInit();
             this.tab.SuspendLayout();
             this.menuStrip.SuspendLayout();
+            this.tab2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -466,6 +476,7 @@
             // tab
             // 
             this.tab.Controls.Add(this.tab1);
+            this.tab.Controls.Add(this.tab2);
             this.tab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tab.Location = new System.Drawing.Point(0, 24);
             this.tab.Name = "tab";
@@ -558,6 +569,100 @@
             this.timer.Interval = 300000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // tab2
+            // 
+            this.tab2.BackColor = System.Drawing.SystemColors.Control;
+            this.tab2.Controls.Add(this.btnClearHtml);
+            this.tab2.Controls.Add(this.btnOpenPath);
+            this.tab2.Controls.Add(this.lblCount);
+            this.tab2.Controls.Add(this.btnGetFBID);
+            this.tab2.Controls.Add(this.btnOpenEx);
+            this.tab2.Controls.Add(this.rtbHtml);
+            this.tab2.Controls.Add(this.btnSave);
+            this.tab2.Controls.Add(this.rtbOut);
+            this.tab2.Location = new System.Drawing.Point(4, 22);
+            this.tab2.Name = "tab2";
+            this.tab2.Padding = new System.Windows.Forms.Padding(3);
+            this.tab2.Size = new System.Drawing.Size(751, 447);
+            this.tab2.TabIndex = 1;
+            this.tab2.Text = "Get FBID";
+            // 
+            // rtbOut
+            // 
+            this.rtbOut.Location = new System.Drawing.Point(6, 6);
+            this.rtbOut.Name = "rtbOut";
+            this.rtbOut.Size = new System.Drawing.Size(238, 405);
+            this.rtbOut.TabIndex = 3;
+            this.rtbOut.Text = "";
+            this.rtbOut.TextChanged += new System.EventHandler(this.rtbOut_TextChanged);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(93, 416);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(69, 23);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "Save to file";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // rtbHtml
+            // 
+            this.rtbHtml.Location = new System.Drawing.Point(250, 38);
+            this.rtbHtml.Name = "rtbHtml";
+            this.rtbHtml.Size = new System.Drawing.Size(495, 373);
+            this.rtbHtml.TabIndex = 2;
+            this.rtbHtml.Text = "";
+            // 
+            // btnOpenEx
+            // 
+            this.btnOpenEx.Location = new System.Drawing.Point(250, 9);
+            this.btnOpenEx.Name = "btnOpenEx";
+            this.btnOpenEx.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenEx.TabIndex = 1;
+            this.btnOpenEx.Text = "Open  html";
+            this.btnOpenEx.UseVisualStyleBackColor = true;
+            this.btnOpenEx.Click += new System.EventHandler(this.btnOpenEx_Click);
+            // 
+            // btnGetFBID
+            // 
+            this.btnGetFBID.Location = new System.Drawing.Point(670, 416);
+            this.btnGetFBID.Name = "btnGetFBID";
+            this.btnGetFBID.Size = new System.Drawing.Size(75, 23);
+            this.btnGetFBID.TabIndex = 7;
+            this.btnGetFBID.Text = "Start";
+            this.btnGetFBID.UseVisualStyleBackColor = true;
+            this.btnGetFBID.Click += new System.EventHandler(this.btnGetFBID_Click);
+            // 
+            // lblCount
+            // 
+            this.lblCount.AutoSize = true;
+            this.lblCount.Location = new System.Drawing.Point(6, 421);
+            this.lblCount.Name = "lblCount";
+            this.lblCount.Size = new System.Drawing.Size(47, 13);
+            this.lblCount.TabIndex = 9;
+            this.lblCount.Text = "Count: 0";
+            // 
+            // btnOpenPath
+            // 
+            this.btnOpenPath.Location = new System.Drawing.Point(168, 416);
+            this.btnOpenPath.Name = "btnOpenPath";
+            this.btnOpenPath.Size = new System.Drawing.Size(76, 23);
+            this.btnOpenPath.TabIndex = 5;
+            this.btnOpenPath.Text = "Open file";
+            this.btnOpenPath.UseVisualStyleBackColor = true;
+            this.btnOpenPath.Click += new System.EventHandler(this.btnOpenPath_Click);
+            // 
+            // btnClearHtml
+            // 
+            this.btnClearHtml.Location = new System.Drawing.Point(250, 416);
+            this.btnClearHtml.Name = "btnClearHtml";
+            this.btnClearHtml.Size = new System.Drawing.Size(76, 23);
+            this.btnClearHtml.TabIndex = 6;
+            this.btnClearHtml.Text = "Clear";
+            this.btnClearHtml.UseVisualStyleBackColor = true;
+            this.btnClearHtml.Click += new System.EventHandler(this.btnClearHtml_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -587,6 +692,8 @@
             this.tab.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            this.tab2.ResumeLayout(false);
+            this.tab2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -640,6 +747,15 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCharles;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Button btnClaim;
+        private System.Windows.Forms.TabPage tab2;
+        private System.Windows.Forms.RichTextBox rtbOut;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.RichTextBox rtbHtml;
+        private System.Windows.Forms.Button btnOpenEx;
+        private System.Windows.Forms.Button btnGetFBID;
+        private System.Windows.Forms.Label lblCount;
+        private System.Windows.Forms.Button btnOpenPath;
+        private System.Windows.Forms.Button btnClearHtml;
         //private wyDay.Controls.AutomaticUpdater automaticUpdater;
         
     }

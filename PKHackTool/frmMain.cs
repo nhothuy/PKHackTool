@@ -18,6 +18,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using HAP = HtmlAgilityPack;
+
 namespace PKTool
 {
     /// <summary>
@@ -75,6 +77,7 @@ namespace PKTool
         private String REQBODY = String.Empty;
         private int RETRYCOUNT = 0;
         private Int32 AVATAR = 0;
+        private String FILENAME_FBIDS_SAVE = String.Format("{0}\\fbids.txt", Path.GetDirectoryName(Application.ExecutablePath));
         #endregion
 
         #region "INIT"
@@ -401,6 +404,109 @@ namespace PKTool
         #endregion
 
         #region "EVENTS ON CONTROLS"
+
+        private void btnGetFBID_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String html = rtbHtml.Text.Trim();
+                if (html == String.Empty) return;
+                List<String> fbids = getFbids(html);
+                var result = String.Join(",", fbids.ToArray());
+                if (result == String.Empty) return;
+                if (rtbOut.Text != String.Empty)
+                {
+                    rtbOut.Text = String.Format("{0},{1}", rtbOut.Text.Trim(), result);
+                }
+                else
+                {
+                    rtbOut.Text = result;
+                }
+                //
+                if (rtbOut.Text != String.Empty)
+                {
+                    lblCount.Text = String.Format("Count: {0}", rtbOut.Text.Trim().Split(',').Length);
+                }
+                else
+                {
+                    lblCount.Text = "Count: 0";
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        private void btnOpenEx_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    String file = openFileDialog.FileName;
+                    if (file == String.Empty) return;
+                    try
+                    {
+                        string text = MyFile.ReadFile(file);
+                        rtbHtml.Text = text;
+                    }
+                    catch (IOException)
+                    {
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        private void rtbOut_TextChanged(object sender, EventArgs e)
+        {
+            if (rtbOut.Text != String.Empty)
+            {
+                lblCount.Text = String.Format("Count: {0}", rtbOut.Text.Trim().Split(',').Length);
+            }
+            else
+            {
+                lblCount.Text = "Count: 0";
+            }
+        }
+        private void btnOpenPath_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(FILENAME_FBIDS_SAVE);
+            }
+            catch
+            {
+
+            }
+        }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String txtContent = rtbOut.Text.Trim();
+                if (txtContent == String.Empty) return;
+                File.AppendAllText(FILENAME_FBIDS_SAVE, txtContent);
+                MessageBox.Show("Save to file " + FILENAME_FBIDS_SAVE + " successfully.", "PKTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch
+            {
+
+            }
+        }
+        private void btnClearHtml_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                rtbHtml.Text = String.Empty;
+            }
+            catch
+            {
+
+            }
+        }
         private void btnClaim_Click(object sender, EventArgs e)
         {
             try
@@ -447,6 +553,7 @@ namespace PKTool
                     String resp = frmLogin.Resp;
                     if (req == String.Empty || resp == String.Empty) return;
                     setLogin(req, resp);
+                    displayInfo("LOGIN", JObject.Parse(resp).ToString());
                 }
             }
             catch
@@ -759,6 +866,36 @@ namespace PKTool
         #endregion
 
         #region "METHOD"
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        private List<String> getFbids(String html)
+        {
+            List<String> lst = new List<String>();
+            try
+            {
+                if (html != String.Empty)
+                {
+                    var doc = new HAP.HtmlDocument();
+                    doc.LoadHtml(html);
+                    var root = doc.DocumentNode;
+                    var row_nodes = root.Descendants()
+                                    .Where(n => n.Name == "a")
+                                    .Where(n => n.GetAttributeValue("class", null) == "_5q6s _8o _8t lfloat _ohe");
+                    foreach (var a_node in row_nodes)
+                    {
+                        String fid = REGEX_ID.Match(a_node.GetAttributeValue("data-hovercard", "")).Groups["fid"].Value;
+                        lst.Add(fid);
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return lst;
+        }
         /// <summary>
         /// Set login
         /// </summary>
@@ -1604,15 +1741,7 @@ namespace PKTool
             String url = String.Format(URLSTEAL, DateTime.Now.ToOADate().ToString());
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("StealIndex", stealIndex);
-            //if (secretKey == SECRETKEY)
-            //{
-                
-            //}
-            //else
-            //{
-            //    dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { }));
-            //}
-            dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { "1427601934231801" }));
+            dic.Add("FriendFBIDs", JsonConvert.SerializeObject(new List<String> { }));
             dic.Add("secretKey", secretKey);
             dic.Add("sessionToken", sessionToken);
             dic.Add("businessToken", BUSINESSTOKEN);
