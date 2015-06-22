@@ -128,6 +128,7 @@ namespace PKTool
                 Int64 cash = Convert.ToInt64(data["PlayerState"]["Cash"]);
                 int levelIsland = 0;
                 Boolean isOK = false;
+                Int32 rankCashKing = Convert.ToInt32(data["PlayerState"]["CashKing"]["RankPoints"]);
                 //Set retry
                 RETRYCOUNT = 0;
                 //
@@ -299,7 +300,14 @@ namespace PKTool
                     }
                     if (wheelResult == 6)
                     {
-                        info.Rank = levelIsland;
+                        if (isOK)
+                        {
+                            info.Rank = levelIsland;
+                        }
+                        else
+                        {
+                            info.Rank = rankCashKing;
+                        }
                         info.IsOK = isOK;
                     }
                     M_PLAY.ReportProgress(100, info);
@@ -347,14 +355,15 @@ namespace PKTool
                     if (data.IsOK)
                     {
                         avatar.Visible = true;
+                        displayAvatarByLevel(data.Rank);
                     }
                     else
                     {
                         avatarPre.Visible = true;
                         avatar.Visible = true;
                         avatarNext.Visible = true;
+                        displayAvatarByRank(data.Rank);
                     }
-                    displayAvatar(data.Rank);
                 }
                 else
                 {
@@ -582,84 +591,6 @@ namespace PKTool
             if (MessageBox.Show("Do you want to exit PKTool?", "PKTool", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
             {
                 this.Close();
-            }
-        }
-        private void saveFriendsToFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (FRIENDS == null || FRIENDS.Count == 0) return;
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (saveFileDialog.FileName == String.Empty) return;
-                    String pkXML = serialize(FRIENDS).ToString();
-                    File.WriteAllText(saveFileDialog.FileName, pkXML);
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void addFriendsFromFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (openFileDialogF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    if (openFileDialogF.FileName == String.Empty) return;
-                    String pkXML = MyFile.ReadFile(openFileDialogF.FileName);
-                    List<Friend> friendsAdd = deserialize<List<Friend>>(pkXML);
-                    Int32 idxSelect = FRIENDS.Count - 1;
-                    int count = 0;
-                    foreach (Friend att in friendsAdd)
-                    {
-                        var lstGet = (from i in FRIENDS
-                                      where i.Id == att.Id
-                                      select i).ToList();
-                        if (lstGet.Count == 0)
-                        {
-                            if (ISVIP)
-                            {
-                                if (att.Id != FBID)
-                                {
-                                    count = count + 1;
-                                    //
-                                    att.Index = FRIENDS.Count + 1;
-                                    //Reset value
-                                    att.SToken = String.Empty;
-                                    att.BToken = String.Empty;
-                                    //
-                                    FRIENDS.Add(att);
-                                    FRIENDFBIDS.Add(att.Id);
-                                }
-                            }
-                            else
-                            {
-                                count = count + 1;
-                                //
-                                att.Index = FRIENDS.Count + 1;
-                                //Reset value
-                                att.SToken = String.Empty;
-                                att.BToken = String.Empty;
-                                //
-                                FRIENDS.Add(att);
-                                FRIENDFBIDS.Add(att.Id);
-                            }
-                        }
-                    }
-                    ((CurrencyManager)lbFriends.BindingContext[FRIENDS]).Refresh();
-                    if (count > 0)
-                    {
-                        MessageBox.Show(String.Format("Added {0} friends", count));
-                    }
-                    lbFriends.SelectedIndex = idxSelect;
-                }
-            }
-            catch
-            {
-
             }
         }
 
@@ -1479,7 +1410,26 @@ namespace PKTool
         /// <summary>
         /// Display img for steal
         /// </summary>
-        private void displayAvatar(Int32 level)
+        private void displayAvatarByRank(Int32 rank)
+        {
+            try
+            {
+                int baseName = rank / 30 + 1;
+                int baseNamePre = baseName > 1 ? baseName - 1 : baseName;
+                int baseNameNext = baseName < 23 ? baseName + 1 : baseName;
+                avatarPre.Image = imageList.Images[String.Format("{0}.png", baseNamePre)];
+                avatar.Image = imageList.Images[String.Format("{0}.png", baseName)];
+                avatarNext.Image = imageList.Images[String.Format("{0}.png", baseNameNext)];
+            }
+            catch
+            {
+            }
+        }
+
+        /// <summary>
+        /// Display img for steal
+        /// </summary>
+        private void displayAvatarByLevel(Int32 level)
         {
             try
             {
